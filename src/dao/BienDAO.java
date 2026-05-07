@@ -25,7 +25,7 @@ public class BienDAO {
                 b.estado_fisico,
                 b.numero_factura,
                 b.proveedor,
-                b.tipo_adquisicion,
+                b.tipo_bien,
                 b.fecha_alta,
                 b.status,
                 a.nombre_area,
@@ -40,13 +40,27 @@ public class BienDAO {
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
+
                 Bien b = new Bien();
+
                 b.setId(rs.getInt("id_bien"));
                 b.setNumeroInventario(rs.getString("numero_inventario"));
                 b.setDescripcion(rs.getString("descripcion"));
                 b.setMarca(rs.getString("marca"));
                 b.setModelo(rs.getString("modelo"));
                 b.setNumeroSerie(rs.getString("numero_serie"));
+
+                // 🔥 NUEVOS CAMPOS
+                b.setEstadoFisico(rs.getString("estado_fisico"));
+                b.setFactura(rs.getString("numero_factura"));
+                b.setProveedor(rs.getString("proveedor"));
+                b.setTipoBien(rs.getString("tipo_bien"));
+
+                b.setArea(rs.getString("nombre_area"));
+                b.setResguardante(rs.getString("nombre_resguardante"));
+
+                b.setFechaAlta(rs.getString("fecha_alta"));
+                b.setStatus(rs.getString("status"));
 
                 lista.add(b);
             }
