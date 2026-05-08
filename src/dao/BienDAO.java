@@ -71,4 +71,47 @@ public class BienDAO {
 
         return lista;
     }
+
+    public boolean insertarBien(Bien b) {
+
+        String sql = """
+            INSERT INTO bienes (
+                tipo_adquisicion,
+                numero_inventario,
+                descripcion,
+                marca,
+                modelo,
+                numero_serie,
+                estado_fisico,
+                numero_factura,
+                proveedor,
+                fecha_alta,
+                status
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_DATE, 'ACTIVO')
+        """;
+
+        try (Connection conn = ConexionBD.conectar();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, b.getTipoBien());
+            ps.setString(2, b.getNumeroInventario());
+            ps.setString(3, b.getDescripcion());
+            ps.setString(4, b.getMarca());
+            ps.setString(5, b.getModelo());
+            ps.setString(6, b.getNumeroSerie());
+            ps.setString(7, b.getEstadoFisico());
+            ps.setString(8, b.getFactura());
+            ps.setString(9, b.getProveedor());
+
+            ps.executeUpdate();
+
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
