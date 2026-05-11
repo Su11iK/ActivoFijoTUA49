@@ -18,6 +18,7 @@ public class BienDAO {
             SELECT 
                 b.id_bien,
                 b.numero_inventario,
+                tipo_adquisicion,
                 b.descripcion,
                 b.marca,
                 b.modelo,
@@ -45,6 +46,7 @@ public class BienDAO {
 
                 b.setId(rs.getInt("id_bien"));
                 b.setNumeroInventario(rs.getString("numero_inventario"));
+                b.setTipoAdquisicion(rs.getString("tipo_adquisicion"));
                 b.setDescripcion(rs.getString("descripcion"));
                 b.setMarca(rs.getString("marca"));
                 b.setModelo(rs.getString("modelo"));
@@ -76,8 +78,8 @@ public class BienDAO {
 
         String sql = """
             INSERT INTO bienes (
-                tipo_adquisicion,
                 numero_inventario,
+                tipo_adquisicion,
                 descripcion,
                 marca,
                 modelo,
@@ -85,17 +87,19 @@ public class BienDAO {
                 estado_fisico,
                 numero_factura,
                 proveedor,
+                tipo_bien,
                 fecha_alta,
                 status
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_DATE, 'ACTIVO')
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_DATE, 'ACTIVO')
         """;
 
         try (Connection conn = ConexionBD.conectar();
             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, b.getTipoBien());
-            ps.setString(2, b.getNumeroInventario());
+            
+            ps.setString(1, b.getNumeroInventario());
+            ps.setString(2, b.getTipoAdquisicion());
             ps.setString(3, b.getDescripcion());
             ps.setString(4, b.getMarca());
             ps.setString(5, b.getModelo());
@@ -103,6 +107,7 @@ public class BienDAO {
             ps.setString(7, b.getEstadoFisico());
             ps.setString(8, b.getFactura());
             ps.setString(9, b.getProveedor());
+            ps.setString(10, b.getTipoBien());
 
             ps.executeUpdate();
 

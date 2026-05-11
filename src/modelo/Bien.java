@@ -4,6 +4,7 @@ public class Bien {
 
     private int id;
     private String numeroInventario;
+    private String tipoAdquisicion;
     private String descripcion;
     private String marca;
     private String modelo;
@@ -22,6 +23,9 @@ public class Bien {
 
     public String getNumeroInventario() { return numeroInventario; }
     public void setNumeroInventario(String numeroInventario) { this.numeroInventario = numeroInventario; }
+
+    public String getTipoAdquisicion() { return tipoAdquisicion; }
+    public void setTipoAdquisicion(String tipoAdquisicion) { this.tipoAdquisicion = tipoAdquisicion; }
 
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }

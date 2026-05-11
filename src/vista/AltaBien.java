@@ -33,7 +33,7 @@ public class AltaBien extends JDialog {
 
         super(parent, "Alta de Bien", true);
 
-        setSize(600, 550);
+        setSize(800, 550);
         setLocationRelativeTo(parent);
         setLayout(new GridLayout(0, 3, 5, 5));
 
@@ -243,11 +243,11 @@ public class AltaBien extends JDialog {
         // TIPO ADQUISICION
         // =========================
         if (rbArrendamiento.isSelected()) {
-            b.setTipoBien("ARRENDAMIENTO");
+            b.setTipoAdquisicion("ARRENDAMIENTO");
             b.setNumeroInventario("ARRENDAMIENTO");
 
         } else if (rbSinNumero.isSelected()) {
-            b.setTipoBien("COMPRA");
+            b.setTipoAdquisicion("COMPRA");
             b.setNumeroInventario("S/N");
 
         } else {
@@ -258,8 +258,33 @@ public class AltaBien extends JDialog {
                 return;
             }
 
-            b.setTipoBien("COMPRA");
+            b.setTipoAdquisicion("COMPRA");
             b.setNumeroInventario(txtInventario.getText());
+        }
+
+        if (txtMarca.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Falta llenar");
+            return;
+        }
+
+        if (txtModelo.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Falta llenar");
+            return;
+        }
+
+        if (txtSerie.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Falta llenar");
+            return;
+        }
+
+        if (txtProveedor.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Falta llenar");
+            return;
+        }
+
+        if (txtFactura.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Falta llenar");
+            return;
         }
 
         b.setDescripcion(txtDescripcion.getText());
@@ -269,6 +294,7 @@ public class AltaBien extends JDialog {
         b.setProveedor(txtProveedor.getText());
         b.setFactura(txtFactura.getText());
         b.setEstadoFisico(cbEstado.getSelectedItem().toString());
+        b.setTipoBien(cbTipoBien.getSelectedItem().toString());
 
         BienDAO dao = new BienDAO();
 
