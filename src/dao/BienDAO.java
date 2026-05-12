@@ -61,7 +61,7 @@ public class BienDAO {
                 b.setArea(rs.getString("nombre_area"));
                 b.setResguardante(rs.getString("nombre_resguardante"));
 
-                b.setFechaAlta(rs.getString("fecha_alta"));
+                b.setFechaAlta(rs.getTimestamp("fecha_alta").toLocalDateTime());
                 b.setStatus(rs.getString("status"));
 
                 lista.add(b);
@@ -91,7 +91,7 @@ public class BienDAO {
                 fecha_alta,
                 status
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_DATE, 'ACTIVO')
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, 'ACTIVO')
         """;
 
         try (Connection conn = ConexionBD.conectar();

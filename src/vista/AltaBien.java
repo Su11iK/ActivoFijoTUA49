@@ -5,7 +5,9 @@ import modelo.Bien;
 
 import javax.swing.*;
 import java.awt.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class AltaBien extends JDialog {
 
@@ -44,6 +46,18 @@ public class AltaBien extends JDialog {
 
         txtInventario = new JTextField();
         add(txtInventario);
+
+        txtInventario.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+                char c = e.getKeyChar();
+
+                if (!Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
 
         JPanel panelRadio = new JPanel();
 
@@ -153,7 +167,7 @@ public class AltaBien extends JDialog {
         // =========================
         add(new JLabel("Fecha Alta"));
 
-        JTextField txtFecha = new JTextField(LocalDate.now().toString());
+        JTextField txtFecha = new JTextField(LocalDateTime.now().toString());
         txtFecha.setEnabled(false);
 
         add(txtFecha);

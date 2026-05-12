@@ -1,5 +1,7 @@
 package modelo;
 
+import java.time.LocalDateTime;
+
 public class Bien {
 
     private int id;
@@ -15,7 +17,7 @@ public class Bien {
     private String tipoBien;
     private String area;
     private String resguardante;
-    private String fechaAlta;
+    private LocalDateTime fechaAlta;
     private String status;
 
     public int getId() { return id; }
@@ -57,8 +59,8 @@ public class Bien {
     public String getResguardante() { return resguardante; }
     public void setResguardante(String resguardante) { this.resguardante = resguardante; }
     
-    public String getFechaAlta() { return fechaAlta; }
-    public void setFechaAlta(String fechaAlta) { this.fechaAlta = fechaAlta; }
+    public LocalDateTime getFechaAlta() { return fechaAlta; }
+    public void setFechaAlta(LocalDateTime fechaAlta) { this.fechaAlta = fechaAlta; }
     
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }

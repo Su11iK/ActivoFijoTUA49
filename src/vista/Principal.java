@@ -6,6 +6,7 @@ import modelo.Bien;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Principal extends JFrame {
@@ -109,6 +110,8 @@ public class Principal extends JFrame {
 
         modelo.setRowCount(0);
 
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
         for (Bien b : lista) {
             modelo.addRow(new Object[]{
                     b.getId(),
@@ -123,9 +126,11 @@ public class Principal extends JFrame {
                     b.getTipoBien(),
                     b.getArea(),
                     b.getResguardante(),
-                    b.getFechaAlta(),
+                    formato.format(b.getFechaAlta()),
                     b.getStatus()
             });
         }
+
+        
     }
 }
