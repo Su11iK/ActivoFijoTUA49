@@ -119,4 +119,78 @@ public class BienDAO {
         }
     }
 
+    public boolean actualizarBien(Bien b) {
+
+        String sql = """
+            UPDATE bienes
+            SET
+                descripcion = ?,
+                marca = ?,
+                modelo = ?,
+                numero_serie = ?,
+                estado_fisico = ?,
+                numero_factura = ?,
+                proveedor = ?,
+                tipo_bien = ?
+            WHERE id_bien = ?
+        """;
+
+        try (Connection conn = ConexionBD.conectar();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, b.getDescripcion());
+            ps.setString(2, b.getMarca());
+            ps.setString(3, b.getModelo());
+            ps.setString(4, b.getNumeroSerie());
+            ps.setString(5, b.getEstadoFisico());
+            ps.setString(6, b.getFactura());
+            ps.setString(7, b.getProveedor());
+            ps.setString(8, b.getTipoBien());
+
+            ps.setInt(9, b.getId());
+
+            ps.executeUpdate();
+
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void registrarMovimiento(
+        int idBien,
+        int idUsuario,
+        String observaciones
+    ) {
+
+        String sql = """
+            INSERT INTO movimientos (
+                id_bien,
+                id_usuario,
+                fecha_movimiento,
+                tipo_movimiento,
+                observaciones
+            )
+            VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?)
+        """;
+
+        try (Connection conn = ConexionBD.conectar();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idBien);
+            ps.setInt(2, idUsuario);
+            ps.setString(3, "ACTUALIZACION");
+            ps.setString(4, observaciones);
+
+            ps.executeUpdate();
+
+            System.out.println("Movimiento registrado");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

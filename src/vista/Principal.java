@@ -13,6 +13,7 @@ public class Principal extends JFrame {
 
     private JTable tabla;
     private DefaultTableModel modelo;
+    private List<Bien> listaBienes;
 
     public Principal() {
         setTitle("Sistema de Inventario");
@@ -86,6 +87,28 @@ public class Principal extends JFrame {
             cargarDatos();
         });
 
+        btnEditar.addActionListener(e -> {
+
+            int fila = tabla.getSelectedRow();
+
+            if (fila == -1) {
+
+                JOptionPane.showMessageDialog(this,
+                        "Seleccione un bien");
+
+                return;
+            }
+
+            Bien bienSeleccionado = listaBienes.get(fila);
+
+            ActualizarBien actualizar =
+                    new ActualizarBien(this, bienSeleccionado);
+
+            actualizar.setVisible(true);
+
+            cargarDatos();
+        });
+
         // 🔸 Catálogos
         JPanel panelCatalogos = new JPanel();
 
@@ -106,13 +129,13 @@ public class Principal extends JFrame {
 
     private void cargarDatos() {
         BienDAO dao = new BienDAO();
-        List<Bien> lista = dao.listarBienes();
+        listaBienes = dao.listarBienes();
 
         modelo.setRowCount(0);
 
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-        for (Bien b : lista) {
+        for (Bien b : listaBienes) {
             modelo.addRow(new Object[]{
                     b.getId(),
                     b.getNumeroInventario(),
