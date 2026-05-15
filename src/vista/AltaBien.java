@@ -312,7 +312,17 @@ public class AltaBien extends JDialog {
 
         BienDAO dao = new BienDAO();
 
-        if (dao.insertarBien(b)) {
+        int idGenerado = dao.insertarBien(b);
+
+        if (idGenerado != -1) {
+
+            // 🔥 registrar movimiento ALTA
+            dao.registrarMovimiento(
+                    idGenerado,
+                    1, // temporal usuario logueado
+                    "Registro inicial del bien",
+                    "ALTA"
+            );
 
             JOptionPane.showMessageDialog(this,
                     "Bien registrado correctamente");

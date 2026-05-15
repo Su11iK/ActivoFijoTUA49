@@ -14,7 +14,7 @@ public class ConexionBD {
 
         try {
             conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("✅ Conexión exitosa a PostgreSQL");
+            //System.out.println("✅ Conexión exitosa a PostgreSQL");
         } catch (SQLException e) {
             System.out.println("❌ Error de conexión");
             e.printStackTrace();

@@ -74,12 +74,12 @@ public class BienDAO {
         return lista;
     }
 
-    public boolean insertarBien(Bien b) {
+    public int insertarBien(Bien b) {
 
         String sql = """
             INSERT INTO bienes (
-                numero_inventario,
                 tipo_adquisicion,
+                numero_inventario,
                 descripcion,
                 marca,
                 modelo,
@@ -92,14 +92,14 @@ public class BienDAO {
                 status
             )
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, 'ACTIVO')
+            RETURNING id_bien
         """;
 
         try (Connection conn = ConexionBD.conectar();
             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            
-            ps.setString(1, b.getNumeroInventario());
-            ps.setString(2, b.getTipoAdquisicion());
+            ps.setString(1, b.getTipoAdquisicion());
+            ps.setString(2, b.getNumeroInventario());
             ps.setString(3, b.getDescripcion());
             ps.setString(4, b.getMarca());
             ps.setString(5, b.getModelo());
@@ -109,14 +109,17 @@ public class BienDAO {
             ps.setString(9, b.getProveedor());
             ps.setString(10, b.getTipoBien());
 
-            ps.executeUpdate();
+            ResultSet rs = ps.executeQuery();
 
-            return true;
+            if (rs.next()) {
+                return rs.getInt("id_bien");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+
+        return -1;
     }
 
     public boolean actualizarBien(Bien b) {
@@ -159,10 +162,42 @@ public class BienDAO {
         }
     }
 
+    public void actualizarMultiple(Bien b) {
+
+        String sql = """
+            UPDATE bienes
+            SET
+                marca = ?,
+                modelo = ?,
+                proveedor = ?,
+                numero_factura = ?,
+                estado_fisico = ?
+            WHERE id_bien = ?
+        """;
+
+        try (Connection conn = ConexionBD.conectar();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, b.getMarca());
+            ps.setString(2, b.getModelo());
+            ps.setString(3, b.getProveedor());
+            ps.setString(4, b.getFactura());
+            ps.setString(5, b.getEstadoFisico());
+
+            ps.setInt(6, b.getId());
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void registrarMovimiento(
-        int idBien,
-        int idUsuario,
-        String observaciones
+            int idBien,
+            int idUsuario,
+            String observaciones,
+            String tipoMovimiento
     ) {
 
         String sql = """
@@ -181,12 +216,10 @@ public class BienDAO {
 
             ps.setInt(1, idBien);
             ps.setInt(2, idUsuario);
-            ps.setString(3, "ACTUALIZACION");
+            ps.setString(3, tipoMovimiento);
             ps.setString(4, observaciones);
 
             ps.executeUpdate();
-
-            System.out.println("Movimiento registrado");
 
         } catch (Exception e) {
             e.printStackTrace();

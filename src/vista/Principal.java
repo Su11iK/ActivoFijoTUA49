@@ -55,6 +55,9 @@ public class Principal extends JFrame {
         modelo.addColumn("Estatus");
 
         tabla = new JTable(modelo);
+        tabla.setSelectionMode(
+            ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
+        );
         JScrollPane scroll = new JScrollPane(tabla);
 
         add(scroll, BorderLayout.CENTER);
@@ -89,22 +92,35 @@ public class Principal extends JFrame {
 
         btnEditar.addActionListener(e -> {
 
-            int fila = tabla.getSelectedRow();
+            int[] filas = tabla.getSelectedRows();
 
-            if (fila == -1) {
+            if (filas.length == 0) {
 
                 JOptionPane.showMessageDialog(this,
-                        "Seleccione un bien");
+                        "Seleccione al menos un bien");
 
                 return;
             }
 
-            Bien bienSeleccionado = listaBienes.get(fila);
+            // 🔥 UN SOLO BIEN
+            if (filas.length == 1) {
 
-            ActualizarBien actualizar =
-                    new ActualizarBien(this, bienSeleccionado);
+                Bien bienSeleccionado =
+                        listaBienes.get(filas[0]);
 
-            actualizar.setVisible(true);
+                ActualizarBien actualizar =
+                        new ActualizarBien(this, bienSeleccionado);
+
+                actualizar.setVisible(true);
+
+            } else {
+
+                // 🔥 MULTIPLE
+                ActualizarMultiple multiple =
+                        new ActualizarMultiple(this, filas, listaBienes);
+
+                multiple.setVisible(true);
+            }
 
             cargarDatos();
         });

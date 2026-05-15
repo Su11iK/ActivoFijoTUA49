@@ -6,22 +6,18 @@ import modelo.Bien;
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
-public class ActualizarBien extends JDialog {
+public class ActualizarMultiple extends JDialog {
 
-    private Bien bien;
-
-    private JTextField txtInventario;
     private JTextField txtDescripcion;
     private JTextField txtMarca;
     private JTextField txtModelo;
-    private JTextField txtSerie;
     private JTextField txtProveedor;
     private JTextField txtFactura;
 
     private JCheckBox chkMarca;
     private JCheckBox chkModelo;
-    private JCheckBox chkSerie;
     private JCheckBox chkProveedor;
     private JCheckBox chkFactura;
 
@@ -30,44 +26,40 @@ public class ActualizarBien extends JDialog {
 
     private JTextArea txtObservaciones;
 
-    public ActualizarBien(JFrame parent, Bien bienSeleccionado) {
+    private int[] filas;
+    private List<Bien> listaBienes;
 
-        super(parent, "Actualizar Bien", true);
+    public ActualizarMultiple(
+            JFrame parent,
+            int[] filas,
+            List<Bien> listaBienes
+    ) {
 
-        this.bien = bienSeleccionado;
+        super(parent, "Actualización múltiple", true);
+
+        this.filas = filas;
+        this.listaBienes = listaBienes;
 
         setSize(800, 550);
         setLocationRelativeTo(parent);
         setLayout(new GridLayout(0, 3, 5, 5));
 
         // =========================
-        // INVENTARIO
-        // =========================
-        add(new JLabel("No. Inventario"));
-
-        txtInventario = new JTextField(bien.getNumeroInventario());
-        txtInventario.setEnabled(false);
-
-        add(txtInventario);
-
-        add(new JLabel(""));
-
-        // =========================
         // DESCRIPCION
         // =========================
         add(new JLabel("Descripción"));
 
-        txtDescripcion = new JTextField(bien.getDescripcion());
+        txtDescripcion = new JTextField();
         add(txtDescripcion);
 
         add(new JLabel(""));
-
+        
         // =========================
         // MARCA
         // =========================
         add(new JLabel("Marca"));
 
-        txtMarca = new JTextField(bien.getMarca());
+        txtMarca = new JTextField();
         add(txtMarca);
 
         chkMarca = new JCheckBox("Sin marca");
@@ -78,29 +70,18 @@ public class ActualizarBien extends JDialog {
         // =========================
         add(new JLabel("Modelo"));
 
-        txtModelo = new JTextField(bien.getModelo());
+        txtModelo = new JTextField();
         add(txtModelo);
 
         chkModelo = new JCheckBox("Sin modelo");
         add(chkModelo);
 
         // =========================
-        // SERIE
-        // =========================
-        add(new JLabel("Serie"));
-
-        txtSerie = new JTextField(bien.getNumeroSerie());
-        add(txtSerie);
-
-        chkSerie = new JCheckBox("Sin serie");
-        add(chkSerie);
-
-        // =========================
         // PROVEEDOR
         // =========================
         add(new JLabel("Proveedor"));
 
-        txtProveedor = new JTextField(bien.getProveedor());
+        txtProveedor = new JTextField();
         add(txtProveedor);
 
         chkProveedor = new JCheckBox("Sin proveedor");
@@ -111,7 +92,7 @@ public class ActualizarBien extends JDialog {
         // =========================
         add(new JLabel("Factura"));
 
-        txtFactura = new JTextField(bien.getFactura());
+        txtFactura = new JTextField();
         add(txtFactura);
 
         chkFactura = new JCheckBox("Sin factura");
@@ -124,12 +105,11 @@ public class ActualizarBien extends JDialog {
 
         cbEstado = new JComboBox<>();
 
+        cbEstado.addItem("");
         cbEstado.addItem("BUENO");
         cbEstado.addItem("REGULAR");
         cbEstado.addItem("MALO");
         cbEstado.addItem("USADO");
-
-        cbEstado.setSelectedItem(bien.getEstadoFisico());
 
         add(cbEstado);
 
@@ -142,11 +122,9 @@ public class ActualizarBien extends JDialog {
 
         cbTipoBien = new JComboBox<>();
 
+        cbTipoBien.addItem("");
         cbTipoBien.addItem("MUEBLE");
         cbTipoBien.addItem("ELECTRONICO");
-
-        // 🔥 seleccionar el actual
-        cbTipoBien.setSelectedItem(bien.getTipoBien());
 
         add(cbTipoBien);
 
@@ -171,36 +149,33 @@ public class ActualizarBien extends JDialog {
         // =========================
         add(new JLabel("Observaciones"));
 
-        txtObservaciones = new JTextArea(5, 20);
+        txtObservaciones = new JTextArea();
 
-        JScrollPane scroll = new JScrollPane(txtObservaciones);
-
-        add(scroll);
+        add(new JScrollPane(txtObservaciones));
 
         add(new JLabel(""));
-
-        // =========================
-        // BOTONES
-        // =========================
-        JButton btnActualizar = new JButton("Actualizar");
-        JButton btnCancelar = new JButton("Cancelar");
-
-        add(btnActualizar);
-        add(btnCancelar);
 
         // =========================
         // EVENTOS CHECKBOX
         // =========================
         configurarCheck(chkMarca, txtMarca, "S/M");
         configurarCheck(chkModelo, txtModelo, "S/MO");
-        configurarCheck(chkSerie, txtSerie, "S/S");
         configurarCheck(chkProveedor, txtProveedor, "S/P");
         configurarCheck(chkFactura, txtFactura, "S/F");
 
         // =========================
-        // EVENTOS
+        // BOTONES
         // =========================
-        btnActualizar.addActionListener(e -> actualizar());
+        JButton btnActualizar =
+                new JButton("Actualizar Todo");
+
+        JButton btnCancelar =
+                new JButton("Cancelar");
+
+        add(btnActualizar);
+        add(btnCancelar);
+
+        btnActualizar.addActionListener(e -> actualizarTodo());
 
         btnCancelar.addActionListener(e -> dispose());
     }
@@ -219,7 +194,7 @@ public class ActualizarBien extends JDialog {
         });
     }
 
-    private void actualizar() {
+    private void actualizarTodo() {
 
         BienDAO dao = new BienDAO();
 
@@ -238,11 +213,6 @@ public class ActualizarBien extends JDialog {
             return;
         }
 
-        if (txtSerie.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
-            return;
-        }
-
         if (txtProveedor.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Falta llenar");
             return;
@@ -253,40 +223,45 @@ public class ActualizarBien extends JDialog {
             return;
         }
 
-        bien.setDescripcion(txtDescripcion.getText());
-        bien.setMarca(txtMarca.getText());
-        bien.setModelo(txtModelo.getText());
-        bien.setNumeroSerie(txtSerie.getText());
-        bien.setProveedor(txtProveedor.getText());
-        bien.setFactura(txtFactura.getText());
+        if (cbEstado.getSelectedItem().toString().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Falta llenar");
+            return;
+        }
 
-        bien.setEstadoFisico(
-            cbEstado.getSelectedItem().toString());
+        if (cbTipoBien.getSelectedItem().toString().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Falta llenar");
+            return;
+        }
 
-        bien.setTipoBien(
-            cbTipoBien.getSelectedItem().toString());
+        for (int fila : filas) {
 
-        boolean actualizado = dao.actualizarBien(bien);
+            Bien b = listaBienes.get(fila);
 
-        if (actualizado) {
+            b.setDescripcion(txtDescripcion.getText());
+            b.setMarca(txtMarca.getText());
+            b.setModelo(txtModelo.getText());
+            b.setProveedor(txtProveedor.getText());
+            b.setFactura(txtFactura.getText());
 
-            // 🔥 registrar movimiento
+            b.setEstadoFisico(
+                    cbEstado.getSelectedItem().toString());
+
+            b.setTipoBien(
+                    cbTipoBien.getSelectedItem().toString());
+            
+                    dao.actualizarMultiple(b);
+
             dao.registrarMovimiento(
-                    bien.getId(),
+                    b.getId(),
                     1,
                     txtObservaciones.getText(),
                     "ACTUALIZACION"
             );
-
-            JOptionPane.showMessageDialog(this,
-                    "Bien actualizado correctamente");
-
-            dispose();
-
-        } else {
-
-            JOptionPane.showMessageDialog(this,
-                    "Error al actualizar");
         }
+
+        JOptionPane.showMessageDialog(this,
+                "Bienes actualizados");
+
+        dispose();
     }
 }
