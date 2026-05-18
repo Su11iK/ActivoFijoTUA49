@@ -34,6 +34,7 @@ public class BienDAO {
             FROM bienes b
             LEFT JOIN areas a ON b.area_id = a.id_area
             LEFT JOIN resguardantes r ON b.resguardante_id = r.id_resguardante
+            WHERE b.status <> 'BAJA'
             """;
 
         try (Connection conn = ConexionBD.conectar();
@@ -167,26 +168,91 @@ public class BienDAO {
         String sql = """
             UPDATE bienes
             SET
+                descripcion = ?,
                 marca = ?,
                 modelo = ?,
                 proveedor = ?,
                 numero_factura = ?,
-                estado_fisico = ?
+                estado_fisico = ?,
+                tipo_bien = ?
             WHERE id_bien = ?
         """;
 
         try (Connection conn = ConexionBD.conectar();
             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, b.getMarca());
-            ps.setString(2, b.getModelo());
-            ps.setString(3, b.getProveedor());
-            ps.setString(4, b.getFactura());
-            ps.setString(5, b.getEstadoFisico());
+            ps.setString(1, b.getDescripcion());
+            ps.setString(2, b.getMarca());
+            ps.setString(3, b.getModelo());
+            ps.setString(4, b.getProveedor());
+            ps.setString(5, b.getFactura());
+            ps.setString(6, b.getEstadoFisico());
+            ps.setString(7, b.getTipoBien());
 
-            ps.setInt(6, b.getId());
+            ps.setInt(8, b.getId());
 
             ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void darBajaBien(
+            int idBien,
+            int idUsuario,
+            String motivo
+    ) {
+
+        String sqlBien = """
+            UPDATE bienes
+            SET status = 'BAJA'
+            WHERE id_bien = ?
+        """;
+
+        String sqlBaja = """
+            INSERT INTO bajas (
+                id_bien,
+                id_usuario,
+                motivo,
+                fecha_baja
+            )
+            VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+        """;
+
+        try (Connection conn = ConexionBD.conectar()) {
+
+            // =========================
+            // UPDATE BIEN
+            // =========================
+            PreparedStatement psBien =
+                    conn.prepareStatement(sqlBien);
+
+            psBien.setInt(1, idBien);
+
+            psBien.executeUpdate();
+
+            // =========================
+            // INSERT BAJA
+            // =========================
+            PreparedStatement psBaja =
+                    conn.prepareStatement(sqlBaja);
+
+            psBaja.setInt(1, idBien);
+            psBaja.setInt(2, idUsuario);
+            psBaja.setString(3, motivo);
+
+            psBaja.executeUpdate();
+
+            // =========================
+            // MOVIMIENTO
+            // =========================
+            registrarMovimiento(
+                    idBien,
+                    idUsuario,
+                    "Bien dado de baja",
+                    "BAJA"
+            );
 
         } catch (Exception e) {
             e.printStackTrace();
