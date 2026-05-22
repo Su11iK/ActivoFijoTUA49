@@ -159,6 +159,14 @@ public class Principal extends JFrame {
         panelCatalogos.add(btnAreas);
         panelCatalogos.add(btnResguardantes);
 
+        btnAreas.addActionListener(e -> {
+
+            AreasFrame areas =
+                    new AreasFrame(this);
+
+            areas.setVisible(true);
+        });
+
         contenedorInferior.add(panelCRUD);
         contenedorInferior.add(panelCatalogos);
 
