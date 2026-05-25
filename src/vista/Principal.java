@@ -150,6 +150,33 @@ public class Principal extends JFrame {
             cargarDatos();
         });
 
+        btnAsignar.addActionListener(e -> {
+
+            int[] filas =
+                    tabla.getSelectedRows();
+
+            if (filas.length == 0) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Seleccione al menos un bien"
+                );
+
+                return;
+            }
+
+            AsignarResguardante ventana =
+                    new AsignarResguardante(
+                            this,
+                            filas,
+                            listaBienes
+                    );
+
+            ventana.setVisible(true);
+
+            cargarDatos();
+        });
+
         // 🔸 Catálogos
         JPanel panelCatalogos = new JPanel();
 
@@ -165,6 +192,14 @@ public class Principal extends JFrame {
                     new AreasFrame(this);
 
             areas.setVisible(true);
+        });
+
+        btnResguardantes.addActionListener(e -> {
+
+            ResguardantesFrame frame =
+                    new ResguardantesFrame(this);
+
+            frame.setVisible(true);
         });
 
         contenedorInferior.add(panelCRUD);

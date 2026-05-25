@@ -29,4 +29,9 @@ public class Area {
     public void setStatusArea(boolean status_area) {
         this.status_area = status_area;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

@@ -107,7 +107,13 @@ public class AreasFrame extends JDialog {
                 "Nombre del área:"
         );
 
-        if (nombre == null || nombre.trim().isEmpty()) {
+        if (nombre.trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "El nombre es obligatorios"
+            );
+
             return;
         }
 
