@@ -56,9 +56,4 @@ public class Resguardante {
     public void setStatusResguardante(boolean statusResguardante) {
         this.statusResguardante = statusResguardante;
     }
-
-    @Override
-    public String toString() {
-        return nombre;
-    }
 }
