@@ -150,6 +150,33 @@ public class Principal extends JFrame {
             cargarDatos();
         });
 
+        btnAsignar.addActionListener(e -> {
+
+            int[] filas =
+                    tabla.getSelectedRows();
+
+            if (filas.length == 0) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Seleccione al menos un bien"
+                );
+
+                return;
+            }
+
+            AsignarResguardante ar =
+                    new AsignarResguardante(
+                            this,
+                            filas,
+                            listaBienes
+                    );
+
+            ar.setVisible(true);
+
+            cargarDatos();
+        });
+
         // 🔸 Catálogos
         JPanel panelCatalogos = new JPanel();
 

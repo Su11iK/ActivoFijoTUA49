@@ -162,4 +162,9 @@ public class ResguardanteDAO {
             e.printStackTrace();
         }
     }
+
+    public List<Resguardante> listarActivos() {
+        return listarResguardantes();
+    }
+
 }

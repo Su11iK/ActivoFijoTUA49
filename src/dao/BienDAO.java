@@ -291,4 +291,125 @@ public class BienDAO {
             e.printStackTrace();
         }
     }
+
+    public void asignarResguardante(
+            int idBien,
+            int nuevoResguardante,
+            int nuevaArea,
+            int idUsuario,
+            String observaciones
+    ) {
+
+        try (Connection conn = ConexionBD.conectar()) {
+
+            // =========================
+            // OBTENER DATOS ANTERIORES
+            // =========================
+            String sqlDatos = """
+                SELECT
+                    resguardante_id,
+                    area_id
+                FROM bienes
+                WHERE id_bien = ?
+            """;
+
+            PreparedStatement psDatos =
+                    conn.prepareStatement(sqlDatos);
+
+            psDatos.setInt(1, idBien);
+
+            ResultSet rs = psDatos.executeQuery();
+
+            int resguardanteAnterior = 0;
+            int areaAnterior = 0;
+
+            if (rs.next()) {
+
+                resguardanteAnterior =
+                        rs.getInt("resguardante_id");
+
+                areaAnterior =
+                        rs.getInt("area_id");
+            }
+
+            // =========================
+            // UPDATE BIEN
+            // =========================
+            String sqlUpdate = """
+                UPDATE bienes
+                SET
+                    resguardante_id = ?,
+                    area_id = ?
+                WHERE id_bien = ?
+            """;
+
+            PreparedStatement psUpdate =
+                    conn.prepareStatement(sqlUpdate);
+
+            psUpdate.setInt(1, nuevoResguardante);
+            psUpdate.setInt(2, nuevaArea);
+            psUpdate.setInt(3, idBien);
+
+            psUpdate.executeUpdate();
+
+            // =========================
+            // INSERT MOVIMIENTO
+            // =========================
+            String sqlMovimiento = """
+                INSERT INTO movimientos (
+                    id_bien,
+                    id_usuario,
+                    fecha_movimiento,
+                    tipo_movimiento,
+                    observaciones,
+                    area_anterior,
+                    area_nueva,
+                    resguardante_anterior,
+                    resguardante_nuevo
+                )
+                VALUES (
+                    ?,
+                    ?,
+                    CURRENT_TIMESTAMP,
+                    'CAMBIO DE RESGUARDO',
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?
+                )
+            """;
+
+            PreparedStatement psMov =
+                    conn.prepareStatement(sqlMovimiento);
+
+            psMov.setInt(1, idBien);
+            psMov.setInt(2, idUsuario);
+
+            psMov.setString(3, observaciones);
+
+            // 🔥 si vienen null
+            if (areaAnterior == 0) {
+                psMov.setNull(4, java.sql.Types.INTEGER);
+            } else {
+                psMov.setInt(4, areaAnterior);
+            }
+
+            psMov.setInt(5, nuevaArea);
+
+            if (resguardanteAnterior == 0) {
+                psMov.setNull(6, java.sql.Types.INTEGER);
+            } else {
+                psMov.setInt(6, resguardanteAnterior);
+            }
+
+            psMov.setInt(7, nuevoResguardante);
+
+            psMov.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
