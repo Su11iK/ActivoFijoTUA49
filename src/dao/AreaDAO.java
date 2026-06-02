@@ -116,4 +116,122 @@ public class AreaDAO {
             e.printStackTrace();
         }
     }
+
+    public boolean tieneBienesAsignados(int idArea) {
+
+        String sql = """
+            SELECT COUNT(*)
+            FROM bienes
+            WHERE area_id = ?
+        """;
+
+        try(Connection conn = ConexionBD.conectar();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idArea);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public void quitarAreaDeBienes(
+            int idArea,
+            int idUsuario,
+            String observaciones
+    ) {
+
+        String sqlSelect = """
+            SELECT id_bien
+            FROM bienes
+            WHERE area_id = ?
+        """;
+
+        String sqlUpdate = """
+            UPDATE bienes
+            SET area_id = NULL
+            WHERE area_id = ?
+        """;
+
+        try(Connection conn = ConexionBD.conectar()) {
+
+            PreparedStatement ps =
+                    conn.prepareStatement(sqlSelect);
+
+            ps.setInt(1, idArea);
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+
+                int idBien =
+                        rs.getInt("id_bien");
+
+                registrarMovimientoArea(
+                        conn,
+                        idBien,
+                        idUsuario,
+                        idArea,
+                        observaciones
+                );
+            }
+
+            PreparedStatement update =
+                    conn.prepareStatement(sqlUpdate);
+
+            update.setInt(1, idArea);
+
+            update.executeUpdate();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void registrarMovimientoArea(
+            Connection conn,
+            int idBien,
+            int idUsuario,
+            int areaAnterior,
+            String observaciones
+    ) throws SQLException {
+
+        String sql = """
+            INSERT INTO movimientos(
+                id_bien,
+                id_usuario,
+                fecha_movimiento,
+                tipo_movimiento,
+                observaciones,
+                area_anterior
+            )
+            VALUES(
+                ?,
+                ?,
+                CURRENT_TIMESTAMP,
+                'BAJA AREA',
+                ?,
+                ?
+            )
+        """;
+
+        PreparedStatement ps =
+                conn.prepareStatement(sql);
+
+        ps.setInt(1, idBien);
+        ps.setInt(2, idUsuario);
+        ps.setString(3, observaciones);
+        ps.setInt(4, areaAnterior);
+
+        ps.executeUpdate();
+    }
+
 }

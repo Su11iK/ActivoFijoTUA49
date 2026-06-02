@@ -134,6 +134,75 @@ public class ResguardanteDAO {
 
             ps.executeUpdate();
 
+            String sqlSelect = """
+                SELECT
+                    id_bien,
+                    area_id
+                FROM bienes
+                WHERE resguardante_id = ?
+            """;
+
+            PreparedStatement psSelect =
+                    conn.prepareStatement(sqlSelect);
+
+            psSelect.setInt(1, id);
+
+            ResultSet rs =
+                    psSelect.executeQuery();
+
+            String sqlBienes = """
+                UPDATE bienes
+                SET area_id = ?
+                WHERE resguardante_id = ?
+            """;
+
+            while(rs.next()) {
+
+                int idBien =
+                        rs.getInt("id_bien");
+
+                int areaAnterior =
+                        rs.getInt("area_id");
+
+                String sqlMov = """
+                    INSERT INTO movimientos(
+                        id_bien,
+                        id_usuario,
+                        fecha_movimiento,
+                        tipo_movimiento,
+                        area_anterior,
+                        area_nueva,
+                        observaciones
+                    )
+                    VALUES(
+                        ?,
+                        1,
+                        CURRENT_TIMESTAMP,
+                        'CAMBIO DE AREA',
+                        ?,
+                        ?,
+                        'Cambio de área por edición de resguardante'
+                    )
+                """;
+
+                PreparedStatement psMov =
+                        conn.prepareStatement(sqlMov);
+
+                psMov.setInt(1, idBien);
+                psMov.setInt(2, areaAnterior);
+                psMov.setInt(3, idArea);
+
+                psMov.executeUpdate();
+            }
+
+            PreparedStatement psBienes =
+                    conn.prepareStatement(sqlBienes);
+
+            psBienes.setInt(1, idArea);
+            psBienes.setInt(2, id);
+
+            psBienes.executeUpdate();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -165,6 +234,113 @@ public class ResguardanteDAO {
 
     public List<Resguardante> listarActivos() {
         return listarResguardantes();
+    }
+
+    public boolean tieneBienesAsignados(
+            int idResguardante
+    ) {
+
+        String sql = """
+            SELECT COUNT(*)
+            FROM bienes
+            WHERE resguardante_id = ?
+        """;
+
+        try(Connection conn = ConexionBD.conectar();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idResguardante);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public void quitarResguardanteDeBienes(
+            int idResguardante,
+            int idUsuario,
+            String observaciones
+    ) {
+
+        try (Connection conn = ConexionBD.conectar()) {
+
+            String sqlBienes = """
+                SELECT id_bien
+                FROM bienes
+                WHERE resguardante_id = ?
+            """;
+
+            PreparedStatement psBienes =
+                    conn.prepareStatement(sqlBienes);
+
+            psBienes.setInt(1, idResguardante);
+
+            ResultSet rs = psBienes.executeQuery();
+
+            while(rs.next()) {
+
+                int idBien =
+                        rs.getInt("id_bien");
+
+                String sqlMov = """
+                    INSERT INTO movimientos(
+                        id_bien,
+                        id_usuario,
+                        fecha_movimiento,
+                        tipo_movimiento,
+                        observaciones,
+                        resguardante_anterior
+                    )
+                    VALUES(
+                        ?,
+                        ?,
+                        CURRENT_TIMESTAMP,
+                        'BAJA RESGUARDANTE',
+                        ?,
+                        ?
+                    )
+                """;
+
+                PreparedStatement psMov =
+                        conn.prepareStatement(sqlMov);
+
+                psMov.setInt(1, idBien);
+                psMov.setInt(2, idUsuario);
+                psMov.setString(3, observaciones);
+                psMov.setInt(4, idResguardante);
+
+                psMov.executeUpdate();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String sql = """
+            UPDATE bienes
+            SET resguardante_id = NULL
+            WHERE resguardante_id = ?
+        """;
+
+        try(Connection conn = ConexionBD.conectar();
+            PreparedStatement ps =
+                    conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idResguardante);
+
+            ps.executeUpdate();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

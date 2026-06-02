@@ -192,6 +192,8 @@ public class Principal extends JFrame {
                     new AreasFrame(this);
 
             areas.setVisible(true);
+
+            cargarDatos();
         });
 
         btnResguardantes.addActionListener(e -> {
@@ -200,6 +202,8 @@ public class Principal extends JFrame {
                     new ResguardantesFrame(this);
 
             frame.setVisible(true);
+
+            cargarDatos();
         });
 
         contenedorInferior.add(panelCRUD);

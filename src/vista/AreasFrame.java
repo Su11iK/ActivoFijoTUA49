@@ -194,6 +194,40 @@ public class AreasFrame extends JDialog {
 
         AreaDAO dao = new AreaDAO();
 
+        if(dao.tieneBienesAsignados(area.getId())) {
+
+                JTextArea txtObs = new JTextArea(5,20);
+
+                JPanel panel = new JPanel(new BorderLayout());
+
+                panel.add(
+                new JLabel("Observaciones:"),
+                BorderLayout.NORTH
+                );
+
+                panel.add(
+                new JScrollPane(txtObs),
+                BorderLayout.CENTER
+                );
+
+                int opcion =
+                JOptionPane.showConfirmDialog(
+                        this,
+                        panel,
+                        "Existen bienes asignados. ¿Continuar?",
+                        JOptionPane.YES_NO_OPTION
+                );
+
+                if(opcion != JOptionPane.YES_OPTION)
+                        return;
+
+                dao.quitarAreaDeBienes(
+                        area.getId(),
+                        1,
+                        txtObs.getText()
+                );
+        }
+
         dao.eliminarArea(area.getId());
 
         cargarAreas();

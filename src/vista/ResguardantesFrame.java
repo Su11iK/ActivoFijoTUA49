@@ -309,6 +309,40 @@ public class ResguardantesFrame extends JDialog {
         ResguardanteDAO dao =
                 new ResguardanteDAO();
 
+        if(dao.tieneBienesAsignados(r.getId())) {
+
+                JTextArea txtObs = new JTextArea(5,20);
+
+                JPanel panel = new JPanel(new BorderLayout());
+
+                panel.add(
+                new JLabel("Observaciones:"),
+                BorderLayout.NORTH
+                );
+
+                panel.add(
+                new JScrollPane(txtObs),
+                BorderLayout.CENTER
+                );
+
+                int opcion =
+                JOptionPane.showConfirmDialog(
+                        this,
+                        panel,
+                        "Existen bienes asignados. ¿Continuar?",
+                        JOptionPane.YES_NO_OPTION
+                );
+
+                if(opcion != JOptionPane.YES_OPTION)
+                        return;
+
+                dao.quitarResguardanteDeBienes(
+                        r.getId(),
+                        1,
+                        txtObs.getText()
+                );
+        }
+
         dao.eliminarResguardante(r.getId());
 
         cargarTabla();
