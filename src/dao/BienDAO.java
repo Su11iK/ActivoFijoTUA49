@@ -6,7 +6,6 @@ import modelo.Bien;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -411,6 +410,151 @@ public class BienDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Bien> buscarBienes(
+            String texto
+    ) {
+
+        List<Bien> lista =
+                new ArrayList<>();
+
+        String sql = """
+            SELECT
+                b.*,
+                a.nombre_area,
+                r.nombre_resguardante
+            FROM bienes b
+            LEFT JOIN areas a
+                ON b.area_id = a.id_area
+            LEFT JOIN resguardantes r
+                ON b.resguardante_id =
+                r.id_resguardante
+            WHERE b.status <> 'BAJA'
+            AND (
+                UPPER(
+                    COALESCE(
+                        b.numero_inventario,''
+                    )
+                ) LIKE UPPER(?)
+
+                OR
+
+                UPPER(
+                    COALESCE(
+                        b.descripcion,''
+                    )
+                ) LIKE UPPER(?)
+
+                OR
+
+                UPPER(
+                    COALESCE(
+                        b.marca,''
+                    )
+                ) LIKE UPPER(?)
+
+                OR
+
+                UPPER(
+                    COALESCE(
+                        b.modelo,''
+                    )
+                ) LIKE UPPER(?)
+
+                OR
+
+                UPPER(
+                    COALESCE(
+                        b.numero_serie,''
+                    )
+                ) LIKE UPPER(?)
+
+                OR
+
+                UPPER(
+                    COALESCE(
+                        b.numero_factura,''
+                    )
+                ) LIKE UPPER(?)
+
+                OR
+
+                UPPER(
+                    COALESCE(
+                        b.proveedor,''
+                    )
+                ) LIKE UPPER(?)
+
+                OR
+
+                UPPER(
+                    COALESCE(
+                        a.nombre_area,''
+                    )
+                ) LIKE UPPER(?)
+
+                OR
+
+                UPPER(
+                    COALESCE(
+                        r.nombre_resguardante,''
+                    )
+                ) LIKE UPPER(?)
+            )
+            ORDER BY b.id_bien
+        """;
+
+        try(Connection conn =
+                    ConexionBD.conectar();
+
+            PreparedStatement ps =
+                    conn.prepareStatement(sql)) {
+
+            String filtro =
+                    "%" + texto + "%";
+
+            for(int i = 1; i <= 9; i++) {
+
+                ps.setString(i, filtro);
+            }
+
+            ResultSet rs =
+                    ps.executeQuery();
+
+            while(rs.next()) {
+
+                Bien b = new Bien();
+
+                b.setId(rs.getInt("id_bien"));
+                b.setNumeroInventario(rs.getString("numero_inventario"));
+                b.setTipoAdquisicion(rs.getString("tipo_adquisicion"));
+                b.setDescripcion(rs.getString("descripcion"));
+                b.setMarca(rs.getString("marca"));
+                b.setModelo(rs.getString("modelo"));
+                b.setNumeroSerie(rs.getString("numero_serie"));
+
+                // 🔥 NUEVOS CAMPOS
+                b.setEstadoFisico(rs.getString("estado_fisico"));
+                b.setFactura(rs.getString("numero_factura"));
+                b.setProveedor(rs.getString("proveedor"));
+                b.setTipoBien(rs.getString("tipo_bien"));
+
+                b.setArea(rs.getString("nombre_area"));
+                b.setResguardante(rs.getString("nombre_resguardante"));
+
+                b.setFechaAlta(rs.getTimestamp("fecha_alta").toLocalDateTime());
+                b.setStatus(rs.getString("status"));
+
+                lista.add(b);
+            }
+
+        } catch(Exception e) {
+
+            e.printStackTrace();
+        }
+
+        return lista;
     }
 
 }

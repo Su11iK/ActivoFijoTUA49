@@ -4,16 +4,19 @@ import dao.BienDAO;
 import modelo.Bien;
 
 import javax.swing.*;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.event.DocumentEvent;
 
 public class Principal extends JFrame {
 
     private JTable tabla;
     private DefaultTableModel modelo;
     private List<Bien> listaBienes;
+    private JTextField txtBuscar;
 
     public Principal() {
         setTitle("Sistema de Inventario");
@@ -24,15 +27,65 @@ public class Principal extends JFrame {
         // =========================
         // 🔹 PANEL SUPERIOR
         // =========================
-        JPanel panelSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JButton btnMovimientos = new JButton("Movimientos");
         JButton btnBajas = new JButton("Bajas");
 
-        panelSuperior.add(btnMovimientos);
-        panelSuperior.add(btnBajas);
+        JPanel panelBotonesSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        panelBotonesSuperior.add(btnMovimientos);
+        panelBotonesSuperior.add(btnBajas);
+
+        btnMovimientos.addActionListener(e -> {
+
+            MovimientosFrame frame =
+                    new MovimientosFrame(this);
+
+            frame.setVisible(true);
+        });
+
+        JPanel panelSuperior = new JPanel(new BorderLayout());
+
+        panelSuperior.add(
+                new JLabel("Buscar: "),
+                BorderLayout.WEST
+        );
+
+        txtBuscar = new JTextField();
+
+        panelSuperior.add(
+                txtBuscar,
+                BorderLayout.CENTER
+        );
 
         add(panelSuperior, BorderLayout.NORTH);
+
+        JPanel contenedorSuperior = new JPanel(new BorderLayout());
+
+        contenedorSuperior.add(panelBotonesSuperior, BorderLayout.NORTH);
+        contenedorSuperior.add(panelSuperior, BorderLayout.SOUTH);
+
+        add(contenedorSuperior, BorderLayout.NORTH);
+
+        txtBuscar.getDocument().addDocumentListener(
+            new DocumentListener() {
+
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    filtrarTabla();
+                }
+
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    filtrarTabla();
+                }
+
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    filtrarTabla();
+                }
+            }
+        );
 
         // =========================
         // 🔹 TABLA
@@ -55,6 +108,7 @@ public class Principal extends JFrame {
         modelo.addColumn("Estatus");
 
         tabla = new JTable(modelo);
+        tabla.setAutoCreateRowSorter(true);
         tabla.setSelectionMode(
             ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
         );
@@ -213,6 +267,42 @@ public class Principal extends JFrame {
 
         // =========================
         cargarDatos();
+    }
+
+    private void filtrarTabla() {
+
+        String texto =
+                txtBuscar.getText().trim();
+
+        BienDAO dao =
+                new BienDAO();
+
+        listaBienes =
+                dao.buscarBienes(texto);
+
+        modelo.setRowCount(0);
+
+        for(Bien b : listaBienes) {
+
+            modelo.addRow(new Object[]{
+
+                    b.getId(),
+                    b.getNumeroInventario(),
+                    b.getDescripcion(),
+                    b.getMarca(),
+                    b.getModelo(),
+                    b.getNumeroSerie(),
+                    b.getEstadoFisico(),
+                    b.getFactura(),
+                    b.getProveedor(),
+                    b.getTipoBien(),
+                    b.getArea(),
+                    b.getResguardante(),
+                    b.getFechaAlta(),
+                    b.getStatus()
+
+            });
+        }
     }
 
     private void cargarDatos() {

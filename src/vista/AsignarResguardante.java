@@ -43,7 +43,7 @@ public class AsignarResguardante extends JDialog {
         // =========================
         // COMBO
         // =========================
-        add(new JLabel("Resguardante"));
+        add(new JLabel("Resguardante:"));
 
         cbResguardantes =
                 new JComboBox<>();
@@ -79,7 +79,7 @@ public class AsignarResguardante extends JDialog {
         // =========================
         // OBSERVACIONES
         // =========================
-        add(new JLabel("Observaciones"));
+        add(new JLabel("Observaciones:"));
 
         txtObservaciones =
                 new JTextArea(5, 20);
