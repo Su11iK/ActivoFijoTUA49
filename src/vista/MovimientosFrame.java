@@ -8,22 +8,18 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-public class MovimientosFrame extends JDialog {
+public class MovimientosFrame extends JFrame {
 
     private JTable tabla;
     private DefaultTableModel modelo;
 
     private List<Movimiento> listaMovimientos;
 
-    public MovimientosFrame(JFrame parent) {
+    public MovimientosFrame() {
 
-        super(parent,
-                "Movimientos",
-                true);
+        setTitle("Movimientos");
 
-        setSize(1400, 700);
-
-        setLocationRelativeTo(parent);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         setLayout(new BorderLayout());
 
@@ -45,6 +41,50 @@ public class MovimientosFrame extends JDialog {
         tabla = new JTable(modelo);
 
         tabla.setAutoCreateRowSorter(true);
+
+        JPanel panelSuperior = new JPanel();
+
+        JButton btnBienes =
+                new JButton("Bienes");
+
+        JButton btnBajas =
+                new JButton("Bajas");
+        
+        panelSuperior.add(btnBienes);
+        panelSuperior.add(btnBajas);
+
+        add(panelSuperior,
+            BorderLayout.NORTH);
+
+        btnBienes.addActionListener(e -> {
+
+            Principal p =
+                    new Principal();
+
+            p.setVisible(true);
+
+            dispose();
+        });
+
+        btnBajas.addActionListener(e -> {
+
+            BajasFrame bajas =
+                    new BajasFrame();
+
+            bajas.setVisible(true);
+
+            dispose();
+        });
+
+        btnBajas.addActionListener(e -> {
+
+            BajasFrame frame =
+                    new BajasFrame();
+
+            frame.setVisible(true);
+
+            dispose();
+        });
 
         add(
             new JScrollPane(tabla),

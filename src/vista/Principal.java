@@ -39,9 +39,21 @@ public class Principal extends JFrame {
         btnMovimientos.addActionListener(e -> {
 
             MovimientosFrame frame =
-                    new MovimientosFrame(this);
+                    new MovimientosFrame();
 
             frame.setVisible(true);
+
+            dispose();
+        });
+
+        btnBajas.addActionListener(e -> {
+
+            BajasFrame frame =
+                    new BajasFrame();
+
+            frame.setVisible(true);
+
+            dispose();
         });
 
         JPanel panelSuperior = new JPanel(new BorderLayout());
