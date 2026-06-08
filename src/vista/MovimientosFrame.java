@@ -76,16 +76,6 @@ public class MovimientosFrame extends JFrame {
             dispose();
         });
 
-        btnBajas.addActionListener(e -> {
-
-            BajasFrame frame =
-                    new BajasFrame();
-
-            frame.setVisible(true);
-
-            dispose();
-        });
-
         add(
             new JScrollPane(tabla),
             BorderLayout.CENTER

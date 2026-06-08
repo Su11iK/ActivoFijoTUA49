@@ -23,6 +23,7 @@ public class ActualizarMultiple extends JDialog {
 
     private JComboBox<String> cbEstado;
     private JComboBox<String> cbTipoBien;
+    private JComboBox<String> cbStatus;
 
     private JTextArea txtObservaciones;
 
@@ -127,6 +128,19 @@ public class ActualizarMultiple extends JDialog {
         cbTipoBien.addItem("ELECTRONICO");
 
         add(cbTipoBien);
+
+        add(new JLabel(""));
+        
+        add(new JLabel("Estatus"));
+
+        cbStatus = new JComboBox<>(new String[] {
+                "",
+                "ACTIVO",
+                "MANTENIMIENTO",
+                "REPARACION"
+        });
+
+        add(cbStatus);
 
         add(new JLabel(""));
 
@@ -248,8 +262,11 @@ public class ActualizarMultiple extends JDialog {
 
             b.setTipoBien(
                     cbTipoBien.getSelectedItem().toString());
+
+            b.setStatus(
+            cbStatus.getSelectedItem().toString());
             
-                    dao.actualizarMultiple(b);
+            dao.actualizarMultiple(b);
 
             dao.registrarMovimiento(
                     b.getId(),

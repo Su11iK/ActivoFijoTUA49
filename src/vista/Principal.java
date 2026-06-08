@@ -104,7 +104,6 @@ public class Principal extends JFrame {
         // =========================
         modelo = new DefaultTableModel();
 
-        modelo.addColumn("ID");
         modelo.addColumn("Inventario");
         modelo.addColumn("Descripción");
         modelo.addColumn("Marca");
@@ -140,13 +139,11 @@ public class Principal extends JFrame {
         JButton btnAlta = new JButton("Alta");
         JButton btnEditar = new JButton("Actualizar");
         JButton btnEliminar = new JButton("Baja");
-        JButton btnBuscar = new JButton("Buscar");
         JButton btnAsignar = new JButton("Asignar Resguardante");
         
         panelCRUD.add(btnAlta);
         panelCRUD.add(btnEditar);
         panelCRUD.add(btnEliminar);
-        panelCRUD.add(btnBuscar);
         panelCRUD.add(btnAsignar);
 
         btnAlta.addActionListener(e -> {
@@ -172,7 +169,11 @@ public class Principal extends JFrame {
             if (filas.length == 1) {
 
                 Bien bienSeleccionado =
-                        listaBienes.get(filas[0]);
+                        listaBienes.get(
+                            tabla.convertRowIndexToModel(
+                                tabla.getSelectedRow()
+                            )
+                        );
 
                 ActualizarBien actualizar =
                         new ActualizarBien(this, bienSeleccionado);
@@ -187,6 +188,8 @@ public class Principal extends JFrame {
 
                 multiple.setVisible(true);
             }
+
+            tabla.convertRowIndexToModel(tabla.getSelectedRow());
 
             cargarDatos();
         });
@@ -298,7 +301,6 @@ public class Principal extends JFrame {
 
             modelo.addRow(new Object[]{
 
-                    b.getId(),
                     b.getNumeroInventario(),
                     b.getDescripcion(),
                     b.getMarca(),
@@ -327,7 +329,6 @@ public class Principal extends JFrame {
 
         for (Bien b : listaBienes) {
             modelo.addRow(new Object[]{
-                    b.getId(),
                     b.getNumeroInventario(),
                     b.getDescripcion(),
                     b.getMarca(),

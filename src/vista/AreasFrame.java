@@ -107,6 +107,10 @@ public class AreasFrame extends JDialog {
                 "Nombre del área:"
         );
 
+        if (nombre == null) {
+                return;
+        }
+
         if (nombre.trim().isEmpty()) {
 
             JOptionPane.showMessageDialog(

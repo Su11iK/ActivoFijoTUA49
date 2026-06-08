@@ -135,7 +135,8 @@ public class BienDAO {
                 estado_fisico = ?,
                 numero_factura = ?,
                 proveedor = ?,
-                tipo_bien = ?
+                tipo_bien = ?,
+                status = ?
             WHERE id_bien = ?
         """;
 
@@ -150,8 +151,9 @@ public class BienDAO {
             ps.setString(6, b.getFactura());
             ps.setString(7, b.getProveedor());
             ps.setString(8, b.getTipoBien());
+            ps.setString(9, b.getStatus());
 
-            ps.setInt(9, b.getId());
+            ps.setInt(10, b.getId());
 
             ps.executeUpdate();
 
@@ -174,7 +176,8 @@ public class BienDAO {
                 proveedor = ?,
                 numero_factura = ?,
                 estado_fisico = ?,
-                tipo_bien = ?
+                tipo_bien = ?,
+                status = ?
             WHERE id_bien = ?
         """;
 
@@ -188,8 +191,9 @@ public class BienDAO {
             ps.setString(5, b.getFactura());
             ps.setString(6, b.getEstadoFisico());
             ps.setString(7, b.getTipoBien());
+            ps.setString(8, b.getStatus());
 
-            ps.setInt(8, b.getId());
+            ps.setInt(9, b.getId());
 
             ps.executeUpdate();
 
@@ -555,6 +559,95 @@ public class BienDAO {
         }
 
         return lista;
+    }
+
+    public String generarConsecutivoEspecial(
+            String prefijo
+    ) {
+
+        String sql = """
+            SELECT numero_inventario
+            FROM bienes
+            WHERE numero_inventario LIKE ?
+            ORDER BY id_bien DESC
+            LIMIT 1
+        """;
+
+        try(Connection conn =
+                    ConexionBD.conectar();
+            PreparedStatement ps =
+                    conn.prepareStatement(sql)) {
+
+            ps.setString(
+                    1,
+                    prefijo + " - %"
+            );
+
+            ResultSet rs =
+                    ps.executeQuery();
+
+            if(rs.next()) {
+
+                String ultimo =
+                        rs.getString(
+                                "numero_inventario"
+                        );
+
+                String numero =
+                        ultimo.substring(
+                                ultimo.lastIndexOf("-") + 1
+                        ).trim();
+
+                int consecutivo =
+                        Integer.parseInt(numero);
+
+                consecutivo++;
+
+                return String.format(
+                        "%s - %05d",
+                        prefijo,
+                        consecutivo
+                );
+            }
+
+        } catch(Exception e) {
+
+            e.printStackTrace();
+        }
+
+        return String.format(
+                "%s - %05d",
+                prefijo,
+                1
+        );
+    }
+
+    public boolean existeNumeroInventario(
+            String numeroInventario) {
+
+        String sql = """
+            SELECT COUNT(*)
+            FROM bienes
+            WHERE numero_inventario = ?
+        """;
+
+        try(Connection conn = ConexionBD.conectar();
+            PreparedStatement ps =
+                    conn.prepareStatement(sql)) {
+
+            ps.setString(1, numeroInventario);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 }

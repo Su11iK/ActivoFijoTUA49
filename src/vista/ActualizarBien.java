@@ -27,6 +27,7 @@ public class ActualizarBien extends JDialog {
 
     private JComboBox<String> cbEstado;
     private JComboBox<String> cbTipoBien;
+    private JComboBox<String> cbStatus;
 
     private JTextArea txtObservaciones;
 
@@ -152,6 +153,20 @@ public class ActualizarBien extends JDialog {
 
         add(new JLabel(""));
 
+        add(new JLabel("Estatus"));
+
+        cbStatus = new JComboBox<>(new String[] {
+                "ACTIVO",
+                "MANTENIMIENTO",
+                "REPARACION"
+        });
+
+        cbStatus.setSelectedItem(bien.getStatus());
+
+        add(cbStatus);
+
+        add(new JLabel(""));
+
         // =========================
         // FECHA ACTUALIZACION
         // =========================
@@ -265,6 +280,9 @@ public class ActualizarBien extends JDialog {
 
         bien.setTipoBien(
             cbTipoBien.getSelectedItem().toString());
+
+        bien.setStatus(
+            cbStatus.getSelectedItem().toString());
 
         boolean actualizado = dao.actualizarBien(bien);
 

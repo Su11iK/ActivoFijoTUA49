@@ -252,17 +252,18 @@ public class AltaBien extends JDialog {
         }
 
         Bien b = new Bien();
+        BienDAO dao = new BienDAO();
 
         // =========================
         // TIPO ADQUISICION
         // =========================
         if (rbArrendamiento.isSelected()) {
             b.setTipoAdquisicion("ARRENDAMIENTO");
-            b.setNumeroInventario("ARRENDAMIENTO");
+            b.setNumeroInventario(dao.generarConsecutivoEspecial("ARRENDAMIENTO"));
 
         } else if (rbSinNumero.isSelected()) {
             b.setTipoAdquisicion("COMPRA");
-            b.setNumeroInventario("S/N");
+            b.setNumeroInventario(dao.generarConsecutivoEspecial("S/N"));
 
         } else {
 
@@ -310,8 +311,23 @@ public class AltaBien extends JDialog {
         b.setEstadoFisico(cbEstado.getSelectedItem().toString());
         b.setTipoBien(cbTipoBien.getSelectedItem().toString());
 
-        BienDAO dao = new BienDAO();
+        if(!rbArrendamiento.isSelected()
+                && !rbSinNumero.isSelected()) {
 
+            if(dao.existeNumeroInventario(
+                    txtInventario.getText().trim())) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Ya existe un bien con ese número de inventario.",
+                        "Inventario duplicado",
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+                return;
+            }
+        }
+        
         int idGenerado = dao.insertarBien(b);
 
         if (idGenerado != -1) {
