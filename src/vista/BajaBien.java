@@ -87,14 +87,18 @@ public class BajaBien extends JDialog {
 
         for (int fila : filas) {
 
-            int idBien =
-                    listaBienes.get(fila).getId();
+                int idBien =
+                        listaBienes.get(fila).getId();
 
-            dao.darBajaBien(
-                    idBien,
-                    1,
-                    motivo
-            );
+                String status =
+                        listaBienes.get(fila).getStatus();
+
+                dao.darBajaBien(
+                        idBien,
+                        1,
+                        motivo,
+                        status
+                );
         }
 
         JOptionPane.showMessageDialog(this,

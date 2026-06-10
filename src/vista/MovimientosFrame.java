@@ -36,6 +36,7 @@ public class MovimientosFrame extends JFrame {
         modelo.addColumn("Resguardante Nuevo");
 
         modelo.addColumn("Tipo");
+        modelo.addColumn("Status Anterior");
         modelo.addColumn("Observaciones");
 
         tabla = new JTable(modelo);
@@ -112,6 +113,7 @@ public class MovimientosFrame extends JFrame {
                 m.getResguardanteNuevo(),
 
                 m.getTipoMovimiento(),
+                m.getStatus(),
 
                 m.getObservaciones()
             });

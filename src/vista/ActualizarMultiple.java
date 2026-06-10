@@ -250,6 +250,7 @@ public class ActualizarMultiple extends JDialog {
         for (int fila : filas) {
 
             Bien b = listaBienes.get(fila);
+            String status = b.getStatus();
 
             b.setDescripcion(txtDescripcion.getText());
             b.setMarca(txtMarca.getText());
@@ -272,7 +273,8 @@ public class ActualizarMultiple extends JDialog {
                     b.getId(),
                     1,
                     txtObservaciones.getText(),
-                    "ACTUALIZACION"
+                    "ACTUALIZACION",
+                    status
             );
         }
 

@@ -205,7 +205,8 @@ public class BienDAO {
     public void darBajaBien(
             int idBien,
             int idUsuario,
-            String motivo
+            String motivo,
+            String status
     ) {
 
         String sqlBien = """
@@ -255,7 +256,8 @@ public class BienDAO {
                     idBien,
                     idUsuario,
                     "Bien dado de baja",
-                    "BAJA"
+                    "BAJA",
+                    status
             );
 
         } catch (Exception e) {
@@ -267,7 +269,8 @@ public class BienDAO {
             int idBien,
             int idUsuario,
             String observaciones,
-            String tipoMovimiento
+            String tipoMovimiento,
+            String status
     ) {
 
         String sql = """
@@ -276,9 +279,10 @@ public class BienDAO {
                 id_usuario,
                 fecha_movimiento,
                 tipo_movimiento,
-                observaciones
+                observaciones,
+                status
             )
-            VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?)
+            VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, ?)
         """;
 
         try (Connection conn = ConexionBD.conectar();
@@ -288,6 +292,7 @@ public class BienDAO {
             ps.setInt(2, idUsuario);
             ps.setString(3, tipoMovimiento);
             ps.setString(4, observaciones);
+            ps.setString(5, status);
 
             ps.executeUpdate();
 

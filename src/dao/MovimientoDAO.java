@@ -31,7 +31,8 @@ public class MovimientoDAO {
                 rn.nombre_resguardante AS resguardante_nuevo,
 
                 m.tipo_movimiento,
-                m.observaciones
+                m.observaciones,
+                m.status
 
             FROM movimientos m
 
@@ -105,6 +106,10 @@ public class MovimientoDAO {
                 m.setObservaciones(
                     rs.getString(
                         "observaciones"));
+
+                m.setStatus(
+                    rs.getString("status")
+                );
 
                 lista.add(m);
             }

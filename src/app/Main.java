@@ -1,9 +1,9 @@
 package app;
 
-import vista.Login;
+import vista.Principal;
 
 public class Main {
     public static void main(String[] args) {
-        new Login().setVisible(true);
+        new Principal().setVisible(true);
     }
 }

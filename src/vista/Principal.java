@@ -155,9 +155,21 @@ public class Principal extends JFrame {
 
         btnEditar.addActionListener(e -> {
 
-            int[] filas = tabla.getSelectedRows();
+            int[] filasVista =
+                    tabla.getSelectedRows();
 
-            if (filas.length == 0) {
+            int[] filasModelo =
+                    new int[filasVista.length];
+
+            for(int i = 0; i < filasVista.length; i++) {
+
+                filasModelo[i] =
+                        tabla.convertRowIndexToModel(
+                                filasVista[i]
+                        );
+            }
+
+            if (filasVista.length == 0) {
 
                 JOptionPane.showMessageDialog(this,
                         "Seleccione al menos un bien");
@@ -166,7 +178,7 @@ public class Principal extends JFrame {
             }
 
             // 🔥 UN SOLO BIEN
-            if (filas.length == 1) {
+            if (filasVista.length == 1) {
 
                 Bien bienSeleccionado =
                         listaBienes.get(
@@ -184,7 +196,11 @@ public class Principal extends JFrame {
 
                 // 🔥 MULTIPLE
                 ActualizarMultiple multiple =
-                        new ActualizarMultiple(this, filas, listaBienes);
+                        new ActualizarMultiple(
+                                this,
+                                filasModelo,
+                                listaBienes
+                        );
 
                 multiple.setVisible(true);
             }
@@ -196,10 +212,21 @@ public class Principal extends JFrame {
 
         btnEliminar.addActionListener(e -> {
 
-            int[] filas =
+            int[] filasVista =
                     tabla.getSelectedRows();
 
-            if (filas.length == 0) {
+            int[] filasModelo =
+                    new int[filasVista.length];
+
+            for(int i = 0; i < filasVista.length; i++) {
+
+                filasModelo[i] =
+                        tabla.convertRowIndexToModel(
+                                filasVista[i]
+                        );
+            }
+
+            if (filasVista.length == 0) {
 
                 JOptionPane.showMessageDialog(this,
                         "Seleccione al menos un bien");
@@ -210,7 +237,7 @@ public class Principal extends JFrame {
             BajaBien baja =
                     new BajaBien(
                             this,
-                            filas,
+                            filasModelo,
                             listaBienes
                     );
 
@@ -221,10 +248,21 @@ public class Principal extends JFrame {
 
         btnAsignar.addActionListener(e -> {
 
-            int[] filas =
+            int[] filasVista =
                     tabla.getSelectedRows();
 
-            if (filas.length == 0) {
+            int[] filasModelo =
+                    new int[filasVista.length];
+
+            for(int i = 0; i < filasVista.length; i++) {
+
+                filasModelo[i] =
+                        tabla.convertRowIndexToModel(
+                                filasVista[i]
+                        );
+            }
+
+            if (filasVista.length == 0) {
 
                 JOptionPane.showMessageDialog(
                         this,
@@ -237,7 +275,7 @@ public class Principal extends JFrame {
             AsignarResguardante ar =
                     new AsignarResguardante(
                             this,
-                            filas,
+                            filasModelo,
                             listaBienes
                     );
 

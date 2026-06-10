@@ -337,7 +337,8 @@ public class AltaBien extends JDialog {
                     idGenerado,
                     1, // temporal usuario logueado
                     "Registro inicial del bien",
-                    "ALTA"
+                    "ALTA",
+                    "ACTIVO"
             );
 
             JOptionPane.showMessageDialog(this,
