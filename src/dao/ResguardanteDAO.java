@@ -111,7 +111,8 @@ public class ResguardanteDAO {
             int id,
             String nombre,
             String puesto,
-            int idArea
+            int idArea,
+            String observaciones
     ) {
 
         String sql = """
@@ -178,7 +179,7 @@ public class ResguardanteDAO {
                         ?,
                         1,
                         CURRENT_TIMESTAMP,
-                        'CAMBIO DE AREA',
+                        ?,
                         ?,
                         ?,
                         'Cambio de área por edición de resguardante'
@@ -189,8 +190,9 @@ public class ResguardanteDAO {
                         conn.prepareStatement(sqlMov);
 
                 psMov.setInt(1, idBien);
-                psMov.setInt(2, areaAnterior);
-                psMov.setInt(3, idArea);
+                psMov.setString(2, observaciones);
+                psMov.setInt(3, areaAnterior);
+                psMov.setInt(4, idArea);
 
                 psMov.executeUpdate();
             }

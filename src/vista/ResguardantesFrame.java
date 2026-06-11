@@ -214,6 +214,9 @@ public class ResguardantesFrame extends JDialog {
         JComboBox<Area> cbAreas =
                 new JComboBox<>();
 
+        JTextArea txtObs =
+                new JTextArea();
+
         AreaDAO areaDAO =
                 new AreaDAO();
 
@@ -245,6 +248,9 @@ public class ResguardantesFrame extends JDialog {
         panel.add(new JLabel("Área"));
         panel.add(cbAreas);
 
+        panel.add(new JLabel("Observaciones:"));
+        panel.add(new JScrollPane(txtObs));
+
         int opcion =
                 JOptionPane.showConfirmDialog(
                         this,
@@ -267,7 +273,8 @@ public class ResguardantesFrame extends JDialog {
                 r.getId(),
                 txtNombre.getText(),
                 txtPuesto.getText(),
-                areaSeleccionada.getId()
+                areaSeleccionada.getId(),
+                txtObs.getText()
         );
 
         cargarTabla();

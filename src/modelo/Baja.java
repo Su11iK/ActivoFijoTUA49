@@ -1,6 +1,7 @@
 package modelo;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Baja {
 
@@ -10,7 +11,7 @@ public class Baja {
 
     private String usuario;
 
-    private Timestamp fechaBaja;
+    private LocalDateTime fechaBaja;
 
     private String motivo;
 
@@ -38,11 +39,11 @@ public class Baja {
         this.usuario = usuario;
     }
 
-    public Timestamp getFechaBaja() {
+    public LocalDateTime getFechaBaja() {
         return fechaBaja;
     }
 
-    public void setFechaBaja(Timestamp fechaBaja) {
+    public void setFechaBaja(LocalDateTime fechaBaja) {
         this.fechaBaja = fechaBaja;
     }
 

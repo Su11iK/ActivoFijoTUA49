@@ -28,7 +28,7 @@ public class BajaBien extends JDialog {
         setLayout(new BorderLayout());
 
         JLabel lbl =
-                new JLabel("Motivo de baja:");
+                new JLabel("Observaciones:");
 
         add(lbl, BorderLayout.NORTH);
 
@@ -62,14 +62,6 @@ public class BajaBien extends JDialog {
 
         String motivo =
                 txtMotivo.getText().trim();
-
-        if (motivo.isEmpty()) {
-
-            JOptionPane.showMessageDialog(this,
-                    "Ingrese motivo");
-
-            return;
-        }
 
         int confirmacion =
                 JOptionPane.showConfirmDialog(

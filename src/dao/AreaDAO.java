@@ -161,6 +161,12 @@ public class AreaDAO {
             WHERE area_id = ?
         """;
 
+        String sqlUpdateRes = """
+            UPDATE resguardantes
+            SET id_area = NULL
+            WHERE id_area = ?
+        """;
+
         try(Connection conn = ConexionBD.conectar()) {
 
             PreparedStatement ps =
@@ -190,6 +196,13 @@ public class AreaDAO {
             update.setInt(1, idArea);
 
             update.executeUpdate();
+
+            PreparedStatement updateRes =
+                    conn.prepareStatement(sqlUpdateRes);
+
+            updateRes.setInt(1, idArea);
+
+            updateRes.executeUpdate();
 
         } catch(Exception e) {
             e.printStackTrace();

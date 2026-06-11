@@ -4,15 +4,18 @@ import dao.MovimientoDAO;
 import modelo.Movimiento;
 
 import javax.swing.*;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.event.DocumentEvent;
 
 public class MovimientosFrame extends JFrame {
 
     private JTable tabla;
     private DefaultTableModel modelo;
-
+    private JTextField txtBuscar;
     private List<Movimiento> listaMovimientos;
 
     public MovimientosFrame() {
@@ -43,19 +46,13 @@ public class MovimientosFrame extends JFrame {
 
         tabla.setAutoCreateRowSorter(true);
 
-        JPanel panelSuperior = new JPanel();
+        JButton btnBienes = new JButton("Bienes");
+        JButton btnBajas = new JButton("Bajas");
 
-        JButton btnBienes =
-                new JButton("Bienes");
+        JPanel panelBotonesSuperior = new JPanel();
 
-        JButton btnBajas =
-                new JButton("Bajas");
-        
-        panelSuperior.add(btnBienes);
-        panelSuperior.add(btnBajas);
-
-        add(panelSuperior,
-            BorderLayout.NORTH);
+        panelBotonesSuperior.add(btnBienes);
+        panelBotonesSuperior.add(btnBajas);
 
         btnBienes.addActionListener(e -> {
 
@@ -77,6 +74,49 @@ public class MovimientosFrame extends JFrame {
             dispose();
         });
 
+        JPanel panelSuperior = new JPanel(new BorderLayout());
+
+        panelSuperior.add(
+                new JLabel("Buscar: "),
+                BorderLayout.WEST
+        );
+
+        txtBuscar = new JTextField();
+
+        panelSuperior.add(
+                txtBuscar,
+                BorderLayout.CENTER
+        );
+
+        add(panelSuperior, BorderLayout.NORTH);
+
+        JPanel contenedorSuperior = new JPanel(new BorderLayout());
+
+        contenedorSuperior.add(panelBotonesSuperior, BorderLayout.NORTH);
+        contenedorSuperior.add(panelSuperior, BorderLayout.SOUTH);
+
+        add(contenedorSuperior, BorderLayout.NORTH);
+
+        txtBuscar.getDocument().addDocumentListener(
+            new DocumentListener() {
+
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    filtrarTabla();
+                }
+
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    filtrarTabla();
+                }
+
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    filtrarTabla();
+                }
+            }
+        );
+
         add(
             new JScrollPane(tabla),
             BorderLayout.CENTER
@@ -95,12 +135,14 @@ public class MovimientosFrame extends JFrame {
 
         modelo.setRowCount(0);
 
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
         for(Movimiento m :
                 listaMovimientos) {
 
             modelo.addRow(new Object[]{
 
-                m.getFechaMovimiento(),
+                formato.format(m.getFechaMovimiento()),
 
                 m.getNumeroInventario(),
 
@@ -117,6 +159,62 @@ public class MovimientosFrame extends JFrame {
 
                 m.getObservaciones()
             });
+        }
+    }
+
+    private void filtrarTabla() {
+
+        String texto =
+                txtBuscar.getText()
+                        .toLowerCase();
+
+        modelo.setRowCount(0);
+
+        for (Movimiento m : listaMovimientos) {
+
+            if ((m.getNumeroInventario() != null
+                    && m.getNumeroInventario()
+                            .toLowerCase()
+                            .contains(texto))
+
+                    || (m.getUsuario() != null
+                            && m.getUsuario()
+                                    .toLowerCase()
+                                    .contains(texto))
+
+                    || (m.getTipoMovimiento() != null
+                            && m.getTipoMovimiento()
+                                    .toLowerCase()
+                                    .contains(texto))
+
+                    || (m.getObservaciones() != null
+                            && m.getObservaciones()
+                                    .toLowerCase()
+                                    .contains(texto))) {
+
+                modelo.addRow(new Object[] {
+
+                        m.getFechaMovimiento(),
+
+                        m.getNumeroInventario(),
+
+                        m.getUsuario(),
+
+                        m.getAreaAnterior(),
+
+                        m.getAreaNueva(),
+
+                        m.getResguardanteAnterior(),
+
+                        m.getResguardanteNuevo(),
+
+                        m.getTipoMovimiento(),
+
+                        m.getStatus(),
+
+                        m.getObservaciones()
+                });
+            }
         }
     }
 }

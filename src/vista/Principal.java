@@ -31,7 +31,7 @@ public class Principal extends JFrame {
         JButton btnMovimientos = new JButton("Movimientos");
         JButton btnBajas = new JButton("Bajas");
 
-        JPanel panelBotonesSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel panelBotonesSuperior = new JPanel();
 
         panelBotonesSuperior.add(btnMovimientos);
         panelBotonesSuperior.add(btnBajas);

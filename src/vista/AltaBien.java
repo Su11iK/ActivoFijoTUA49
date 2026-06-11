@@ -31,6 +31,8 @@ public class AltaBien extends JDialog {
     private JComboBox<String> cbEstado;
     private JComboBox<String> cbTipoBien;
 
+    private JTextArea txtObservaciones;
+
     public AltaBien(JFrame parent) {
 
         super(parent, "Alta de Bien", true);
@@ -173,6 +175,19 @@ public class AltaBien extends JDialog {
         add(txtFecha);
 
         add(new JLabel("ACTIVO"));
+
+        // =========================
+        // OBSERVACIONES
+        // =========================
+        add(new JLabel("Observaciones"));
+
+        txtObservaciones = new JTextArea(5, 20);
+
+        JScrollPane scroll = new JScrollPane(txtObservaciones);
+
+        add(scroll);
+
+        add(new JLabel(""));
 
         // =========================
         // BOTONES
@@ -336,7 +351,7 @@ public class AltaBien extends JDialog {
             dao.registrarMovimiento(
                     idGenerado,
                     1, // temporal usuario logueado
-                    "Registro inicial del bien",
+                    txtObservaciones.getText(),
                     "ALTA",
                     "ACTIVO"
             );

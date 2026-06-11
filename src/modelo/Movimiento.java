@@ -1,11 +1,11 @@
 package modelo;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Movimiento {
 
     private int id;
-    private Timestamp fechaMovimiento;
+    private LocalDateTime fechaMovimiento;
     private String numeroInventario;
     private String usuario;
     private String areaAnterior;
@@ -19,7 +19,7 @@ public class Movimiento {
     public int getId() {
         return id;
     }
-    public Timestamp getFechaMovimiento() {
+    public LocalDateTime getFechaMovimiento() {
         return fechaMovimiento;
     }
     public String getNumeroInventario() {
@@ -53,7 +53,7 @@ public class Movimiento {
     public void setId(int id) {
         this.id = id;
     }
-    public void setFechaMovimiento(Timestamp fechaMovimiento) {
+    public void setFechaMovimiento(LocalDateTime fechaMovimiento) {
         this.fechaMovimiento = fechaMovimiento;
     }
     public void setNumeroInventario(String numeroInventario) {

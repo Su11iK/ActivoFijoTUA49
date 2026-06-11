@@ -64,7 +64,7 @@ public class BajaDAO {
 
                 b.setFechaBaja(
                         rs.getTimestamp(
-                                "fecha_baja"));
+                                "fecha_baja").toLocalDateTime());
 
                 b.setMotivo(
                         rs.getString(

@@ -4,15 +4,20 @@ import dao.BajaDAO;
 import modelo.Baja;
 
 import javax.swing.*;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.event.DocumentEvent;
 
 public class BajasFrame extends JFrame {
 
     private JTable tabla;
 
     private DefaultTableModel modelo;
+
+    private JTextField txtBuscar;
 
     private List<Baja> listaBajas;
 
@@ -32,21 +37,56 @@ public class BajasFrame extends JFrame {
         // PANEL SUPERIOR
         // =========================
 
-        JPanel panelSuperior =
-                new JPanel();
+        JButton btnMovimientos = new JButton("Movimientos");
+        JButton btnBienes = new JButton("Bienes");
 
-        JButton btnBienes =
-                new JButton("Bienes");
+        JPanel panelBotonesSuperior = new JPanel();
 
-        JButton btnMovimientos =
-                new JButton("Movimientos");
+        panelBotonesSuperior.add(btnMovimientos);
+        panelBotonesSuperior.add(btnBienes);
 
-        panelSuperior.add(btnBienes);
+        JPanel panelSuperior = new JPanel(new BorderLayout());
 
-        panelSuperior.add(btnMovimientos);
+        panelSuperior.add(
+                new JLabel("Buscar: "),
+                BorderLayout.WEST
+        );
 
-        add(panelSuperior,
-                BorderLayout.NORTH);
+        txtBuscar = new JTextField();
+
+        panelSuperior.add(
+                txtBuscar,
+                BorderLayout.CENTER
+        );
+
+        add(panelSuperior, BorderLayout.NORTH);
+
+        JPanel contenedorSuperior = new JPanel(new BorderLayout());
+
+        contenedorSuperior.add(panelBotonesSuperior, BorderLayout.NORTH);
+        contenedorSuperior.add(panelSuperior, BorderLayout.SOUTH);
+
+        add(contenedorSuperior, BorderLayout.NORTH);
+
+        txtBuscar.getDocument().addDocumentListener(
+            new DocumentListener() {
+
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    filtrarTabla();
+                }
+
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    filtrarTabla();
+                }
+
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    filtrarTabla();
+                }
+            }
+        );
 
         // =========================
         // TABLA
@@ -61,7 +101,7 @@ public class BajasFrame extends JFrame {
 
         modelo.addColumn("Fecha Baja");
 
-        modelo.addColumn("Motivo");
+        modelo.addColumn("Observaciones");
 
         tabla =
                 new JTable(modelo);
@@ -108,6 +148,8 @@ public class BajasFrame extends JFrame {
 
         modelo.setRowCount(0);
 
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
         for(Baja b : listaBajas) {
 
             modelo.addRow(new Object[]{
@@ -116,10 +158,49 @@ public class BajasFrame extends JFrame {
 
                     b.getUsuario(),
 
-                    b.getFechaBaja(),
+                    formato.format(b.getFechaBaja()),
 
                     b.getMotivo()
             });
+        }
+    }
+
+    private void filtrarTabla() {
+
+        String texto =
+                txtBuscar.getText()
+                        .toLowerCase();
+
+        modelo.setRowCount(0);
+
+        for (Baja b : listaBajas) {
+
+                if ((b.getNumeroInventario() != null
+                        && b.getNumeroInventario()
+                                .toLowerCase()
+                                .contains(texto))
+
+                        || (b.getUsuario() != null
+                                && b.getUsuario()
+                                        .toLowerCase()
+                                        .contains(texto))
+
+                        || (b.getMotivo() != null
+                                && b.getMotivo()
+                                        .toLowerCase()
+                                        .contains(texto))) {
+
+                modelo.addRow(new Object[] {
+
+                        b.getNumeroInventario(),
+
+                        b.getUsuario(),
+
+                        b.getFechaBaja(),
+
+                        b.getMotivo()
+                });
+                }
         }
     }
 }

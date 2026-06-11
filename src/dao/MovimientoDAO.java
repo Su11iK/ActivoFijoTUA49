@@ -77,7 +77,7 @@ public class MovimientoDAO {
                     rs.getInt("id_movimiento"));
 
                 m.setFechaMovimiento(
-                    rs.getTimestamp("fecha_movimiento"));
+                    rs.getTimestamp("fecha_movimiento").toLocalDateTime());
 
                 m.setNumeroInventario(
                     rs.getString("numero_inventario"));

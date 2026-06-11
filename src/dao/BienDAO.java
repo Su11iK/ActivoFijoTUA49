@@ -255,7 +255,7 @@ public class BienDAO {
             registrarMovimiento(
                     idBien,
                     idUsuario,
-                    "Bien dado de baja",
+                    motivo,
                     "BAJA",
                     status
             );
