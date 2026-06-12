@@ -206,7 +206,9 @@ public class BienDAO {
             int idBien,
             int idUsuario,
             String motivo,
-            String status
+            String status,
+            String areNueva,
+            String resNueva
     ) {
 
         String sqlBien = """
@@ -257,7 +259,10 @@ public class BienDAO {
                     idUsuario,
                     motivo,
                     "BAJA",
-                    status
+                    status,
+                    areNueva,
+                    resNueva
+
             );
 
         } catch (Exception e) {
@@ -270,7 +275,9 @@ public class BienDAO {
             int idUsuario,
             String observaciones,
             String tipoMovimiento,
-            String status
+            String status,
+            String areNueva,
+            String resNueva
     ) {
 
         String sql = """
@@ -280,9 +287,11 @@ public class BienDAO {
                 fecha_movimiento,
                 tipo_movimiento,
                 observaciones,
-                status
+                status,
+                nombre_area_nueva,
+                nombre_resguardante_nuevo
             )
-            VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, ?)
+            VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, ?, ? ,?)
         """;
 
         try (Connection conn = ConexionBD.conectar();
@@ -293,6 +302,8 @@ public class BienDAO {
             ps.setString(3, tipoMovimiento);
             ps.setString(4, observaciones);
             ps.setString(5, status);
+            ps.setString(6, areNueva);
+            ps.setString(7, resNueva);
 
             ps.executeUpdate();
 
@@ -306,7 +317,9 @@ public class BienDAO {
             int nuevoResguardante,
             int nuevaArea,
             int idUsuario,
-            String observaciones
+            String observaciones,
+            String areaNueva,
+            String resNueva
     ) {
 
         try (Connection conn = ConexionBD.conectar()) {
@@ -341,6 +354,48 @@ public class BienDAO {
                         rs.getInt("area_id");
             }
 
+            String sqlDatosRes = """
+                SELECT nombre_resguardante
+                FROM resguardantes
+                WHERE id_resguardante = ?
+            """;
+
+            PreparedStatement psDatosRes =
+                    conn.prepareStatement(sqlDatosRes);
+
+            psDatosRes.setInt(1, resguardanteAnterior);
+
+            ResultSet nr = psDatosRes.executeQuery();
+
+            String resAnterior = "";
+
+            if (nr.next()) {
+
+                resAnterior = nr.getString("nombre_resguardante");
+
+            }
+
+            String sqlDatosAre = """
+                SELECT nombre_area
+                FROM areas
+                WHERE id_area = ?
+            """;
+
+            PreparedStatement psDatosAre =
+                    conn.prepareStatement(sqlDatosAre);
+
+            psDatosAre.setInt(1, areaAnterior);
+
+            ResultSet na = psDatosAre.executeQuery();
+
+            String areAnterior = "";
+
+            if (na.next()) {
+
+                areAnterior = na.getString("nombre_area");
+
+            }
+
             // =========================
             // UPDATE BIEN
             // =========================
@@ -371,10 +426,10 @@ public class BienDAO {
                     fecha_movimiento,
                     tipo_movimiento,
                     observaciones,
-                    area_anterior,
-                    area_nueva,
-                    resguardante_anterior,
-                    resguardante_nuevo
+                    nombre_area_anterior,
+                    nombre_area_nueva,
+                    nombre_resguardante_anterior,
+                    nombre_resguardante_nuevo
                 )
                 VALUES (
                     ?,
@@ -401,18 +456,18 @@ public class BienDAO {
             if (areaAnterior == 0) {
                 psMov.setNull(4, java.sql.Types.INTEGER);
             } else {
-                psMov.setInt(4, areaAnterior);
+                psMov.setString(4, areAnterior);
             }
 
-            psMov.setInt(5, nuevaArea);
+            psMov.setString(5, areaNueva);
 
             if (resguardanteAnterior == 0) {
                 psMov.setNull(6, java.sql.Types.INTEGER);
             } else {
-                psMov.setInt(6, resguardanteAnterior);
+                psMov.setString(6, resAnterior);
             }
 
-            psMov.setInt(7, nuevoResguardante);
+            psMov.setString(7, resNueva);
 
             psMov.executeUpdate();
 

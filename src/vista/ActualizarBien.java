@@ -268,8 +268,6 @@ public class ActualizarBien extends JDialog {
             return;
         }
 
-        String status = bien.getStatus();
-
         bien.setDescripcion(txtDescripcion.getText());
         bien.setMarca(txtMarca.getText());
         bien.setModelo(txtModelo.getText());
@@ -296,7 +294,9 @@ public class ActualizarBien extends JDialog {
                     1,
                     txtObservaciones.getText(),
                     "ACTUALIZACION",
-                    status
+                    bien.getStatus(),
+                    bien.getArea(),
+                    bien.getResguardante()
             );
 
             JOptionPane.showMessageDialog(this,

@@ -228,7 +228,8 @@ public class AreasFrame extends JDialog {
                 dao.quitarAreaDeBienes(
                         area.getId(),
                         1,
-                        txtObs.getText()
+                        txtObs.getText(),
+                        area.getNombre()
                 );
         }
 

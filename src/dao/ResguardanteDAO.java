@@ -268,7 +268,8 @@ public class ResguardanteDAO {
     public void quitarResguardanteDeBienes(
             int idResguardante,
             int idUsuario,
-            String observaciones
+            String observaciones,
+            String resAnterior
     ) {
 
         try (Connection conn = ConexionBD.conectar()) {
@@ -298,7 +299,7 @@ public class ResguardanteDAO {
                         fecha_movimiento,
                         tipo_movimiento,
                         observaciones,
-                        resguardante_anterior
+                        nombre_resguardante_anterior
                     )
                     VALUES(
                         ?,
@@ -316,7 +317,7 @@ public class ResguardanteDAO {
                 psMov.setInt(1, idBien);
                 psMov.setInt(2, idUsuario);
                 psMov.setString(3, observaciones);
-                psMov.setInt(4, idResguardante);
+                psMov.setString(4, resAnterior);
 
                 psMov.executeUpdate();
             }

@@ -146,7 +146,8 @@ public class AreaDAO {
     public void quitarAreaDeBienes(
             int idArea,
             int idUsuario,
-            String observaciones
+            String observaciones,
+            String areAnterior
     ) {
 
         String sqlSelect = """
@@ -159,12 +160,6 @@ public class AreaDAO {
             UPDATE bienes
             SET area_id = NULL
             WHERE area_id = ?
-        """;
-
-        String sqlUpdateRes = """
-            UPDATE resguardantes
-            SET id_area = NULL
-            WHERE id_area = ?
         """;
 
         try(Connection conn = ConexionBD.conectar()) {
@@ -186,7 +181,8 @@ public class AreaDAO {
                         idBien,
                         idUsuario,
                         idArea,
-                        observaciones
+                        observaciones,
+                        areAnterior
                 );
             }
 
@@ -196,13 +192,6 @@ public class AreaDAO {
             update.setInt(1, idArea);
 
             update.executeUpdate();
-
-            PreparedStatement updateRes =
-                    conn.prepareStatement(sqlUpdateRes);
-
-            updateRes.setInt(1, idArea);
-
-            updateRes.executeUpdate();
 
         } catch(Exception e) {
             e.printStackTrace();
@@ -214,7 +203,8 @@ public class AreaDAO {
             int idBien,
             int idUsuario,
             int areaAnterior,
-            String observaciones
+            String observaciones,
+            String areAnterior
     ) throws SQLException {
 
         String sql = """
@@ -224,7 +214,7 @@ public class AreaDAO {
                 fecha_movimiento,
                 tipo_movimiento,
                 observaciones,
-                area_anterior
+                nombre_area_anterior
             )
             VALUES(
                 ?,
@@ -242,7 +232,7 @@ public class AreaDAO {
         ps.setInt(1, idBien);
         ps.setInt(2, idUsuario);
         ps.setString(3, observaciones);
-        ps.setInt(4, areaAnterior);
+        ps.setString(4, areAnterior);
 
         ps.executeUpdate();
     }

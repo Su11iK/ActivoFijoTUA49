@@ -85,11 +85,19 @@ public class BajaBien extends JDialog {
                 String status =
                         listaBienes.get(fila).getStatus();
 
+                String areNueva =
+                        listaBienes.get(fila).getArea();
+
+                String resNueva =
+                        listaBienes.get(fila).getResguardante();
+
                 dao.darBajaBien(
                         idBien,
                         1,
                         motivo,
-                        status
+                        status,
+                        areNueva,
+                        resNueva
                 );
         }
 

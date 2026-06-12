@@ -353,7 +353,8 @@ public class ResguardantesFrame extends JDialog {
                 dao.quitarResguardanteDeBienes(
                         r.getId(),
                         1,
-                        txtObs.getText()
+                        txtObs.getText(),
+                        r.getNombre()
                 );
         }
 

@@ -154,7 +154,9 @@ public class AsignarResguardante extends JDialog {
                     r.getId(),
                     r.getIdArea(),
                     1,
-                    txtObservaciones.getText()
+                    txtObservaciones.getText(),
+                    r.getNombreArea(),
+                    r.getNombre()
             );
         }
 
