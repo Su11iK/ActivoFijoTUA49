@@ -112,7 +112,9 @@ public class ResguardanteDAO {
             String nombre,
             String puesto,
             int idArea,
-            String observaciones
+            String observaciones,
+            String areAnterior,
+            String areNuevo
     ) {
 
         String sql = """
@@ -162,27 +164,24 @@ public class ResguardanteDAO {
                 int idBien =
                         rs.getInt("id_bien");
 
-                int areaAnterior =
-                        rs.getInt("area_id");
-
                 String sqlMov = """
                     INSERT INTO movimientos(
                         id_bien,
                         id_usuario,
                         fecha_movimiento,
                         tipo_movimiento,
-                        area_anterior,
-                        area_nueva,
+                        nombre_area_anterior,
+                        nombre_area_nueva,
                         observaciones
                     )
                     VALUES(
                         ?,
                         1,
                         CURRENT_TIMESTAMP,
+                        'CAMBIO DE AREA',
                         ?,
                         ?,
-                        ?,
-                        'Cambio de área por edición de resguardante'
+                        ?
                     )
                 """;
 
@@ -190,9 +189,9 @@ public class ResguardanteDAO {
                         conn.prepareStatement(sqlMov);
 
                 psMov.setInt(1, idBien);
-                psMov.setString(2, observaciones);
-                psMov.setInt(3, areaAnterior);
-                psMov.setInt(4, idArea);
+                psMov.setString(2, areAnterior);
+                psMov.setString(3, areNuevo);
+                psMov.setString(4, observaciones);
 
                 psMov.executeUpdate();
             }

@@ -205,6 +205,9 @@ public class ResguardantesFrame extends JDialog {
         Resguardante r =
                 listaResguardantes.get(fila);
 
+        String areAnterior =
+                r.getNombreArea();
+
         JTextField txtNombre =
                 new JTextField(r.getNombre());
 
@@ -269,12 +272,16 @@ public class ResguardantesFrame extends JDialog {
         ResguardanteDAO dao =
                 new ResguardanteDAO();
 
+        String areNuevo = areaSeleccionada.getNombre();
+
         dao.editarResguardante(
                 r.getId(),
                 txtNombre.getText(),
                 txtPuesto.getText(),
                 areaSeleccionada.getId(),
-                txtObs.getText()
+                txtObs.getText(),
+                areAnterior,
+                areNuevo
         );
 
         cargarTabla();

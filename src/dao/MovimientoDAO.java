@@ -24,11 +24,11 @@ public class MovimientoDAO {
 
                 u.nombre_usuario,
 
-                aa.nombre_area AS area_anterior,
-                an.nombre_area AS area_nueva,
+                m.nombre_area_anterior,
+                m.nombre_area_nueva,
 
-                ra.nombre_resguardante AS resguardante_anterior,
-                rn.nombre_resguardante AS resguardante_nuevo,
+                m.nombre_resguardante_anterior,
+                m.nombre_resguardante_nuevo,
 
                 m.tipo_movimiento,
                 m.observaciones,
@@ -41,20 +41,6 @@ public class MovimientoDAO {
 
             LEFT JOIN usuarios u
                 ON m.id_usuario = u.id_usuario
-
-            LEFT JOIN areas aa
-                ON m.area_anterior = aa.id_area
-
-            LEFT JOIN areas an
-                ON m.area_nueva = an.id_area
-
-            LEFT JOIN resguardantes ra
-                ON m.resguardante_anterior =
-                   ra.id_resguardante
-
-            LEFT JOIN resguardantes rn
-                ON m.resguardante_nuevo =
-                   rn.id_resguardante
 
             ORDER BY m.fecha_movimiento DESC
         """;
@@ -86,18 +72,18 @@ public class MovimientoDAO {
                     rs.getString("nombre_usuario"));
 
                 m.setAreaAnterior(
-                    rs.getString("area_anterior"));
+                    rs.getString("nombre_area_anterior"));
 
                 m.setAreaNueva(
-                    rs.getString("area_nueva"));
+                    rs.getString("nombre_area_nueva"));
 
                 m.setResguardanteAnterior(
                     rs.getString(
-                        "resguardante_anterior"));
+                        "nombre_resguardante_anterior"));
 
                 m.setResguardanteNuevo(
                     rs.getString(
-                        "resguardante_nuevo"));
+                        "nombre_resguardante_nuevo"));
 
                 m.setTipoMovimiento(
                     rs.getString(
