@@ -61,6 +61,9 @@ public class ResguardantesFrame extends JDialog {
         JButton btnEditar =
                 new JButton("Editar");
 
+        JButton btnAsignarArea =
+                new JButton("Asignar Área");
+
         JButton btnEliminar =
                 new JButton("Eliminar");
 
@@ -70,6 +73,7 @@ public class ResguardantesFrame extends JDialog {
         panelBotones.add(btnEditar);
         panelBotones.add(Box.createVerticalStrut(10));
 
+        panelBotones.add(btnAsignarArea);
         panelBotones.add(btnEliminar);
 
         add(panelBotones,
@@ -248,11 +252,11 @@ public class ResguardantesFrame extends JDialog {
         panel.add(new JLabel("Puesto"));
         panel.add(txtPuesto);
 
-        panel.add(new JLabel("Área"));
-        panel.add(cbAreas);
-
         panel.add(new JLabel("Observaciones:"));
         panel.add(new JScrollPane(txtObs));
+
+        String nombreAnterior =
+                r.getNombre();
 
         int opcion =
                 JOptionPane.showConfirmDialog(
@@ -265,6 +269,11 @@ public class ResguardantesFrame extends JDialog {
         if (opcion != JOptionPane.OK_OPTION) {
             return;
         }
+
+        boolean cambioNombre =
+                !nombreAnterior.equals(
+                        txtNombre.getText()
+                );
 
         Area areaSeleccionada =
                 (Area) cbAreas.getSelectedItem();
