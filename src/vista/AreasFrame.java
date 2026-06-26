@@ -145,23 +145,49 @@ public class AreasFrame extends JDialog {
 
         Area area = listaAreas.get(fila);
 
-        String nuevoNombre =
-                JOptionPane.showInputDialog(
+        JTextField txtNombre =
+                new JTextField(area.getNombre());
+
+        JTextArea txtObs =
+                new JTextArea();
+
+        JPanel panel =
+                new JPanel(new GridLayout(0, 1));
+
+        panel.add(new JLabel("Nombre:"));
+        panel.add(txtNombre);
+
+        panel.add(new JLabel("Observaciones:"));
+        panel.add(new JScrollPane(txtObs));
+
+        String nombreAnterior =
+                area.getNombre();
+
+        int opcion =
+                JOptionPane.showConfirmDialog(
                         this,
-                        "Nuevo nombre:",
-                        area.getNombre()
+                        panel,
+                        "Editar Area",
+                        JOptionPane.OK_CANCEL_OPTION
                 );
 
-        if (nuevoNombre == null ||
-                nuevoNombre.trim().isEmpty()) {
+        if (opcion != JOptionPane.OK_OPTION) {
             return;
         }
+
+        boolean cambioNombre =
+                !nombreAnterior.equals(
+                        txtNombre.getText()
+                );
 
         AreaDAO dao = new AreaDAO();
 
         dao.editarArea(
                 area.getId(),
-                nuevoNombre
+                nombreAnterior,
+                txtNombre.getText(),
+                txtObs.getText(),
+                cambioNombre
         );
 
         cargarAreas();

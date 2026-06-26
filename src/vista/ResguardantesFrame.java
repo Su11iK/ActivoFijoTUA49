@@ -61,8 +61,8 @@ public class ResguardantesFrame extends JDialog {
         JButton btnEditar =
                 new JButton("Editar");
 
-        JButton btnAsignarArea =
-                new JButton("Asignar Área");
+        JButton btnAsignar =
+                new JButton("Asignar");
 
         JButton btnEliminar =
                 new JButton("Eliminar");
@@ -73,7 +73,9 @@ public class ResguardantesFrame extends JDialog {
         panelBotones.add(btnEditar);
         panelBotones.add(Box.createVerticalStrut(10));
 
-        panelBotones.add(btnAsignarArea);
+        panelBotones.add(btnAsignar);
+        panelBotones.add(Box.createVerticalStrut(10));
+
         panelBotones.add(btnEliminar);
 
         add(panelBotones,
@@ -85,6 +87,8 @@ public class ResguardantesFrame extends JDialog {
         btnAgregar.addActionListener(e -> agregar());
 
         btnEditar.addActionListener(e -> editar());
+
+        btnAsignar.addActionListener(e -> asignar());
 
         btnEliminar.addActionListener(e -> eliminar());
 
@@ -209,14 +213,85 @@ public class ResguardantesFrame extends JDialog {
         Resguardante r =
                 listaResguardantes.get(fila);
 
-        String areAnterior =
-                r.getNombreArea();
-
         JTextField txtNombre =
                 new JTextField(r.getNombre());
 
         JTextField txtPuesto =
                 new JTextField(r.getPuesto());
+
+        JTextArea txtObs =
+                new JTextArea();
+
+        JPanel panel =
+                new JPanel(new GridLayout(0, 1));
+
+        panel.add(new JLabel("Nombre:"));
+        panel.add(txtNombre);
+
+        panel.add(new JLabel("Puesto:"));
+        panel.add(txtPuesto);
+
+        panel.add(new JLabel("Observaciones:"));
+        panel.add(new JScrollPane(txtObs));
+
+        String nombreAnterior =
+                r.getNombre();
+
+        int opcion =
+                JOptionPane.showConfirmDialog(
+                        this,
+                        panel,
+                        "Editar Resguardante",
+                        JOptionPane.OK_CANCEL_OPTION
+                );
+
+        if (opcion != JOptionPane.OK_OPTION) {
+            return;
+        }
+
+        boolean cambioNombre =
+                !nombreAnterior.equals(
+                        txtNombre.getText()
+                );
+
+        ResguardanteDAO dao =
+                new ResguardanteDAO();
+
+        dao.editarResguardante(
+                r.getId(),
+                nombreAnterior,
+                txtNombre.getText(),
+                txtPuesto.getText(),
+                txtObs.getText(),
+                cambioNombre
+        );
+
+        cargarTabla();
+    }
+
+    // =========================
+    // ASIGNAR
+    // =========================
+    private void asignar() {
+
+        int fila =
+                tabla.getSelectedRow();
+
+        if (fila == -1) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Seleccione un resguardante"
+            );
+
+            return;
+        }
+
+        Resguardante r =
+                listaResguardantes.get(fila);
+
+        String areAnterior =
+                r.getNombreArea();
 
         JComboBox<Area> cbAreas =
                 new JComboBox<>();
@@ -246,34 +321,23 @@ public class ResguardantesFrame extends JDialog {
         JPanel panel =
                 new JPanel(new GridLayout(0, 1));
 
-        panel.add(new JLabel("Nombre"));
-        panel.add(txtNombre);
-
-        panel.add(new JLabel("Puesto"));
-        panel.add(txtPuesto);
+        panel.add(new JLabel("Área:"));
+        panel.add(cbAreas);
 
         panel.add(new JLabel("Observaciones:"));
         panel.add(new JScrollPane(txtObs));
-
-        String nombreAnterior =
-                r.getNombre();
 
         int opcion =
                 JOptionPane.showConfirmDialog(
                         this,
                         panel,
-                        "Editar Resguardante",
+                        "Asignar Resguardante",
                         JOptionPane.OK_CANCEL_OPTION
                 );
 
         if (opcion != JOptionPane.OK_OPTION) {
             return;
         }
-
-        boolean cambioNombre =
-                !nombreAnterior.equals(
-                        txtNombre.getText()
-                );
 
         Area areaSeleccionada =
                 (Area) cbAreas.getSelectedItem();
@@ -282,15 +346,19 @@ public class ResguardantesFrame extends JDialog {
                 new ResguardanteDAO();
 
         String areNuevo = areaSeleccionada.getNombre();
+        
+        boolean cambioArea =
+                !areAnterior.equals(
+                        areNuevo
+                );
 
-        dao.editarResguardante(
+        dao.asignarResguardante(
                 r.getId(),
-                txtNombre.getText(),
-                txtPuesto.getText(),
                 areaSeleccionada.getId(),
                 txtObs.getText(),
                 areAnterior,
-                areNuevo
+                areNuevo,
+                cambioArea
         );
 
         cargarTabla();

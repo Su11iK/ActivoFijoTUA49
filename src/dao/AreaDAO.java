@@ -73,7 +73,13 @@ public class AreaDAO {
     // =========================
     // EDITAR
     // =========================
-    public void editarArea(int id, String nombre) {
+    public void editarArea(
+        int id,
+        String nombreAnterior,
+        String nombre,
+        String observaciones,
+        boolean cambioNombre
+    ) {
 
         String sql = """
             UPDATE areas
@@ -89,6 +95,59 @@ public class AreaDAO {
 
             ps.executeUpdate();
 
+            String sqlSelect = """
+                SELECT
+                    id_bien
+                FROM bienes
+                WHERE area_id = ?
+            """;
+
+            PreparedStatement psSelect =
+                    conn.prepareStatement(sqlSelect);
+
+            psSelect.setInt(1, id);
+
+            ResultSet rs =
+                    psSelect.executeQuery();
+
+            if (cambioNombre) {
+                while(rs.next()) {
+
+                    int idBien =
+                            rs.getInt("id_bien");
+
+                    String sqlMov = """
+                        INSERT INTO movimientos(
+                            id_bien,
+                            id_usuario,
+                            fecha_movimiento,
+                            tipo_movimiento,
+                            nombre_area_anterior,
+                            nombre_area_nueva,
+                            observaciones
+                        )
+                        VALUES(
+                            ?,
+                            1,
+                            CURRENT_TIMESTAMP,
+                            'EDICION DE AREA',
+                            ?,
+                            ?,
+                            ?
+                        )
+                    """;
+
+                    PreparedStatement psMov =
+                            conn.prepareStatement(sqlMov);
+
+                    psMov.setInt(1, idBien);
+                    psMov.setString(2, nombreAnterior);
+                    psMov.setString(3, nombre);
+                    psMov.setString(4, observaciones);
+
+                    psMov.executeUpdate();
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
