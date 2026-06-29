@@ -15,6 +15,7 @@ public class Movimiento {
     private String tipoMovimiento;
     private String observaciones;
     private String status;
+    private String statusAnterior;
 
     public int getId() {
         return id;
@@ -49,6 +50,9 @@ public class Movimiento {
     public String getStatus() {
         return status;
     }
+    public String getStatusAnterior() {
+        return statusAnterior;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -82,5 +86,8 @@ public class Movimiento {
     }
     public void setStatus(String status) {
         this.status = status;
+    }
+    public void setStatusAnterior(String statusAnterior) {
+        this.statusAnterior = statusAnterior;
     }
 }

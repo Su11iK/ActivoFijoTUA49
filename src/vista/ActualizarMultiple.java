@@ -263,6 +263,8 @@ public class ActualizarMultiple extends JDialog {
             b.setTipoBien(
                     cbTipoBien.getSelectedItem().toString());
 
+            String statusAnterior = b.getStatus();
+
             b.setStatus(
             cbStatus.getSelectedItem().toString());
             
@@ -273,6 +275,7 @@ public class ActualizarMultiple extends JDialog {
                     1,
                     txtObservaciones.getText(),
                     "ACTUALIZACION",
+                    statusAnterior,
                     b.getStatus(),
                     b.getArea(),
                     b.getResguardante()

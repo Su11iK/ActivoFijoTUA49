@@ -260,6 +260,7 @@ public class BienDAO {
                     motivo,
                     "BAJA",
                     status,
+                    "BAJA",
                     areNueva,
                     resNueva
 
@@ -275,6 +276,7 @@ public class BienDAO {
             int idUsuario,
             String observaciones,
             String tipoMovimiento,
+            String statusAnterior,
             String status,
             String areNueva,
             String resNueva
@@ -287,11 +289,12 @@ public class BienDAO {
                 fecha_movimiento,
                 tipo_movimiento,
                 observaciones,
+                status_anterior,
                 status,
                 nombre_area_nueva,
                 nombre_resguardante_nuevo
             )
-            VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, ?, ? ,?)
+            VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ? ,?)
         """;
 
         try (Connection conn = ConexionBD.conectar();
@@ -301,9 +304,10 @@ public class BienDAO {
             ps.setInt(2, idUsuario);
             ps.setString(3, tipoMovimiento);
             ps.setString(4, observaciones);
-            ps.setString(5, status);
-            ps.setString(6, areNueva);
-            ps.setString(7, resNueva);
+            ps.setString(5, statusAnterior);
+            ps.setString(6, status);
+            ps.setString(7, areNueva);
+            ps.setString(8, resNueva);
 
             ps.executeUpdate();
 

@@ -32,7 +32,9 @@ public class MovimientoDAO {
 
                 m.tipo_movimiento,
                 m.observaciones,
-                m.status
+                
+                m.status,
+                m.status_anterior
 
             FROM movimientos m
 
@@ -95,6 +97,10 @@ public class MovimientoDAO {
 
                 m.setStatus(
                     rs.getString("status")
+                );
+
+                m.setStatusAnterior(
+                    rs.getString("status_anterior")
                 );
 
                 lista.add(m);

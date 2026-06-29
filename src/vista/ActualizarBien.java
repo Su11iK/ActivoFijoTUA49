@@ -281,6 +281,8 @@ public class ActualizarBien extends JDialog {
         bien.setTipoBien(
             cbTipoBien.getSelectedItem().toString());
 
+        String statusAnterior = bien.getStatus();
+
         bien.setStatus(
             cbStatus.getSelectedItem().toString());
 
@@ -294,6 +296,7 @@ public class ActualizarBien extends JDialog {
                     1,
                     txtObservaciones.getText(),
                     "ACTUALIZACION",
+                    statusAnterior,
                     bien.getStatus(),
                     bien.getArea(),
                     bien.getResguardante()
