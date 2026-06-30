@@ -284,7 +284,8 @@ public class AreaDAO {
                 fecha_movimiento,
                 tipo_movimiento,
                 observaciones,
-                nombre_area_anterior
+                nombre_area_anterior,
+                nombre_area_nueva
             )
             VALUES(
                 ?,
@@ -292,7 +293,8 @@ public class AreaDAO {
                 CURRENT_TIMESTAMP,
                 'BAJA AREA',
                 ?,
-                ?
+                ?,
+                '<vacío>'
             )
         """;
 

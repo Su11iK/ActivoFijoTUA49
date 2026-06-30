@@ -385,7 +385,8 @@ public class ResguardanteDAO {
                         fecha_movimiento,
                         tipo_movimiento,
                         observaciones,
-                        nombre_resguardante_anterior
+                        nombre_resguardante_anterior,
+                        nombre_resguardante_nuevo,
                     )
                     VALUES(
                         ?,
@@ -393,7 +394,8 @@ public class ResguardanteDAO {
                         CURRENT_TIMESTAMP,
                         'BAJA RESGUARDANTE',
                         ?,
-                        ?
+                        ?,
+                        '<vacío>'
                     )
                 """;
 

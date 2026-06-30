@@ -293,6 +293,10 @@ public class ResguardantesFrame extends JDialog {
         String areAnterior =
                 r.getNombreArea();
 
+        if (areAnterior == null) {
+                areAnterior = "<vacío>";
+        }
+
         JComboBox<Area> cbAreas =
                 new JComboBox<>();
 

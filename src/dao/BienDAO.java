@@ -458,7 +458,7 @@ public class BienDAO {
 
             // 🔥 si vienen null
             if (areaAnterior == 0) {
-                psMov.setNull(4, java.sql.Types.INTEGER);
+                psMov.setString(4, "<vacío>");
             } else {
                 psMov.setString(4, areAnterior);
             }
@@ -466,7 +466,7 @@ public class BienDAO {
             psMov.setString(5, areaNueva);
 
             if (resguardanteAnterior == 0) {
-                psMov.setNull(6, java.sql.Types.INTEGER);
+                psMov.setString(6, "<vacío>");
             } else {
                 psMov.setString(6, resAnterior);
             }

@@ -136,7 +136,7 @@ public class MovimientosFrame extends JFrame {
 
         modelo.setRowCount(0);
 
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
         for(Movimiento m :
                 listaMovimientos) {

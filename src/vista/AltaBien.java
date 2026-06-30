@@ -353,6 +353,7 @@ public class AltaBien extends JDialog {
                     1, // temporal usuario logueado
                     txtObservaciones.getText(),
                     "ALTA",
+                    "",
                     "ACTIVO",
                     "",
                     ""
