@@ -211,39 +211,25 @@ public class ActualizarMultiple extends JDialog {
     private void actualizarTodo() {
 
         BienDAO dao = new BienDAO();
+        String statusAnterior = "";
 
-        if (txtDescripcion.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
-            return;
-        }
+        boolean cambios =
+        !txtDescripcion.getText().trim().isEmpty()
+        || !txtMarca.getText().trim().isEmpty()
+        || !txtModelo.getText().trim().isEmpty()
+        || !txtProveedor.getText().trim().isEmpty()
+        || !txtFactura.getText().trim().isEmpty()
+        || !cbEstado.getSelectedItem().toString().isEmpty()
+        || !cbTipoBien.getSelectedItem().toString().isEmpty()
+        || !cbStatus.getSelectedItem().toString().isEmpty();
 
-        if (txtMarca.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
-            return;
-        }
+        if(!cambios){
 
-        if (txtModelo.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
-            return;
-        }
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No se especificó ningún cambio."
+            );
 
-        if (txtProveedor.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
-            return;
-        }
-
-        if (txtFactura.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
-            return;
-        }
-
-        if (cbEstado.getSelectedItem().toString().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
-            return;
-        }
-
-        if (cbTipoBien.getSelectedItem().toString().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
             return;
         }
 
@@ -251,22 +237,30 @@ public class ActualizarMultiple extends JDialog {
 
             Bien b = listaBienes.get(fila);
 
-            b.setDescripcion(txtDescripcion.getText());
-            b.setMarca(txtMarca.getText());
-            b.setModelo(txtModelo.getText());
-            b.setProveedor(txtProveedor.getText());
-            b.setFactura(txtFactura.getText());
+            if(!txtDescripcion.getText().trim().isEmpty()){
+                b.setDescripcion(txtDescripcion.getText().trim());}
 
-            b.setEstadoFisico(
-                    cbEstado.getSelectedItem().toString());
+            if(!txtMarca.getText().trim().isEmpty()){
+                b.setMarca(txtMarca.getText().trim());}
 
-            b.setTipoBien(
-                    cbTipoBien.getSelectedItem().toString());
+            if(!txtModelo.getText().trim().isEmpty()){
+                b.setModelo(txtModelo.getText().trim());}
 
-            String statusAnterior = b.getStatus();
+            if(!txtProveedor.getText().trim().isEmpty()){
+                b.setProveedor(txtProveedor.getText().trim());}
 
-            b.setStatus(
-            cbStatus.getSelectedItem().toString());
+            if(!txtFactura.getText().trim().isEmpty()){
+                b.setFactura(txtFactura.getText().trim());}
+
+            if(!cbEstado.getSelectedItem().toString().isEmpty()){
+                b.setEstadoFisico(cbEstado.getSelectedItem().toString());}
+
+            if(!cbTipoBien.getSelectedItem().toString().isEmpty()){
+                b.setTipoBien(cbTipoBien.getSelectedItem().toString());}
+
+            if(!cbStatus.getSelectedItem().toString().isEmpty()){
+                statusAnterior = b.getStatus();
+                b.setStatus(cbStatus.getSelectedItem().toString());}
             
             dao.actualizarMultiple(b);
 

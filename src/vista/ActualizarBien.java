@@ -268,6 +268,30 @@ public class ActualizarBien extends JDialog {
             return;
         }
 
+        boolean cambios =
+        !bien.getDescripcion().equals(txtDescripcion.getText())
+        || !bien.getMarca().equals(txtMarca.getText())
+        || !bien.getModelo().equals(txtModelo.getText())
+        || !bien.getNumeroSerie().equals(txtSerie.getText())
+        || !bien.getProveedor().equals(txtProveedor.getText())
+        || !bien.getFactura().equals(txtFactura.getText())
+        || !bien.getEstadoFisico().equals(
+                cbEstado.getSelectedItem().toString())
+        || !bien.getTipoBien().equals(
+                cbTipoBien.getSelectedItem().toString())
+        || !bien.getStatus().equals(
+                cbStatus.getSelectedItem().toString());
+
+        if (!cambios) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No se realizaron cambios."
+            );
+
+            return;
+        }
+
         bien.setDescripcion(txtDescripcion.getText());
         bien.setMarca(txtMarca.getText());
         bien.setModelo(txtModelo.getText());
