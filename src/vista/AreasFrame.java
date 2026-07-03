@@ -180,6 +180,17 @@ public class AreasFrame extends JDialog {
                         txtNombre.getText()
                 );
 
+        if (!cambioNombre) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "No se registro ningun cambio.",
+                        "Sin cambios",
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+                return;
+        }
+
         AreaDAO dao = new AreaDAO();
 
         dao.editarArea(

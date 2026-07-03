@@ -254,6 +254,17 @@ public class ResguardantesFrame extends JDialog {
                         txtNombre.getText()
                 );
 
+        if (!cambioNombre) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "No se registro ningun cambio.",
+                        "Sin cambios",
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+                return;
+        }
+
         ResguardanteDAO dao =
                 new ResguardanteDAO();
 
@@ -345,6 +356,17 @@ public class ResguardantesFrame extends JDialog {
 
         Area areaSeleccionada =
                 (Area) cbAreas.getSelectedItem();
+
+        if (areaSeleccionada == null) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "No se registro ninguna asignación.",
+                        "Sin asignación",
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+                return;
+        }
 
         ResguardanteDAO dao =
                 new ResguardanteDAO();

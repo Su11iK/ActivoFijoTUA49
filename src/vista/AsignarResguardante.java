@@ -142,12 +142,37 @@ public class AsignarResguardante extends JDialog {
 
         if (r == null) return;
 
+        if (r.getIdArea() == 0) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "El resguardante seleccionado no tiene un área asignada.\n"
+                        + "Asigne primero un área al resguardante.",
+                        "Área no asignada",
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+                return;
+        }
+
         BienDAO dao = new BienDAO();
+
+        int cambios = 0;
 
         for (int fila : filas) {
 
             Bien b =
                     listaBienes.get(fila);
+
+            if (b.getResguardante().equals(r.getNombre())) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "No se registro ningun cambio de resguardo.",
+                        "Sin cambios",
+                        JOptionPane.WARNING_MESSAGE
+                );        
+                return;
+            }
 
             dao.asignarResguardante(
                     b.getId(),
@@ -158,11 +183,25 @@ public class AsignarResguardante extends JDialog {
                     r.getNombreArea(),
                     r.getNombre()
             );
+            cambios++;
+        }
+
+        if (cambios == 0) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Ningún bien cambió de resguardante."
+                );
+
+                return;
         }
 
         JOptionPane.showMessageDialog(
                 this,
-                "Resguardante asignado");
+                "Resguardante asignado a "
+                + cambios
+                + " bienes."
+        );
 
         dispose();
     }
