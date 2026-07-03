@@ -356,6 +356,8 @@ public class AltaBien extends JDialog {
                     "",
                     "ACTIVO",
                     "",
+                    "",
+                    "",
                     ""
 
             );

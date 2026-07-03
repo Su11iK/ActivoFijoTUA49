@@ -207,8 +207,8 @@ public class BienDAO {
             int idUsuario,
             String motivo,
             String status,
-            String areNueva,
-            String resNueva
+            String areAnt,
+            String resAnt
     ) {
 
         String sqlBien = """
@@ -251,6 +251,9 @@ public class BienDAO {
 
             psBaja.executeUpdate();
 
+            String areNue = "<vacío>";
+            String resNue = "<vacío>";
+
             // =========================
             // MOVIMIENTO
             // =========================
@@ -261,8 +264,10 @@ public class BienDAO {
                     "BAJA",
                     status,
                     "BAJA",
-                    areNueva,
-                    resNueva
+                    areAnt,
+                    areNue,
+                    resAnt,
+                    resNue
 
             );
 
@@ -278,8 +283,10 @@ public class BienDAO {
             String tipoMovimiento,
             String statusAnterior,
             String status,
-            String areNueva,
-            String resNueva
+            String areAnt,
+            String areNue,
+            String resAnt,
+            String resNue
     ) {
 
         String sql = """
@@ -291,10 +298,12 @@ public class BienDAO {
                 observaciones,
                 status_anterior,
                 status,
+                nombre_area_anterior,
                 nombre_area_nueva,
+                nombre_resguardante_anterior,
                 nombre_resguardante_nuevo
             )
-            VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ? ,?)
+            VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?, ?)
         """;
 
         try (Connection conn = ConexionBD.conectar();
@@ -306,8 +315,10 @@ public class BienDAO {
             ps.setString(4, observaciones);
             ps.setString(5, statusAnterior);
             ps.setString(6, status);
-            ps.setString(7, areNueva);
-            ps.setString(8, resNueva);
+            ps.setString(7, areAnt);
+            ps.setString(8, areNue);
+            ps.setString(9, resAnt);
+            ps.setString(10, resNue);
 
             ps.executeUpdate();
 

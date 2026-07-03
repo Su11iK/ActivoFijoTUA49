@@ -323,7 +323,9 @@ public class ActualizarBien extends JDialog {
                     statusAnterior,
                     bien.getStatus(),
                     bien.getArea(),
-                    bien.getResguardante()
+                    "",
+                    bien.getResguardante(),
+                    ""
             );
 
             JOptionPane.showMessageDialog(this,

@@ -100,6 +100,7 @@ public class AreaDAO {
                     id_bien
                 FROM bienes
                 WHERE area_id = ?
+                AND status <> 'BAJA'
             """;
 
             PreparedStatement psSelect =
@@ -224,6 +225,7 @@ public class AreaDAO {
             SELECT id_bien
             FROM bienes
             WHERE area_id = ?
+            AND status <> 'BAJA'
         """;
 
         String sqlUpdate = """

@@ -272,7 +272,9 @@ public class ActualizarMultiple extends JDialog {
                     statusAnterior,
                     b.getStatus(),
                     b.getArea(),
-                    b.getResguardante()
+                    "",
+                    b.getResguardante(),
+                    ""
             );
         }
 

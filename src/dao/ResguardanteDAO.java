@@ -139,6 +139,7 @@ public class ResguardanteDAO {
                     id_bien
                 FROM bienes
                 WHERE resguardante_id = ?
+                AND status <> 'BAJA'
             """;
 
             PreparedStatement psSelect =
@@ -227,6 +228,7 @@ public class ResguardanteDAO {
                     area_id
                 FROM bienes
                 WHERE resguardante_id = ?
+                AND status <> 'BAJA'
             """;
 
             PreparedStatement psSelect =
@@ -364,6 +366,7 @@ public class ResguardanteDAO {
                 SELECT id_bien
                 FROM bienes
                 WHERE resguardante_id = ?
+                AND status <> 'BAJA'
             """;
 
             PreparedStatement psBienes =
@@ -386,7 +389,7 @@ public class ResguardanteDAO {
                         tipo_movimiento,
                         observaciones,
                         nombre_resguardante_anterior,
-                        nombre_resguardante_nuevo,
+                        nombre_resguardante_nuevo
                     )
                     VALUES(
                         ?,
