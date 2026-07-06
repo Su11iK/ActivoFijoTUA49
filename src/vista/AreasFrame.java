@@ -191,6 +191,16 @@ public class AreasFrame extends JDialog {
                 return;
         }
 
+        if (txtNombre.getText().trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "El nombre es obligatorios"
+            );
+
+            return;
+        }
+
         AreaDAO dao = new AreaDAO();
 
         dao.editarArea(

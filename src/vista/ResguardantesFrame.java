@@ -237,6 +237,9 @@ public class ResguardantesFrame extends JDialog {
         String nombreAnterior =
                 r.getNombre();
 
+        String puestoAnterior =
+                r.getPuesto();
+
         int opcion =
                 JOptionPane.showConfirmDialog(
                         this,
@@ -253,8 +256,13 @@ public class ResguardantesFrame extends JDialog {
                 !nombreAnterior.equals(
                         txtNombre.getText()
                 );
+        
+        boolean cambioPuesto =
+                !puestoAnterior.equals(
+                        txtPuesto.getText()
+                );
 
-        if (!cambioNombre) {
+        if (!cambioNombre && !cambioPuesto) {
                 JOptionPane.showMessageDialog(
                         this,
                         "No se registro ningun cambio.",
@@ -263,6 +271,17 @@ public class ResguardantesFrame extends JDialog {
                 );
 
                 return;
+        }
+
+        if (txtNombre.getText().trim().isEmpty()
+                || txtPuesto.getText().trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Nombre y puesto son obligatorios"
+            );
+
+            return;
         }
 
         ResguardanteDAO dao =
@@ -378,13 +397,23 @@ public class ResguardantesFrame extends JDialog {
                         areNuevo
                 );
 
+        if (!cambioArea) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "No se registro ningun cambio.",
+                        "Sin cambios",
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+                return;
+        }
+
         dao.asignarResguardante(
                 r.getId(),
                 areaSeleccionada.getId(),
                 txtObs.getText(),
                 areAnterior,
-                areNuevo,
-                cambioArea
+                areNuevo
         );
 
         cargarTabla();

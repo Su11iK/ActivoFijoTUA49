@@ -8,6 +8,7 @@ import modelo.Resguardante;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.Objects;
 
 public class AsignarResguardante extends JDialog {
 
@@ -164,14 +165,8 @@ public class AsignarResguardante extends JDialog {
             Bien b =
                     listaBienes.get(fila);
 
-            if (b.getResguardante().equals(r.getNombre())) {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "No se registro ningun cambio de resguardo.",
-                        "Sin cambios",
-                        JOptionPane.WARNING_MESSAGE
-                );        
-                return;
+            if (Objects.equals(b.getResguardante(), r.getNombre())) {   
+                continue;
             }
 
             dao.asignarResguardante(
@@ -190,7 +185,9 @@ public class AsignarResguardante extends JDialog {
 
                 JOptionPane.showMessageDialog(
                         this,
-                        "Ningún bien cambió de resguardante."
+                        "No se registro ningun cambio de resguardo.",
+                        "Sin cambios",
+                        JOptionPane.WARNING_MESSAGE
                 );
 
                 return;

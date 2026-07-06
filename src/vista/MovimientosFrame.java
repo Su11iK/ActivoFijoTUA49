@@ -184,6 +184,26 @@ public class MovimientosFrame extends JFrame {
                                     .toLowerCase()
                                     .contains(texto))
 
+                    || (m.getAreaAnterior() != null
+                            && m.getAreaAnterior()
+                                    .toLowerCase()
+                                    .contains(texto))
+
+                    || (m.getAreaNueva() != null
+                            && m.getAreaNueva()
+                                    .toLowerCase()
+                                    .contains(texto))
+
+                    || (m.getResguardanteAnterior() != null
+                            && m.getResguardanteAnterior()
+                                    .toLowerCase()
+                                    .contains(texto))
+
+                    || (m.getResguardanteNuevo() != null
+                            && m.getResguardanteNuevo()
+                                    .toLowerCase()
+                                    .contains(texto))
+
                     || (m.getTipoMovimiento() != null
                             && m.getTipoMovimiento()
                                     .toLowerCase()
