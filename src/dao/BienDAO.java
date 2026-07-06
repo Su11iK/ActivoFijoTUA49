@@ -210,6 +210,11 @@ public class BienDAO {
             String areAnt,
             String resAnt
     ) {
+        String nombreEquipo = System.getenv("COMPUTERNAME");
+        
+        if (nombreEquipo == null) {
+            nombreEquipo = "DESCONOCIDO";
+        }
 
         String sqlBien = """
             UPDATE bienes
@@ -220,7 +225,7 @@ public class BienDAO {
         String sqlBaja = """
             INSERT INTO bajas (
                 id_bien,
-                id_usuario,
+                nombre_equipo,
                 motivo,
                 fecha_baja
             )
@@ -246,7 +251,7 @@ public class BienDAO {
                     conn.prepareStatement(sqlBaja);
 
             psBaja.setInt(1, idBien);
-            psBaja.setInt(2, idUsuario);
+            psBaja.setString(2, nombreEquipo);
             psBaja.setString(3, motivo);
 
             psBaja.executeUpdate();
@@ -288,11 +293,16 @@ public class BienDAO {
             String resAnt,
             String resNue
     ) {
+        String nombreEquipo = System.getenv("COMPUTERNAME");
+        
+        if (nombreEquipo == null) {
+            nombreEquipo = "DESCONOCIDO";
+        }
 
         String sql = """
             INSERT INTO movimientos (
                 id_bien,
-                id_usuario,
+                nombre_equipo,
                 fecha_movimiento,
                 tipo_movimiento,
                 observaciones,
@@ -310,7 +320,7 @@ public class BienDAO {
             PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, idBien);
-            ps.setInt(2, idUsuario);
+            ps.setString(2, nombreEquipo);
             ps.setString(3, tipoMovimiento);
             ps.setString(4, observaciones);
             ps.setString(5, statusAnterior);
@@ -336,6 +346,11 @@ public class BienDAO {
             String areaNueva,
             String resNueva
     ) {
+        String nombreEquipo = System.getenv("COMPUTERNAME");
+        
+        if (nombreEquipo == null) {
+            nombreEquipo = "DESCONOCIDO";
+        }
 
         try (Connection conn = ConexionBD.conectar()) {
 
@@ -437,7 +452,7 @@ public class BienDAO {
             String sqlMovimiento = """
                 INSERT INTO movimientos (
                     id_bien,
-                    id_usuario,
+                    nombre_equipo,
                     fecha_movimiento,
                     tipo_movimiento,
                     observaciones,
@@ -463,7 +478,7 @@ public class BienDAO {
                     conn.prepareStatement(sqlMovimiento);
 
             psMov.setInt(1, idBien);
-            psMov.setInt(2, idUsuario);
+            psMov.setString(2, nombreEquipo);
 
             psMov.setString(3, observaciones);
 

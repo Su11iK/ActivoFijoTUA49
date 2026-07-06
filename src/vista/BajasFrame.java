@@ -156,7 +156,7 @@ public class BajasFrame extends JFrame {
 
                     b.getNumeroInventario(),
 
-                    b.getUsuario(),
+                    b.getNombreEquipo(),
 
                     formato.format(b.getFechaBaja()),
 
@@ -180,8 +180,8 @@ public class BajasFrame extends JFrame {
                                 .toLowerCase()
                                 .contains(texto))
 
-                        || (b.getUsuario() != null
-                                && b.getUsuario()
+                        || (b.getNombreEquipo() != null
+                                && b.getNombreEquipo()
                                         .toLowerCase()
                                         .contains(texto))
 
@@ -194,7 +194,7 @@ public class BajasFrame extends JFrame {
 
                         b.getNumeroInventario(),
 
-                        b.getUsuario(),
+                        b.getNombreEquipo(),
 
                         b.getFechaBaja(),
 

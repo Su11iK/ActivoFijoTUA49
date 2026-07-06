@@ -115,6 +115,11 @@ public class ResguardanteDAO {
             String observaciones,
             boolean cambioNombre
     ) {
+        String nombreEquipo = System.getenv("COMPUTERNAME");
+        
+        if (nombreEquipo == null) {
+            nombreEquipo = "DESCONOCIDO";
+        }
 
         String sql = """
             UPDATE resguardantes
@@ -159,7 +164,7 @@ public class ResguardanteDAO {
                     String sqlMov = """
                         INSERT INTO movimientos(
                             id_bien,
-                            id_usuario,
+                            nombre_equipo,
                             fecha_movimiento,
                             tipo_movimiento,
                             nombre_resguardante_anterior,
@@ -168,7 +173,7 @@ public class ResguardanteDAO {
                         )
                         VALUES(
                             ?,
-                            1,
+                            ?,
                             CURRENT_TIMESTAMP,
                             'EDICION DE RESGUARDANTE',
                             ?,
@@ -181,9 +186,10 @@ public class ResguardanteDAO {
                             conn.prepareStatement(sqlMov);
 
                     psMov.setInt(1, idBien);
-                    psMov.setString(2, nombreAnterior);
-                    psMov.setString(3, nombre);
-                    psMov.setString(4, observaciones);
+                    psMov.setString(2, nombreEquipo);
+                    psMov.setString(3, nombreAnterior);
+                    psMov.setString(4, nombre);
+                    psMov.setString(5, observaciones);
 
                     psMov.executeUpdate();
                 }
@@ -204,6 +210,11 @@ public class ResguardanteDAO {
             String areAnterior,
             String areNuevo
     ) {
+        String nombreEquipo = System.getenv("COMPUTERNAME");
+        
+        if (nombreEquipo == null) {
+            nombreEquipo = "DESCONOCIDO";
+        }
 
         String sql = """
             UPDATE resguardantes
@@ -251,7 +262,7 @@ public class ResguardanteDAO {
                 String sqlMov = """
                     INSERT INTO movimientos(
                         id_bien,
-                        id_usuario,
+                        nombre_equipo,
                         fecha_movimiento,
                         tipo_movimiento,
                         nombre_area_anterior,
@@ -260,7 +271,7 @@ public class ResguardanteDAO {
                     )
                     VALUES(
                         ?,
-                        1,
+                        ?,
                         CURRENT_TIMESTAMP,
                         'CAMBIO DE AREA',
                         ?,
@@ -273,9 +284,10 @@ public class ResguardanteDAO {
                         conn.prepareStatement(sqlMov);
 
                 psMov.setInt(1, idBien);
-                psMov.setString(2, areAnterior);
-                psMov.setString(3, areNuevo);
-                psMov.setString(4, observaciones);
+                psMov.setString(2, nombreEquipo);
+                psMov.setString(3, areAnterior);
+                psMov.setString(4, areNuevo);
+                psMov.setString(5, observaciones);
 
                 psMov.executeUpdate();
             }
@@ -355,6 +367,11 @@ public class ResguardanteDAO {
             String observaciones,
             String resAnterior
     ) {
+        String nombreEquipo = System.getenv("COMPUTERNAME");
+        
+        if (nombreEquipo == null) {
+            nombreEquipo = "DESCONOCIDO";
+        }
 
         try (Connection conn = ConexionBD.conectar()) {
 
@@ -380,7 +397,7 @@ public class ResguardanteDAO {
                 String sqlMov = """
                     INSERT INTO movimientos(
                         id_bien,
-                        id_usuario,
+                        nombre_equipo,
                         fecha_movimiento,
                         tipo_movimiento,
                         observaciones,
@@ -402,7 +419,7 @@ public class ResguardanteDAO {
                         conn.prepareStatement(sqlMov);
 
                 psMov.setInt(1, idBien);
-                psMov.setInt(2, idUsuario);
+                psMov.setString(2, nombreEquipo);
                 psMov.setString(3, observaciones);
                 psMov.setString(4, resAnterior);
 

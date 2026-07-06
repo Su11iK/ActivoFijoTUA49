@@ -146,8 +146,7 @@ public class MovimientosFrame extends JFrame {
                 formato.format(m.getFechaMovimiento()),
 
                 m.getNumeroInventario(),
-
-                m.getUsuario(),
+                m.getNombreEquipo(),
 
                 m.getAreaAnterior(),
                 m.getAreaNueva(),
@@ -179,8 +178,8 @@ public class MovimientosFrame extends JFrame {
                             .toLowerCase()
                             .contains(texto))
 
-                    || (m.getUsuario() != null
-                            && m.getUsuario()
+                    || (m.getNombreEquipo() != null
+                            && m.getNombreEquipo()
                                     .toLowerCase()
                                     .contains(texto))
 
@@ -220,7 +219,7 @@ public class MovimientosFrame extends JFrame {
 
                         m.getNumeroInventario(),
 
-                        m.getUsuario(),
+                        m.getNombreEquipo(),
 
                         m.getAreaAnterior(),
 

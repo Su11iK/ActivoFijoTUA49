@@ -21,7 +21,7 @@ public class BajaDAO {
 
                 b.numero_inventario,
 
-                u.nombre_usuario,
+                ba.nombre_equipo,
 
                 ba.fecha_baja,
 
@@ -58,9 +58,8 @@ public class BajaDAO {
                         rs.getString(
                                 "numero_inventario"));
 
-                b.setUsuario(
-                        rs.getString(
-                                "nombre_usuario"));
+                b.setNombreEquipo(
+                    rs.getString("nombre_equipo"));
 
                 b.setFechaBaja(
                         rs.getTimestamp(

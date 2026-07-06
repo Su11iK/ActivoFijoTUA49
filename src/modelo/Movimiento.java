@@ -16,6 +16,7 @@ public class Movimiento {
     private String observaciones;
     private String status;
     private String statusAnterior;
+    private String nombreEquipo;
 
     public int getId() {
         return id;
@@ -53,6 +54,9 @@ public class Movimiento {
     public String getStatusAnterior() {
         return statusAnterior;
     }
+    public String getNombreEquipo() {
+        return nombreEquipo;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -89,5 +93,8 @@ public class Movimiento {
     }
     public void setStatusAnterior(String statusAnterior) {
         this.statusAnterior = statusAnterior;
+    }
+    public void setNombreEquipo(String nombreEquipo) {
+        this.nombreEquipo = nombreEquipo;
     }
 }

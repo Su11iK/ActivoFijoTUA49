@@ -21,8 +21,7 @@ public class MovimientoDAO {
                 m.fecha_movimiento,
 
                 b.numero_inventario,
-
-                u.nombre_usuario,
+                m.nombre_equipo,
 
                 m.nombre_area_anterior,
                 m.nombre_area_nueva,
@@ -70,8 +69,8 @@ public class MovimientoDAO {
                 m.setNumeroInventario(
                     rs.getString("numero_inventario"));
 
-                m.setUsuario(
-                    rs.getString("nombre_usuario"));
+                m.setNombreEquipo(
+                    rs.getString("nombre_equipo"));
 
                 m.setAreaAnterior(
                     rs.getString("nombre_area_anterior"));

@@ -14,6 +14,8 @@ public class Baja {
 
     private String motivo;
 
+    private String nombreEquipo;
+
     public int getId() {
         return id;
     }
@@ -34,6 +36,10 @@ public class Baja {
         return usuario;
     }
 
+    public String getNombreEquipo() {
+        return nombreEquipo;
+    }
+
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
@@ -52,5 +58,9 @@ public class Baja {
 
     public void setMotivo(String motivo) {
         this.motivo = motivo;
+    }
+
+    public void setNombreEquipo(String nombreEquipo) {
+        this.nombreEquipo = nombreEquipo;
     }
 }

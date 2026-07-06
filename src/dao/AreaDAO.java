@@ -80,6 +80,11 @@ public class AreaDAO {
         String observaciones,
         boolean cambioNombre
     ) {
+        String nombreEquipo = System.getenv("COMPUTERNAME");
+        
+        if (nombreEquipo == null) {
+            nombreEquipo = "DESCONOCIDO";
+        }
 
         String sql = """
             UPDATE areas
@@ -120,7 +125,7 @@ public class AreaDAO {
                     String sqlMov = """
                         INSERT INTO movimientos(
                             id_bien,
-                            id_usuario,
+                            nombre_equipo,
                             fecha_movimiento,
                             tipo_movimiento,
                             nombre_area_anterior,
@@ -129,7 +134,7 @@ public class AreaDAO {
                         )
                         VALUES(
                             ?,
-                            1,
+                            ?,
                             CURRENT_TIMESTAMP,
                             'EDICION DE AREA',
                             ?,
@@ -142,9 +147,10 @@ public class AreaDAO {
                             conn.prepareStatement(sqlMov);
 
                     psMov.setInt(1, idBien);
-                    psMov.setString(2, nombreAnterior);
-                    psMov.setString(3, nombre);
-                    psMov.setString(4, observaciones);
+                    psMov.setString(2, nombreEquipo);
+                    psMov.setString(3, nombreAnterior);
+                    psMov.setString(4, nombre);
+                    psMov.setString(5, observaciones);
 
                     psMov.executeUpdate();
                 }
@@ -278,11 +284,16 @@ public class AreaDAO {
             String observaciones,
             String areAnterior
     ) throws SQLException {
+        String nombreEquipo = System.getenv("COMPUTERNAME");
+        
+        if (nombreEquipo == null) {
+            nombreEquipo = "DESCONOCIDO";
+        }
 
         String sql = """
             INSERT INTO movimientos(
                 id_bien,
-                id_usuario,
+                nombre_equipo,
                 fecha_movimiento,
                 tipo_movimiento,
                 observaciones,
@@ -304,7 +315,7 @@ public class AreaDAO {
                 conn.prepareStatement(sql);
 
         ps.setInt(1, idBien);
-        ps.setInt(2, idUsuario);
+        ps.setString(2, nombreEquipo);
         ps.setString(3, observaciones);
         ps.setString(4, areAnterior);
 
