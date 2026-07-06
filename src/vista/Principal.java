@@ -140,11 +140,13 @@ public class Principal extends JFrame {
         JButton btnEditar = new JButton("Actualizar");
         JButton btnEliminar = new JButton("Baja");
         JButton btnAsignar = new JButton("Asignar Resguardante");
+        JButton btnReporte = new JButton("Generar Reporte");
         
         panelCRUD.add(btnAlta);
         panelCRUD.add(btnEditar);
         panelCRUD.add(btnEliminar);
         panelCRUD.add(btnAsignar);
+        panelCRUD.add(btnReporte);
 
         btnAlta.addActionListener(e -> {
             AltaBien alta = new AltaBien(this);
