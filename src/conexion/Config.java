@@ -1,5 +1,6 @@
 package conexion;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -10,7 +11,8 @@ public class Config {
 
     static {
         try {
-            FileInputStream archivo = new FileInputStream("config/config.properties");
+            String ruta = System.getProperty("user.dir") + File.separator + "config" + File.separator + "config.properties";
+            FileInputStream archivo = new FileInputStream(ruta);
             properties.load(archivo);
             archivo.close();
         } catch (IOException e) {
