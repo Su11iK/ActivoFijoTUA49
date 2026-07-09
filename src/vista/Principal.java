@@ -102,7 +102,12 @@ public class Principal extends JFrame {
         // =========================
         // 🔹 TABLA
         // =========================
-        modelo = new DefaultTableModel();
+        modelo = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                        return false;
+                }
+        };
 
         modelo.addColumn("Inventario");
         modelo.addColumn("Descripción");

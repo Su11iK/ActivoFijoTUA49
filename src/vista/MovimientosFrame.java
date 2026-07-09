@@ -6,10 +6,18 @@ import modelo.Movimiento;
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.event.DocumentEvent;
+import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class MovimientosFrame extends JFrame {
 
@@ -26,7 +34,12 @@ public class MovimientosFrame extends JFrame {
 
         setLayout(new BorderLayout());
 
-        modelo = new DefaultTableModel();
+        modelo = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                        return false;
+                }
+        };
 
         modelo.addColumn("Fecha");
         modelo.addColumn("Inventario");
@@ -44,6 +57,31 @@ public class MovimientosFrame extends JFrame {
         modelo.addColumn("Observaciones");
 
         tabla = new JTable(modelo);
+
+        tabla.addMouseListener(new MouseAdapter() {
+
+                @Override
+                public void mouseClicked(MouseEvent e) {
+
+                        if (e.getClickCount() == 2) {
+
+                                int fila = tabla.getSelectedRow();
+                                int columna = tabla.getSelectedColumn();
+                                int columnaObservaciones =
+                                        tabla.getColumnModel()
+                                                .getColumnIndex("Observaciones");
+
+                                // Cambia el índice por el de la columna Observaciones
+                                if (columna == columnaObservaciones) {
+
+                                String observaciones =
+                                        tabla.getValueAt(fila, columna).toString();
+
+                                mostrarObservaciones(observaciones);
+                                }
+                        }
+                }
+        });
 
         tabla.setAutoCreateRowSorter(true);
 
@@ -239,5 +277,26 @@ public class MovimientosFrame extends JFrame {
                 });
             }
         }
+    }
+
+    private void mostrarObservaciones(String texto) {
+
+        JTextArea area = new JTextArea(texto);
+
+        area.setEditable(false);
+        area.setLineWrap(true);
+        area.setWrapStyleWord(true);
+        area.setCaretPosition(0);
+
+        JScrollPane scroll = new JScrollPane(area);
+
+        scroll.setPreferredSize(new Dimension(500, 300));
+
+        JOptionPane.showMessageDialog(
+                this,
+                scroll,
+                "Observaciones",
+                JOptionPane.INFORMATION_MESSAGE
+        );
     }
 }

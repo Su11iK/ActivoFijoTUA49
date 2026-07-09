@@ -32,7 +32,12 @@ public class ResguardantesFrame extends JDialog {
         // =========================
         // TABLA
         // =========================
-        modelo = new DefaultTableModel();
+        modelo = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                        return false;
+                }
+        };
 
         modelo.addColumn("Nombre");
         modelo.addColumn("Puesto");
