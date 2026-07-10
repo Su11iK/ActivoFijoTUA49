@@ -1,8 +1,10 @@
 package conexion;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 public class Config {
@@ -10,9 +12,23 @@ public class Config {
     private static final Properties properties = new Properties();
 
     static {
+
+        Path base;
+
         try {
-            String ruta = System.getProperty("user.dir") + File.separator + "config" + File.separator + "config.properties";
-            FileInputStream archivo = new FileInputStream(ruta);
+            base = Paths.get(
+                Config.class.getProtectionDomain()
+                    .getCodeSource()
+                    .getLocation()
+                    .toURI()
+            ).getParent();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("No se pudo obtener la ruta de la aplicación.", e);
+        }
+
+        try {
+            Path ruta = base.resolve("config").resolve("config.properties");
+            FileInputStream archivo = new FileInputStream(ruta.toFile());
             properties.load(archivo);
             archivo.close();
         } catch (IOException e) {
