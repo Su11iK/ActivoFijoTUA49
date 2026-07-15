@@ -34,7 +34,6 @@ public class BienDAO {
             FROM bienes b
             LEFT JOIN areas a ON b.area_id = a.id_area
             LEFT JOIN resguardantes r ON b.resguardante_id = r.id_resguardante
-            WHERE b.status <> 'BAJA'
             """;
 
         try (Connection conn = ConexionBD.conectar();
@@ -218,7 +217,9 @@ public class BienDAO {
 
         String sqlBien = """
             UPDATE bienes
-            SET status = 'BAJA'
+            SET status = 'BAJA',
+                resguardante_id = null,
+                area_id = null
             WHERE id_bien = ?
         """;
 

@@ -239,6 +239,16 @@ public class Principal extends JFrame {
                 return;
             }
 
+            for (int fila : filasModelo) {
+                Bien bien = listaBienes.get(fila);
+
+                if ("BAJA".equalsIgnoreCase(bien.getStatus())) {
+                JOptionPane.showMessageDialog(this,
+                        "Uno o más bienes seleccionados ya se encuentran dados de baja.");
+                return;
+                }
+            }
+
             BajaBien baja =
                     new BajaBien(
                             this,
@@ -275,6 +285,16 @@ public class Principal extends JFrame {
                 );
 
                 return;
+            }
+
+            for (int fila : filasModelo) {
+                Bien bien = listaBienes.get(fila);
+
+                if ("BAJA".equalsIgnoreCase(bien.getStatus())) {
+                JOptionPane.showMessageDialog(this,
+                        "No se permite en bienes que ya se encuentran dados de baja.");
+                return;
+                }
             }
 
             AsignarResguardante ar =
@@ -387,7 +407,5 @@ public class Principal extends JFrame {
                     b.getStatus()
             });
         }
-
-        
     }
 }
