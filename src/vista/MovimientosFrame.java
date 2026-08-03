@@ -2,6 +2,10 @@ package vista;
 
 import dao.MovimientoDAO;
 import modelo.Movimiento;
+import ui.components.PrimaryButton;
+import ui.components.RoundedPanel;
+import ui.components.SearchField;
+import ui.components.TableStyle;
 
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
@@ -11,19 +15,15 @@ import java.awt.*;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.event.DocumentEvent;
-import java.awt.Dimension;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 public class MovimientosFrame extends JFrame {
 
     private JTable tabla;
     private DefaultTableModel modelo;
-    private JTextField txtBuscar;
+    private SearchField txtBuscar;
     private List<Movimiento> listaMovimientos;
 
     public MovimientosFrame() {
@@ -57,6 +57,7 @@ public class MovimientosFrame extends JFrame {
         modelo.addColumn("Observaciones");
 
         tabla = new JTable(modelo);
+        TableStyle.apply(tabla);
 
         tabla.addMouseListener(new MouseAdapter() {
 
@@ -85,10 +86,10 @@ public class MovimientosFrame extends JFrame {
 
         tabla.setAutoCreateRowSorter(true);
 
-        JButton btnBienes = new JButton("Bienes");
-        JButton btnBajas = new JButton("Bajas");
+        PrimaryButton btnBienes = new PrimaryButton("Bienes");
+        PrimaryButton btnBajas = new PrimaryButton("Bajas");
 
-        JPanel panelBotonesSuperior = new JPanel();
+        RoundedPanel panelBotonesSuperior = new RoundedPanel();
 
         panelBotonesSuperior.add(btnBienes);
         panelBotonesSuperior.add(btnBajas);
@@ -113,14 +114,15 @@ public class MovimientosFrame extends JFrame {
             dispose();
         });
 
-        JPanel panelSuperior = new JPanel(new BorderLayout());
+        RoundedPanel panelSuperior = new RoundedPanel(new BorderLayout());
 
         panelSuperior.add(
                 new JLabel("Buscar: "),
                 BorderLayout.WEST
         );
 
-        txtBuscar = new JTextField();
+        txtBuscar = new SearchField();
+        txtBuscar.setColumns(25);
 
         panelSuperior.add(
                 txtBuscar,
@@ -129,7 +131,7 @@ public class MovimientosFrame extends JFrame {
 
         add(panelSuperior, BorderLayout.NORTH);
 
-        JPanel contenedorSuperior = new JPanel(new BorderLayout());
+        RoundedPanel contenedorSuperior = new RoundedPanel(new BorderLayout());
 
         contenedorSuperior.add(panelBotonesSuperior, BorderLayout.NORTH);
         contenedorSuperior.add(panelSuperior, BorderLayout.SOUTH);

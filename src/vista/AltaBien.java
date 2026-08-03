@@ -2,6 +2,9 @@ package vista;
 
 import dao.BienDAO;
 import modelo.Bien;
+import ui.components.PrimaryButton;
+import ui.components.RoundedPanel;
+import ui.components.SearchField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,13 +12,13 @@ import java.time.LocalDateTime;
 
 public class AltaBien extends JDialog {
 
-    private JTextField txtInventario;
-    private JTextField txtDescripcion;
-    private JTextField txtMarca;
-    private JTextField txtModelo;
-    private JTextField txtSerie;
-    private JTextField txtProveedor;
-    private JTextField txtFactura;
+    private SearchField txtInventario;
+    private SearchField txtDescripcion;
+    private SearchField txtMarca;
+    private SearchField txtModelo;
+    private SearchField txtSerie;
+    private SearchField txtProveedor;
+    private SearchField txtFactura;
 
     private JCheckBox chkMarca;
     private JCheckBox chkModelo;
@@ -44,10 +47,11 @@ public class AltaBien extends JDialog {
         // =========================
         add(new JLabel("No. Inventario"));
 
-        txtInventario = new JTextField();
+        txtInventario = new SearchField();
+        txtInventario.setColumns(25);
         add(txtInventario);
 
-        JPanel panelRadio = new JPanel();
+        RoundedPanel panelRadio = new RoundedPanel();
 
         rbArrendamiento = new JRadioButton("ARRENDAMIENTO");
         rbSinNumero = new JRadioButton("SIN NUMERO");
@@ -62,7 +66,8 @@ public class AltaBien extends JDialog {
         // =========================
         add(new JLabel("Descripción"));
 
-        txtDescripcion = new JTextField();
+        txtDescripcion = new SearchField();
+        txtDescripcion.setColumns(25);
         add(txtDescripcion);
 
         add(new JLabel(""));
@@ -72,7 +77,8 @@ public class AltaBien extends JDialog {
         // =========================
         add(new JLabel("Marca"));
 
-        txtMarca = new JTextField();
+        txtMarca = new SearchField();
+        txtMarca.setColumns(25);
         add(txtMarca);
 
         chkMarca = new JCheckBox("Sin marca");
@@ -83,7 +89,8 @@ public class AltaBien extends JDialog {
         // =========================
         add(new JLabel("Modelo"));
 
-        txtModelo = new JTextField();
+        txtModelo = new SearchField();
+        txtModelo.setColumns(25);
         add(txtModelo);
 
         chkModelo = new JCheckBox("Sin modelo");
@@ -94,7 +101,8 @@ public class AltaBien extends JDialog {
         // =========================
         add(new JLabel("Serie"));
 
-        txtSerie = new JTextField();
+        txtSerie = new SearchField();
+        txtSerie.setColumns(25);
         add(txtSerie);
 
         chkSerie = new JCheckBox("Sin serie");
@@ -105,7 +113,8 @@ public class AltaBien extends JDialog {
         // =========================
         add(new JLabel("Proveedor"));
 
-        txtProveedor = new JTextField();
+        txtProveedor = new SearchField();
+        txtProveedor.setColumns(25);
         add(txtProveedor);
 
         chkProveedor = new JCheckBox("Sin proveedor");
@@ -116,7 +125,8 @@ public class AltaBien extends JDialog {
         // =========================
         add(new JLabel("Factura"));
 
-        txtFactura = new JTextField();
+        txtFactura = new SearchField();
+        txtFactura.setColumns(25);
         add(txtFactura);
 
         chkFactura = new JCheckBox("Sin factura");
@@ -155,7 +165,8 @@ public class AltaBien extends JDialog {
         // =========================
         add(new JLabel("Fecha Alta"));
 
-        JTextField txtFecha = new JTextField(LocalDateTime.now().toString());
+        SearchField txtFecha = new SearchField(LocalDateTime.now().toString());
+        txtFecha.setColumns(25);
         txtFecha.setEnabled(false);
 
         add(txtFecha);
@@ -178,8 +189,8 @@ public class AltaBien extends JDialog {
         // =========================
         // BOTONES
         // =========================
-        JButton btnGuardar = new JButton("Subir Alta");
-        JButton btnCancelar = new JButton("Cancelar");
+        PrimaryButton btnGuardar = new PrimaryButton("Subir Alta");
+        PrimaryButton btnCancelar = new PrimaryButton("Cancelar");
 
         add(btnGuardar);
         add(btnCancelar);
@@ -231,7 +242,7 @@ public class AltaBien extends JDialog {
         btnCancelar.addActionListener(e -> dispose());
     }
 
-    private void configurarCheck(JCheckBox check, JTextField campo, String valor) {
+    private void configurarCheck(JCheckBox check, SearchField campo, String valor) {
 
         check.addActionListener(e -> {
 

@@ -2,6 +2,8 @@ package vista;
 
 import dao.BienDAO;
 import modelo.Bien;
+import ui.components.PrimaryButton;
+import ui.components.SearchField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,13 +13,13 @@ public class ActualizarBien extends JDialog {
 
     private Bien bien;
 
-    private JTextField txtInventario;
-    private JTextField txtDescripcion;
-    private JTextField txtMarca;
-    private JTextField txtModelo;
-    private JTextField txtSerie;
-    private JTextField txtProveedor;
-    private JTextField txtFactura;
+    private SearchField txtInventario;
+    private SearchField txtDescripcion;
+    private SearchField txtMarca;
+    private SearchField txtModelo;
+    private SearchField txtSerie;
+    private SearchField txtProveedor;
+    private SearchField txtFactura;
 
     private JCheckBox chkMarca;
     private JCheckBox chkModelo;
@@ -46,7 +48,8 @@ public class ActualizarBien extends JDialog {
         // =========================
         add(new JLabel("No. Inventario"));
 
-        txtInventario = new JTextField(bien.getNumeroInventario());
+        txtInventario = new SearchField(bien.getNumeroInventario());
+        txtInventario.setColumns(25);
         txtInventario.setEnabled(false);
 
         add(txtInventario);
@@ -58,7 +61,8 @@ public class ActualizarBien extends JDialog {
         // =========================
         add(new JLabel("Descripción"));
 
-        txtDescripcion = new JTextField(bien.getDescripcion());
+        txtDescripcion = new SearchField(bien.getDescripcion());
+        txtDescripcion.setColumns(25);
         add(txtDescripcion);
 
         add(new JLabel(""));
@@ -68,7 +72,8 @@ public class ActualizarBien extends JDialog {
         // =========================
         add(new JLabel("Marca"));
 
-        txtMarca = new JTextField(bien.getMarca());
+        txtMarca = new SearchField(bien.getMarca());
+        txtMarca.setColumns(25);
         add(txtMarca);
 
         chkMarca = new JCheckBox("Sin marca");
@@ -79,7 +84,8 @@ public class ActualizarBien extends JDialog {
         // =========================
         add(new JLabel("Modelo"));
 
-        txtModelo = new JTextField(bien.getModelo());
+        txtModelo = new SearchField(bien.getModelo());
+        txtModelo.setColumns(25);
         add(txtModelo);
 
         chkModelo = new JCheckBox("Sin modelo");
@@ -90,7 +96,8 @@ public class ActualizarBien extends JDialog {
         // =========================
         add(new JLabel("Serie"));
 
-        txtSerie = new JTextField(bien.getNumeroSerie());
+        txtSerie = new SearchField(bien.getNumeroSerie());
+        txtSerie.setColumns(25);
         add(txtSerie);
 
         chkSerie = new JCheckBox("Sin serie");
@@ -101,7 +108,8 @@ public class ActualizarBien extends JDialog {
         // =========================
         add(new JLabel("Proveedor"));
 
-        txtProveedor = new JTextField(bien.getProveedor());
+        txtProveedor = new SearchField(bien.getProveedor());
+        txtProveedor.setColumns(25);
         add(txtProveedor);
 
         chkProveedor = new JCheckBox("Sin proveedor");
@@ -112,7 +120,8 @@ public class ActualizarBien extends JDialog {
         // =========================
         add(new JLabel("Factura"));
 
-        txtFactura = new JTextField(bien.getFactura());
+        txtFactura = new SearchField(bien.getFactura());
+        txtFactura.setColumns(25);
         add(txtFactura);
 
         chkFactura = new JCheckBox("Sin factura");
@@ -172,8 +181,9 @@ public class ActualizarBien extends JDialog {
         // =========================
         add(new JLabel("Fecha actualización"));
 
-        JTextField txtFecha = new JTextField(
+        SearchField txtFecha = new SearchField(
                 LocalDateTime.now().toString());
+        txtFecha.setColumns(25);
 
         txtFecha.setEnabled(false);
 
@@ -197,8 +207,8 @@ public class ActualizarBien extends JDialog {
         // =========================
         // BOTONES
         // =========================
-        JButton btnActualizar = new JButton("Actualizar");
-        JButton btnCancelar = new JButton("Cancelar");
+        PrimaryButton btnActualizar = new PrimaryButton("Actualizar");
+        PrimaryButton btnCancelar = new PrimaryButton("Cancelar");
 
         add(btnActualizar);
         add(btnCancelar);
@@ -220,7 +230,7 @@ public class ActualizarBien extends JDialog {
         btnCancelar.addActionListener(e -> dispose());
     }
 
-    private void configurarCheck(JCheckBox check, JTextField campo, String valor) {
+    private void configurarCheck(JCheckBox check, SearchField campo, String valor) {
 
         check.addActionListener(e -> {
 

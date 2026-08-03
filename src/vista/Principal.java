@@ -2,6 +2,10 @@ package vista;
 
 import dao.BienDAO;
 import modelo.Bien;
+import ui.components.PrimaryButton;
+import ui.components.RoundedPanel;
+import ui.components.SearchField;
+import ui.components.TableStyle;
 
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
@@ -16,7 +20,7 @@ public class Principal extends JFrame {
     private JTable tabla;
     private DefaultTableModel modelo;
     private List<Bien> listaBienes;
-    private JTextField txtBuscar;
+    private SearchField txtBuscar;
 
     public Principal() {
         setTitle("Sistema de Inventario");
@@ -28,10 +32,10 @@ public class Principal extends JFrame {
         // 🔹 PANEL SUPERIOR
         // =========================
 
-        JButton btnMovimientos = new JButton("Movimientos");
-        JButton btnBajas = new JButton("Bajas");
+        PrimaryButton btnMovimientos = new PrimaryButton("Movimientos");
+        PrimaryButton btnBajas = new PrimaryButton("Bajas");
 
-        JPanel panelBotonesSuperior = new JPanel();
+        RoundedPanel panelBotonesSuperior = new RoundedPanel();
 
         panelBotonesSuperior.add(btnMovimientos);
         panelBotonesSuperior.add(btnBajas);
@@ -56,14 +60,15 @@ public class Principal extends JFrame {
             dispose();
         });
 
-        JPanel panelSuperior = new JPanel(new BorderLayout());
+        RoundedPanel panelSuperior = new RoundedPanel(new BorderLayout());
 
         panelSuperior.add(
                 new JLabel("Buscar: "),
                 BorderLayout.WEST
         );
 
-        txtBuscar = new JTextField();
+        txtBuscar = new SearchField();
+        txtBuscar.setColumns(25);
 
         panelSuperior.add(
                 txtBuscar,
@@ -72,7 +77,7 @@ public class Principal extends JFrame {
 
         add(panelSuperior, BorderLayout.NORTH);
 
-        JPanel contenedorSuperior = new JPanel(new BorderLayout());
+        RoundedPanel contenedorSuperior = new RoundedPanel(new BorderLayout());
 
         contenedorSuperior.add(panelBotonesSuperior, BorderLayout.NORTH);
         contenedorSuperior.add(panelSuperior, BorderLayout.SOUTH);
@@ -124,6 +129,7 @@ public class Principal extends JFrame {
         modelo.addColumn("Estatus");
 
         tabla = new JTable(modelo);
+        TableStyle.apply(tabla);
         tabla.setAutoCreateRowSorter(true);
         tabla.setSelectionMode(
             ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
@@ -135,16 +141,16 @@ public class Principal extends JFrame {
         // =========================
         // 🔹 PANEL INFERIOR PRINCIPAL
         // =========================
-        JPanel contenedorInferior = new JPanel();
+        RoundedPanel contenedorInferior = new RoundedPanel();
         contenedorInferior.setLayout(new BoxLayout(contenedorInferior, BoxLayout.Y_AXIS));
 
         // 🔸 CRUD
-        JPanel panelCRUD = new JPanel();
+        RoundedPanel panelCRUD = new RoundedPanel();
 
-        JButton btnAlta = new JButton("Alta");
-        JButton btnEditar = new JButton("Actualizar");
-        JButton btnEliminar = new JButton("Baja");
-        JButton btnAsignar = new JButton("Asignar Resguardante");
+        PrimaryButton btnAlta = new PrimaryButton("Alta");
+        PrimaryButton btnEditar = new PrimaryButton("Actualizar");
+        PrimaryButton btnEliminar = new PrimaryButton("Baja");
+        PrimaryButton btnAsignar = new PrimaryButton("Asignar Resguardante");
         
         panelCRUD.add(btnAlta);
         panelCRUD.add(btnEditar);
@@ -310,10 +316,10 @@ public class Principal extends JFrame {
         });
 
         // 🔸 Catálogos
-        JPanel panelCatalogos = new JPanel();
+        RoundedPanel panelCatalogos = new RoundedPanel();
 
-        JButton btnAreas = new JButton("Áreas");
-        JButton btnResguardantes = new JButton("Resguardantes");
+        PrimaryButton btnAreas = new PrimaryButton("Áreas");
+        PrimaryButton btnResguardantes = new PrimaryButton("Resguardantes");
 
         panelCatalogos.add(btnAreas);
         panelCatalogos.add(btnResguardantes);

@@ -4,6 +4,9 @@ import dao.AreaDAO;
 import dao.ResguardanteDAO;
 import modelo.Area;
 import modelo.Resguardante;
+import ui.components.PrimaryButton;
+import ui.components.RoundedPanel;
+import ui.components.SearchField;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -51,7 +54,7 @@ public class ResguardantesFrame extends JDialog {
         // =========================
         // BOTONES
         // =========================
-        JPanel panelBotones = new JPanel();
+        RoundedPanel panelBotones = new RoundedPanel();
 
         panelBotones.setLayout(
                 new BoxLayout(
@@ -60,17 +63,17 @@ public class ResguardantesFrame extends JDialog {
                 )
         );
 
-        JButton btnAgregar =
-                new JButton("Agregar");
+        PrimaryButton btnAgregar =
+                new PrimaryButton("Agregar");
 
-        JButton btnEditar =
-                new JButton("Editar");
+        PrimaryButton btnEditar =
+                new PrimaryButton("Editar");
 
-        JButton btnAsignar =
-                new JButton("Asignar");
+        PrimaryButton btnAsignar =
+                new PrimaryButton("Asignar");
 
-        JButton btnEliminar =
-                new JButton("Eliminar");
+        PrimaryButton btnEliminar =
+                new PrimaryButton("Eliminar");
 
         panelBotones.add(btnAgregar);
         panelBotones.add(Box.createVerticalStrut(10));
@@ -129,11 +132,13 @@ public class ResguardantesFrame extends JDialog {
     // =========================
     private void agregar() {
 
-        JTextField txtNombre =
-                new JTextField();
+        SearchField txtNombre =
+                new SearchField();
+        txtNombre.setColumns(25);
 
-        JTextField txtPuesto =
-                new JTextField();
+        SearchField txtPuesto =
+                new SearchField();
+        txtPuesto.setColumns(25);
 
         JComboBox<Area> cbAreas =
                 new JComboBox<>();
@@ -147,7 +152,7 @@ public class ResguardantesFrame extends JDialog {
             cbAreas.addItem(a);
         }
 
-        JPanel panel = new JPanel(
+        RoundedPanel panel = new RoundedPanel(
                 new GridLayout(0, 1));
 
         panel.add(new JLabel("Nombre"));
@@ -218,17 +223,19 @@ public class ResguardantesFrame extends JDialog {
         Resguardante r =
                 listaResguardantes.get(fila);
 
-        JTextField txtNombre =
-                new JTextField(r.getNombre());
+        SearchField txtNombre =
+                new SearchField(r.getNombre());
+        txtNombre.setColumns(25);
 
-        JTextField txtPuesto =
-                new JTextField(r.getPuesto());
+        SearchField txtPuesto =
+                new SearchField(r.getPuesto());
+        txtPuesto.setColumns(25);
 
         JTextArea txtObs =
                 new JTextArea();
 
-        JPanel panel =
-                new JPanel(new GridLayout(0, 1));
+        RoundedPanel panel =
+                new RoundedPanel(new GridLayout(0, 1));
 
         panel.add(new JLabel("Nombre:"));
         panel.add(txtNombre);
@@ -357,8 +364,8 @@ public class ResguardantesFrame extends JDialog {
 
         cbAreas.setSelectedItem(seleccionada);
 
-        JPanel panel =
-                new JPanel(new GridLayout(0, 1));
+        RoundedPanel panel =
+                new RoundedPanel(new GridLayout(0, 1));
 
         panel.add(new JLabel("Área:"));
         panel.add(cbAreas);
@@ -464,7 +471,7 @@ public class ResguardantesFrame extends JDialog {
 
                 JTextArea txtObs = new JTextArea(5,20);
 
-                JPanel panel = new JPanel(new BorderLayout());
+                RoundedPanel panel = new RoundedPanel(new BorderLayout());
 
                 panel.add(
                 new JLabel("Observaciones:"),

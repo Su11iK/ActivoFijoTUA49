@@ -2,6 +2,9 @@ package vista;
 
 import dao.AreaDAO;
 import modelo.Area;
+import ui.components.PrimaryButton;
+import ui.components.RoundedPanel;
+import ui.components.SearchField;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -43,7 +46,7 @@ public class AreasFrame extends JDialog {
         // =========================
         // BOTONES
         // =========================
-        JPanel panelBotones = new JPanel();
+        RoundedPanel panelBotones = new RoundedPanel();
         panelBotones.setLayout(
             new FlowLayout(FlowLayout.LEFT)
         );
@@ -52,14 +55,14 @@ public class AreasFrame extends JDialog {
             new BoxLayout(panelBotones, BoxLayout.Y_AXIS)
         );
 
-        JButton btnAgregar =
-                new JButton("Agregar");
+        PrimaryButton btnAgregar =
+                new PrimaryButton("Agregar");
 
-        JButton btnEditar =
-                new JButton("Editar");
+        PrimaryButton btnEditar =
+                new PrimaryButton("Editar");
 
-        JButton btnEliminar =
-                new JButton("Eliminar");
+        PrimaryButton btnEliminar =
+                new PrimaryButton("Eliminar");
 
         panelBotones.add(btnAgregar);
         panelBotones.add(Box.createVerticalStrut(10));
@@ -150,14 +153,15 @@ public class AreasFrame extends JDialog {
 
         Area area = listaAreas.get(fila);
 
-        JTextField txtNombre =
-                new JTextField(area.getNombre());
+        SearchField txtNombre =
+                new SearchField(area.getNombre());
+        txtNombre.setColumns(25);
 
         JTextArea txtObs =
                 new JTextArea();
 
-        JPanel panel =
-                new JPanel(new GridLayout(0, 1));
+        RoundedPanel panel =
+                new RoundedPanel(new GridLayout(0, 1));
 
         panel.add(new JLabel("Nombre:"));
         panel.add(txtNombre);
@@ -254,7 +258,7 @@ public class AreasFrame extends JDialog {
 
                 JTextArea txtObs = new JTextArea(5,20);
 
-                JPanel panel = new JPanel(new BorderLayout());
+                RoundedPanel panel = new RoundedPanel(new BorderLayout());
 
                 panel.add(
                 new JLabel("Observaciones:"),

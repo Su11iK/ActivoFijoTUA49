@@ -2,6 +2,10 @@ package vista;
 
 import dao.BajaDAO;
 import modelo.Baja;
+import ui.components.PrimaryButton;
+import ui.components.RoundedPanel;
+import ui.components.SearchField;
+import ui.components.TableStyle;
 
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
@@ -21,7 +25,7 @@ public class BajasFrame extends JFrame {
 
     private DefaultTableModel modelo;
 
-    private JTextField txtBuscar;
+    private SearchField txtBuscar;
 
     private List<Baja> listaBajas;
 
@@ -41,22 +45,23 @@ public class BajasFrame extends JFrame {
         // PANEL SUPERIOR
         // =========================
 
-        JButton btnMovimientos = new JButton("Movimientos");
-        JButton btnBienes = new JButton("Bienes");
+        PrimaryButton btnMovimientos = new PrimaryButton("Movimientos");
+        PrimaryButton btnBienes = new PrimaryButton("Bienes");
 
-        JPanel panelBotonesSuperior = new JPanel();
+        RoundedPanel panelBotonesSuperior = new RoundedPanel();
 
         panelBotonesSuperior.add(btnMovimientos);
         panelBotonesSuperior.add(btnBienes);
 
-        JPanel panelSuperior = new JPanel(new BorderLayout());
+        RoundedPanel panelSuperior = new RoundedPanel(new BorderLayout());
 
         panelSuperior.add(
                 new JLabel("Buscar: "),
                 BorderLayout.WEST
         );
 
-        txtBuscar = new JTextField();
+        txtBuscar = new SearchField();
+        txtBuscar.setColumns(25);
 
         panelSuperior.add(
                 txtBuscar,
@@ -65,7 +70,7 @@ public class BajasFrame extends JFrame {
 
         add(panelSuperior, BorderLayout.NORTH);
 
-        JPanel contenedorSuperior = new JPanel(new BorderLayout());
+        RoundedPanel contenedorSuperior = new RoundedPanel(new BorderLayout());
 
         contenedorSuperior.add(panelBotonesSuperior, BorderLayout.NORTH);
         contenedorSuperior.add(panelSuperior, BorderLayout.SOUTH);
@@ -112,6 +117,7 @@ public class BajasFrame extends JFrame {
         modelo.addColumn("Observaciones");
 
         tabla = new JTable(modelo);
+        TableStyle.apply(tabla);
 
         tabla.addMouseListener(new MouseAdapter() {
 
