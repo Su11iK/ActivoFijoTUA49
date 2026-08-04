@@ -5,6 +5,7 @@ import dao.ResguardanteDAO;
 import modelo.Bien;
 import modelo.Resguardante;
 import ui.components.PrimaryButton;
+import ui.components.SecondaryButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -94,8 +95,8 @@ public class AsignarResguardante extends JDialog {
         PrimaryButton btnAsignar =
                 new PrimaryButton("Asignar");
 
-        PrimaryButton btnCancelar =
-                new PrimaryButton("Cancelar");
+        SecondaryButton btnCancelar =
+                new SecondaryButton("Cancelar");
 
         add(btnAsignar);
         add(btnCancelar);

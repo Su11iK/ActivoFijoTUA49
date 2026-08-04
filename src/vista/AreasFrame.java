@@ -5,6 +5,8 @@ import modelo.Area;
 import ui.components.PrimaryButton;
 import ui.components.RoundedPanel;
 import ui.components.SearchField;
+import ui.components.SecondaryButton;
+import ui.components.TableStyle;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -39,6 +41,7 @@ public class AreasFrame extends JDialog {
         modelo.addColumn("Nombre Área");
 
         tabla = new JTable(modelo);
+        TableStyle.apply(tabla);
 
         add(new JScrollPane(tabla),
                 BorderLayout.CENTER);
@@ -61,8 +64,8 @@ public class AreasFrame extends JDialog {
         PrimaryButton btnEditar =
                 new PrimaryButton("Editar");
 
-        PrimaryButton btnEliminar =
-                new PrimaryButton("Eliminar");
+        SecondaryButton btnEliminar =
+                new SecondaryButton("Eliminar");
 
         panelBotones.add(btnAgregar);
         panelBotones.add(Box.createVerticalStrut(10));

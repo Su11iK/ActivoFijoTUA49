@@ -7,6 +7,8 @@ import modelo.Resguardante;
 import ui.components.PrimaryButton;
 import ui.components.RoundedPanel;
 import ui.components.SearchField;
+import ui.components.SecondaryButton;
+import ui.components.TableStyle;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -47,6 +49,7 @@ public class ResguardantesFrame extends JDialog {
         modelo.addColumn("Área");
 
         tabla = new JTable(modelo);
+        TableStyle.apply(tabla);
 
         add(new JScrollPane(tabla),
                 BorderLayout.CENTER);
@@ -72,8 +75,8 @@ public class ResguardantesFrame extends JDialog {
         PrimaryButton btnAsignar =
                 new PrimaryButton("Asignar");
 
-        PrimaryButton btnEliminar =
-                new PrimaryButton("Eliminar");
+        SecondaryButton btnEliminar =
+                new SecondaryButton("Eliminar");
 
         panelBotones.add(btnAgregar);
         panelBotones.add(Box.createVerticalStrut(10));

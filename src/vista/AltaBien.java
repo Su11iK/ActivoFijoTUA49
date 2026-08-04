@@ -5,6 +5,7 @@ import modelo.Bien;
 import ui.components.PrimaryButton;
 import ui.components.RoundedPanel;
 import ui.components.SearchField;
+import ui.components.SecondaryButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -190,7 +191,7 @@ public class AltaBien extends JDialog {
         // BOTONES
         // =========================
         PrimaryButton btnGuardar = new PrimaryButton("Subir Alta");
-        PrimaryButton btnCancelar = new PrimaryButton("Cancelar");
+        SecondaryButton btnCancelar = new SecondaryButton("Cancelar");
 
         add(btnGuardar);
         add(btnCancelar);

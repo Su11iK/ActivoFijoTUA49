@@ -4,6 +4,7 @@ import dao.BienDAO;
 import modelo.Bien;
 import ui.components.PrimaryButton;
 import ui.components.SearchField;
+import ui.components.SecondaryButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -191,8 +192,8 @@ public class ActualizarMultiple extends JDialog {
         PrimaryButton btnActualizar =
                 new PrimaryButton("Actualizar Todo");
 
-        PrimaryButton btnCancelar =
-                new PrimaryButton("Cancelar");
+        SecondaryButton btnCancelar =
+                new SecondaryButton("Cancelar");
 
         add(btnActualizar);
         add(btnCancelar);

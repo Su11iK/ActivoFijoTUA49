@@ -3,6 +3,7 @@ package vista;
 import dao.BienDAO;
 import ui.components.PrimaryButton;
 import ui.components.RoundedPanel;
+import ui.components.SecondaryButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,8 +45,8 @@ public class BajaBien extends JDialog {
         PrimaryButton btnAceptar =
                 new PrimaryButton("Dar de Baja");
 
-        PrimaryButton btnCancelar =
-                new PrimaryButton("Cancelar");
+        SecondaryButton btnCancelar =
+                new SecondaryButton("Cancelar");
 
         panelBotones.add(btnAceptar);
         panelBotones.add(btnCancelar);
