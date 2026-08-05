@@ -2,10 +2,12 @@ package vista;
 
 import dao.BienDAO;
 import modelo.Bien;
+import ui.components.HeaderPanel;
 import ui.components.PrimaryButton;
 import ui.components.RoundedPanel;
 import ui.components.SearchField;
 import ui.components.TableStyle;
+import ui.theme.AppColors;
 
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
@@ -62,8 +64,10 @@ public class Principal extends JFrame {
 
         RoundedPanel panelSuperior = new RoundedPanel(new BorderLayout());
 
+        JLabel buscar = new JLabel("Buscar: ");
+        buscar.setForeground(AppColors.TEXT_LIGHT);
         panelSuperior.add(
-                new JLabel("Buscar: "),
+                buscar,
                 BorderLayout.WEST
         );
 
@@ -75,14 +79,17 @@ public class Principal extends JFrame {
                 BorderLayout.CENTER
         );
 
-        add(panelSuperior, BorderLayout.NORTH);
+        HeaderPanel header = new HeaderPanel();
 
-        RoundedPanel contenedorSuperior = new RoundedPanel(new BorderLayout());
+        JPanel panelNorte = new JPanel();
+        panelNorte.setLayout(new BoxLayout(panelNorte, BoxLayout.Y_AXIS));
+        panelNorte.setOpaque(false);
 
-        contenedorSuperior.add(panelBotonesSuperior, BorderLayout.NORTH);
-        contenedorSuperior.add(panelSuperior, BorderLayout.SOUTH);
+        panelNorte.add(header);
+        panelNorte.add(panelBotonesSuperior);
+        panelNorte.add(panelSuperior);
 
-        add(contenedorSuperior, BorderLayout.NORTH);
+        add(panelNorte, BorderLayout.NORTH);
 
         txtBuscar.getDocument().addDocumentListener(
             new DocumentListener() {

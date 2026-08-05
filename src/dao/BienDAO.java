@@ -525,8 +525,7 @@ public class BienDAO {
             LEFT JOIN resguardantes r
                 ON b.resguardante_id =
                 r.id_resguardante
-            WHERE b.status <> 'BAJA'
-            AND (
+            WHERE (
                 UPPER(
                     COALESCE(
                         b.numero_inventario,''

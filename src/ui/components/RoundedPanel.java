@@ -74,21 +74,6 @@ public class RoundedPanel extends JPanel {
         );
 
         /*
-         * Sombra
-         */
-
-        g2.setColor(new Color(0,0,0,18));
-
-        g2.fillRoundRect(
-                4,
-                4,
-                getWidth()-8,
-                getHeight()-8,
-                radius,
-                radius
-        );
-
-        /*
          * Panel
          */
 

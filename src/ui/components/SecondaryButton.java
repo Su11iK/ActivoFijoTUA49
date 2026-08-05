@@ -29,7 +29,7 @@ public class SecondaryButton extends JButton {
 
         setFont(AppFonts.BUTTON);
 
-        setForeground(AppColors.TEXT_PRIMARY);
+        setForeground(AppColors.TEXT_LIGHT);
 
         setCursor(new Cursor(Cursor.HAND_CURSOR));
 

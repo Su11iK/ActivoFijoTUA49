@@ -29,7 +29,7 @@ public final class AppColors {
     /**
      * Verde ligeramente más oscuro.
      */
-    public static final Color PRIMARY_DARK = new Color(0, 86, 82);
+    public static final Color PRIMARY_DARK = new Color(0, 55, 53);
 
     /**
      * Verde claro para selección.
@@ -47,9 +47,24 @@ public final class AppColors {
     public static final Color SECONDARY_DARK = new Color(220, 88, 27);
 
     /**
+     * Naranja para hover.
+     */
+    public static final Color SECONDARY_DARK2 = new Color(165, 66, 20);
+
+    /**
+     * Verde claro para selección.
+     */
+    public static final Color SECONDARY_LIGHT = new Color(249, 195, 169);
+
+    /**
+     * Verde claro para selección.
+     */
+    public static final Color SECONDARY_LIGHT2 = new Color(245, 150, 105);
+
+    /**
      * Beige/Dorado del logotipo.
      */
-    public static final Color ACCENT = new Color(214, 196, 150);
+    public static final Color ACCENT = new Color(234, 225, 202);
 
     // ==========================================================
     // FONDOS
@@ -58,7 +73,7 @@ public final class AppColors {
     /**
      * Fondo general de la aplicación.
      */
-    public static final Color BACKGROUND = new Color(245, 246, 248);
+    public static final Color BACKGROUND = SECONDARY_DARK;
 
     /**
      * Fondo de paneles.
@@ -68,7 +83,7 @@ public final class AppColors {
     /**
      * Fondo para tarjetas.
      */
-    public static final Color CARD = Color.WHITE;
+    public static final Color CARD = SECONDARY_DARK;
 
     // ==========================================================
     // TEXTOS
@@ -130,12 +145,12 @@ public final class AppColors {
     /**
      * Filas alternadas.
      */
-    public static final Color TABLE_ROW_ALTERNATE = new Color(248, 249, 250);
+    public static final Color TABLE_ROW_ALTERNATE = ACCENT;
 
     /**
      * Selección.
      */
-    public static final Color TABLE_SELECTION = PRIMARY_LIGHT;
+    public static final Color TABLE_SELECTION = SECONDARY_LIGHT;
 
     /**
      * Color del grid.
@@ -159,12 +174,12 @@ public final class AppColors {
     /**
      * Botón secundario.
      */
-    public static final Color BUTTON_SECONDARY = Color.WHITE;
+    public static final Color BUTTON_SECONDARY = new Color(200, 0, 0);
 
     /**
      * Hover botón secundario.
      */
-    public static final Color BUTTON_SECONDARY_HOVER = new Color(245, 245, 245);
+    public static final Color BUTTON_SECONDARY_HOVER = new Color(139, 0, 0);
 
     // ==========================================================
     // ESTADOS
