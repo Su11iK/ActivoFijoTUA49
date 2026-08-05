@@ -4,6 +4,7 @@ import dao.BienDAO;
 import modelo.Bien;
 import ui.components.PrimaryButton;
 import ui.components.RoundedPanel;
+import ui.components.RoundedTextArea;
 import ui.components.SearchField;
 import ui.components.SecondaryButton;
 
@@ -33,7 +34,7 @@ public class AltaBien extends JDialog {
     private JComboBox<String> cbEstado;
     private JComboBox<String> cbTipoBien;
 
-    private JTextArea txtObservaciones;
+    private RoundedTextArea txtObservaciones;
 
     public AltaBien(JFrame parent) {
 
@@ -179,9 +180,11 @@ public class AltaBien extends JDialog {
         // =========================
         add(new JLabel("Observaciones"));
 
-        txtObservaciones = new JTextArea(5, 20);
+        txtObservaciones = new RoundedTextArea(5, 20);
 
         JScrollPane scroll = new JScrollPane(txtObservaciones);
+        scroll.setBorder(BorderFactory.createEmptyBorder());
+        scroll.getViewport().setBackground(Color.WHITE);
 
         add(scroll);
 

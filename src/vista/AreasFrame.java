@@ -4,6 +4,7 @@ import dao.AreaDAO;
 import modelo.Area;
 import ui.components.PrimaryButton;
 import ui.components.RoundedPanel;
+import ui.components.RoundedTextArea;
 import ui.components.SearchField;
 import ui.components.SecondaryButton;
 import ui.components.TableStyle;
@@ -160,8 +161,11 @@ public class AreasFrame extends JDialog {
                 new SearchField(area.getNombre());
         txtNombre.setColumns(25);
 
-        JTextArea txtObs =
-                new JTextArea();
+        RoundedTextArea txtObs =
+                new RoundedTextArea();
+        JScrollPane scroll = new JScrollPane(txtObs);
+        scroll.setBorder(BorderFactory.createEmptyBorder());
+        scroll.getViewport().setBackground(Color.WHITE);
 
         RoundedPanel panel =
                 new RoundedPanel(new GridLayout(0, 1));
@@ -170,7 +174,7 @@ public class AreasFrame extends JDialog {
         panel.add(txtNombre);
 
         panel.add(new JLabel("Observaciones:"));
-        panel.add(new JScrollPane(txtObs));
+        panel.add(scroll);
 
         String nombreAnterior =
                 area.getNombre();
@@ -259,7 +263,10 @@ public class AreasFrame extends JDialog {
 
         if(dao.tieneBienesAsignados(area.getId())) {
 
-                JTextArea txtObs = new JTextArea(5,20);
+                RoundedTextArea txtObs = new RoundedTextArea(5,20);
+                JScrollPane scroll = new JScrollPane(txtObs);
+                scroll.setBorder(BorderFactory.createEmptyBorder());
+                scroll.getViewport().setBackground(Color.WHITE);
 
                 RoundedPanel panel = new RoundedPanel(new BorderLayout());
 
@@ -269,7 +276,7 @@ public class AreasFrame extends JDialog {
                 );
 
                 panel.add(
-                new JScrollPane(txtObs),
+                scroll,
                 BorderLayout.CENTER
                 );
 

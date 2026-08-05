@@ -3,6 +3,7 @@ package vista;
 import dao.BienDAO;
 import modelo.Bien;
 import ui.components.PrimaryButton;
+import ui.components.RoundedTextArea;
 import ui.components.SearchField;
 import ui.components.SecondaryButton;
 
@@ -32,7 +33,7 @@ public class ActualizarBien extends JDialog {
     private JComboBox<String> cbTipoBien;
     private JComboBox<String> cbStatus;
 
-    private JTextArea txtObservaciones;
+    private RoundedTextArea txtObservaciones;
 
     public ActualizarBien(JFrame parent, Bien bienSeleccionado) {
 
@@ -197,9 +198,11 @@ public class ActualizarBien extends JDialog {
         // =========================
         add(new JLabel("Observaciones"));
 
-        txtObservaciones = new JTextArea(5, 20);
+        txtObservaciones = new RoundedTextArea(5, 20);
 
         JScrollPane scroll = new JScrollPane(txtObservaciones);
+        scroll.setBorder(BorderFactory.createEmptyBorder());
+        scroll.getViewport().setBackground(Color.WHITE);
 
         add(scroll);
 

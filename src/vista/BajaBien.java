@@ -3,6 +3,7 @@ package vista;
 import dao.BienDAO;
 import ui.components.PrimaryButton;
 import ui.components.RoundedPanel;
+import ui.components.RoundedTextArea;
 import ui.components.SecondaryButton;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ import java.awt.*;
 
 public class BajaBien extends JDialog {
 
-    private JTextArea txtMotivo;
+    private RoundedTextArea txtMotivo;
 
     private int[] filas;
     private java.util.List<modelo.Bien> listaBienes;
@@ -35,9 +36,12 @@ public class BajaBien extends JDialog {
 
         add(lbl, BorderLayout.NORTH);
 
-        txtMotivo = new JTextArea();
+        txtMotivo = new RoundedTextArea();
+        JScrollPane scroll = new JScrollPane(txtMotivo);
+        scroll.setBorder(BorderFactory.createEmptyBorder());
+        scroll.getViewport().setBackground(Color.WHITE);
 
-        add(new JScrollPane(txtMotivo),
+        add(scroll,
                 BorderLayout.CENTER);
 
         RoundedPanel panelBotones = new RoundedPanel();

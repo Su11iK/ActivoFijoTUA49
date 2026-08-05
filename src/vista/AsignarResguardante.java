@@ -5,6 +5,7 @@ import dao.ResguardanteDAO;
 import modelo.Bien;
 import modelo.Resguardante;
 import ui.components.PrimaryButton;
+import ui.components.RoundedTextArea;
 import ui.components.SecondaryButton;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class AsignarResguardante extends JDialog {
     private JLabel lblPuesto;
     private JLabel lblArea;
 
-    private JTextArea txtObservaciones;
+    private RoundedTextArea txtObservaciones;
 
     private int[] filas;
     private List<Bien> listaBienes;
@@ -85,9 +86,12 @@ public class AsignarResguardante extends JDialog {
         add(new JLabel("Observaciones:"));
 
         txtObservaciones =
-                new JTextArea(5, 20);
+                new RoundedTextArea(5, 20);
+        JScrollPane scroll = new JScrollPane(txtObservaciones);
+        scroll.setBorder(BorderFactory.createEmptyBorder());
+        scroll.getViewport().setBackground(Color.WHITE);
 
-        add(new JScrollPane(txtObservaciones));
+        add(scroll);
 
         // =========================
         // BOTONES

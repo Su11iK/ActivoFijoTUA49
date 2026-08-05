@@ -4,6 +4,7 @@ import dao.BajaDAO;
 import modelo.Baja;
 import ui.components.PrimaryButton;
 import ui.components.RoundedPanel;
+import ui.components.RoundedTextArea;
 import ui.components.SearchField;
 import ui.components.TableStyle;
 
@@ -244,7 +245,7 @@ public class BajasFrame extends JFrame {
 
     private void mostrarObservaciones(String texto) {
 
-        JTextArea area = new JTextArea(texto);
+        RoundedTextArea area = new RoundedTextArea(texto);
 
         area.setEditable(false);
         area.setLineWrap(true);
@@ -252,6 +253,8 @@ public class BajasFrame extends JFrame {
         area.setCaretPosition(0);
 
         JScrollPane scroll = new JScrollPane(area);
+        scroll.setBorder(BorderFactory.createEmptyBorder());
+        scroll.getViewport().setBackground(Color.WHITE);
 
         scroll.setPreferredSize(new Dimension(500, 300));
 

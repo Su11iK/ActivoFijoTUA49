@@ -6,6 +6,7 @@ import modelo.Area;
 import modelo.Resguardante;
 import ui.components.PrimaryButton;
 import ui.components.RoundedPanel;
+import ui.components.RoundedTextArea;
 import ui.components.SearchField;
 import ui.components.SecondaryButton;
 import ui.components.TableStyle;
@@ -234,8 +235,11 @@ public class ResguardantesFrame extends JDialog {
                 new SearchField(r.getPuesto());
         txtPuesto.setColumns(25);
 
-        JTextArea txtObs =
-                new JTextArea();
+        RoundedTextArea txtObs =
+                new RoundedTextArea();
+        JScrollPane scroll = new JScrollPane(txtObs);
+        scroll.setBorder(BorderFactory.createEmptyBorder());
+        scroll.getViewport().setBackground(Color.WHITE);
 
         RoundedPanel panel =
                 new RoundedPanel(new GridLayout(0, 1));
@@ -247,7 +251,7 @@ public class ResguardantesFrame extends JDialog {
         panel.add(txtPuesto);
 
         panel.add(new JLabel("Observaciones:"));
-        panel.add(new JScrollPane(txtObs));
+        panel.add(scroll);
 
         String nombreAnterior =
                 r.getNombre();
@@ -345,8 +349,11 @@ public class ResguardantesFrame extends JDialog {
         JComboBox<Area> cbAreas =
                 new JComboBox<>();
 
-        JTextArea txtObs =
-                new JTextArea();
+        RoundedTextArea txtObs =
+                new RoundedTextArea();
+        JScrollPane scroll = new JScrollPane(txtObs);
+        scroll.setBorder(BorderFactory.createEmptyBorder());
+        scroll.getViewport().setBackground(Color.WHITE);
 
         AreaDAO areaDAO =
                 new AreaDAO();
@@ -374,7 +381,7 @@ public class ResguardantesFrame extends JDialog {
         panel.add(cbAreas);
 
         panel.add(new JLabel("Observaciones:"));
-        panel.add(new JScrollPane(txtObs));
+        panel.add(scroll);
 
         int opcion =
                 JOptionPane.showConfirmDialog(
@@ -472,7 +479,10 @@ public class ResguardantesFrame extends JDialog {
 
         if(dao.tieneBienesAsignados(r.getId())) {
 
-                JTextArea txtObs = new JTextArea(5,20);
+                RoundedTextArea txtObs = new RoundedTextArea(5,20);
+                JScrollPane scroll = new JScrollPane(txtObs);
+                scroll.setBorder(BorderFactory.createEmptyBorder());
+                scroll.getViewport().setBackground(Color.WHITE);
 
                 RoundedPanel panel = new RoundedPanel(new BorderLayout());
 
@@ -482,7 +492,7 @@ public class ResguardantesFrame extends JDialog {
                 );
 
                 panel.add(
-                new JScrollPane(txtObs),
+                scroll,
                 BorderLayout.CENTER
                 );
 
