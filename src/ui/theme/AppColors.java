@@ -34,7 +34,7 @@ public final class AppColors {
     /**
      * Verde claro para selección.
      */
-    public static final Color PRIMARY_LIGHT = new Color(214, 238, 236);
+    public static final Color PRIMARY_LIGHT = new Color(96, 153, 150);
 
     /**
      * Naranja institucional.

@@ -51,8 +51,8 @@ public class MovimientosFrame extends JFrame {
         modelo.addColumn("Área Anterior");
         modelo.addColumn("Área Nueva");
 
-        modelo.addColumn("Resguardante Anterior");
-        modelo.addColumn("Resguardante Nuevo");
+        modelo.addColumn("Res. Anterior");
+        modelo.addColumn("Res. Nuevo");
 
         modelo.addColumn("Tipo");
         modelo.addColumn("Status Anterior");

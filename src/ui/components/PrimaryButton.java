@@ -13,6 +13,7 @@ public class PrimaryButton extends JButton {
 
     private Color backgroundColor = AppColors.BUTTON_PRIMARY;
     private Color hoverColor = AppColors.BUTTON_PRIMARY_HOVER;
+    private Color mouse = AppColors.BUTTON_PRIMARY;
 
     public PrimaryButton(String text) {
 
@@ -59,7 +60,7 @@ public class PrimaryButton extends JButton {
             @Override
             public void mouseExited(MouseEvent e) {
 
-                backgroundColor = AppColors.BUTTON_PRIMARY;
+                backgroundColor = mouse;
                 repaint();
 
             }
@@ -100,6 +101,28 @@ public class PrimaryButton extends JButton {
 
         // Sin borde
 
+    }
+
+    public void setButtonColor(Color color) {
+
+        this.backgroundColor = color;
+
+        repaint();
+    }
+
+    public Color getButtonColor() {
+
+        return backgroundColor;
+    }
+
+    public void setHoverColor(Color color) {
+
+        this.hoverColor = color;
+    }
+
+    public void setMouseExited(Color color) {
+
+        this.mouse = color;
     }
 
 }

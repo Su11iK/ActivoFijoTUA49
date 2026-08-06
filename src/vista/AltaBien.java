@@ -7,8 +7,11 @@ import ui.components.RoundedPanel;
 import ui.components.RoundedTextArea;
 import ui.components.SearchField;
 import ui.components.SecondaryButton;
+import ui.theme.AppColors;
+import ui.utils.UIUtils;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.time.LocalDateTime;
 
@@ -40,20 +43,23 @@ public class AltaBien extends JDialog {
 
         super(parent, "Alta de Bien", true);
 
-        setSize(800, 550);
+        setSize(900, 600);
         setLocationRelativeTo(parent);
-        setLayout(new GridLayout(0, 3, 5, 5));
+        setLayout(new GridLayout(0, 1, 5, 5));
+        ((JComponent) getContentPane()).setBorder(
+                UIUtils.createPadding(25, 25, 20, 20)
+        );
+        getContentPane().setBackground(AppColors.PRIMARY_LIGHT);
 
         // =========================
         // INVENTARIO
         // =========================
-        add(new JLabel("No. Inventario"));
 
         txtInventario = new SearchField();
         txtInventario.setColumns(25);
-        add(txtInventario);
 
         RoundedPanel panelRadio = new RoundedPanel();
+        panelRadio.setBackground(Color.WHITE);
 
         rbArrendamiento = new JRadioButton("ARRENDAMIENTO");
         rbSinNumero = new JRadioButton("SIN NUMERO");
@@ -61,83 +67,61 @@ public class AltaBien extends JDialog {
         panelRadio.add(rbArrendamiento);
         panelRadio.add(rbSinNumero);
 
-        add(panelRadio);
-
         // =========================
         // DESCRIPCION
         // =========================
-        add(new JLabel("Descripción"));
 
         txtDescripcion = new SearchField();
         txtDescripcion.setColumns(25);
-        add(txtDescripcion);
-
-        add(new JLabel(""));
 
         // =========================
         // MARCA
         // =========================
-        add(new JLabel("Marca"));
 
         txtMarca = new SearchField();
         txtMarca.setColumns(25);
-        add(txtMarca);
 
         chkMarca = new JCheckBox("Sin marca");
-        add(chkMarca);
 
         // =========================
         // MODELO
         // =========================
-        add(new JLabel("Modelo"));
 
         txtModelo = new SearchField();
         txtModelo.setColumns(25);
-        add(txtModelo);
 
         chkModelo = new JCheckBox("Sin modelo");
-        add(chkModelo);
 
         // =========================
         // SERIE
         // =========================
-        add(new JLabel("Serie"));
 
         txtSerie = new SearchField();
         txtSerie.setColumns(25);
-        add(txtSerie);
 
         chkSerie = new JCheckBox("Sin serie");
-        add(chkSerie);
 
         // =========================
         // PROVEEDOR
         // =========================
-        add(new JLabel("Proveedor"));
 
         txtProveedor = new SearchField();
         txtProveedor.setColumns(25);
-        add(txtProveedor);
 
         chkProveedor = new JCheckBox("Sin proveedor");
-        add(chkProveedor);
 
         // =========================
         // FACTURA
         // =========================
-        add(new JLabel("Factura"));
 
         txtFactura = new SearchField();
         txtFactura.setColumns(25);
-        add(txtFactura);
 
         chkFactura = new JCheckBox("Sin factura");
-        add(chkFactura);
 
         // =========================
         // ESTADO
         // =========================
-        add(new JLabel("Estado físico"));
 
         cbEstado = new JComboBox<>();
         cbEstado.addItem("BUENO");
@@ -145,59 +129,82 @@ public class AltaBien extends JDialog {
         cbEstado.addItem("MALO");
         cbEstado.addItem("USADO");
 
-        add(cbEstado);
-
-        add(new JLabel(""));
-
         // =========================
         // TIPO BIEN
         // =========================
-        add(new JLabel("Tipo Bien"));
 
         cbTipoBien = new JComboBox<>();
         cbTipoBien.addItem("MUEBLE");
         cbTipoBien.addItem("ELECTRONICO");
 
-        add(cbTipoBien);
-
-        add(new JLabel(""));
-
         // =========================
         // FECHA
         // =========================
-        add(new JLabel("Fecha Alta"));
 
         SearchField txtFecha = new SearchField(LocalDateTime.now().toString());
         txtFecha.setColumns(25);
         txtFecha.setEnabled(false);
 
-        add(txtFecha);
-
-        add(new JLabel("ACTIVO"));
-
         // =========================
         // OBSERVACIONES
         // =========================
-        add(new JLabel("Observaciones"));
 
-        txtObservaciones = new RoundedTextArea(5, 20);
+        txtObservaciones = new RoundedTextArea(1, 20);
 
         JScrollPane scroll = new JScrollPane(txtObservaciones);
         scroll.setBorder(BorderFactory.createEmptyBorder());
         scroll.getViewport().setBackground(Color.WHITE);
 
-        add(scroll);
-
-        add(new JLabel(""));
-
         // =========================
         // BOTONES
         // =========================
         PrimaryButton btnGuardar = new PrimaryButton("Subir Alta");
+        btnGuardar.setButtonColor(AppColors.PRIMARY);
+        btnGuardar.setHoverColor(AppColors.PRIMARY_DARK);
+        btnGuardar.setMouseExited(AppColors.PRIMARY);
         SecondaryButton btnCancelar = new SecondaryButton("Cancelar");
 
-        add(btnGuardar);
-        add(btnCancelar);
+        RoundedPanel card = new RoundedPanel();
+        card.setBackground(Color.WHITE);
+        card.setLayout(new GridLayout(0, 3, 5, 5));
+        card.setBorder(UIUtils.createPadding(25,25,25,25));
+
+        card.add(new JLabel("No. Inventario"));
+        card.add(txtInventario);
+        card.add(panelRadio);
+        card.add(new JLabel("Descripción"));
+        card.add(txtDescripcion);
+        card.add(new JLabel(""));
+        card.add(new JLabel("Marca"));
+        card.add(txtMarca);
+        card.add(chkMarca);
+        card.add(new JLabel("Modelo"));
+        card.add(txtModelo);
+        card.add(chkModelo);
+        card.add(new JLabel("Serie"));
+        card.add(txtSerie);
+        card.add(chkSerie);
+        card.add(new JLabel("Proveedor"));
+        card.add(txtProveedor);
+        card.add(chkProveedor);
+        card.add(new JLabel("Factura"));
+        card.add(txtFactura);
+        card.add(chkFactura);
+        card.add(new JLabel("Estado físico"));
+        card.add(cbEstado);
+        card.add(new JLabel(""));
+        card.add(new JLabel("Tipo Bien"));
+        card.add(cbTipoBien);
+        card.add(new JLabel(""));
+        card.add(new JLabel("Fecha Alta"));
+        card.add(txtFecha);
+        card.add(new JLabel("ACTIVO"));
+        card.add(new JLabel("Observaciones"));
+        card.add(scroll);
+        card.add(new JLabel(""));
+        card.add(btnGuardar);
+        card.add(btnCancelar);
+        add(card);
 
         // =========================
         // EVENTOS CHECKBOX
