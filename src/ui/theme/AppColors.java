@@ -54,7 +54,7 @@ public final class AppColors {
     /**
      * Verde claro para selección.
      */
-    public static final Color SECONDARY_LIGHT = new Color(249, 195, 169);
+    public static final Color SECONDARY_LIGHT = new Color(227, 106, 59);
 
     /**
      * Verde claro para selección.
@@ -73,7 +73,7 @@ public final class AppColors {
     /**
      * Fondo general de la aplicación.
      */
-    public static final Color BACKGROUND = SECONDARY_DARK;
+    public static final Color BACKGROUND = SECONDARY_LIGHT;
 
     /**
      * Fondo de paneles.
@@ -83,7 +83,7 @@ public final class AppColors {
     /**
      * Fondo para tarjetas.
      */
-    public static final Color CARD = SECONDARY_DARK;
+    public static final Color CARD = SECONDARY_LIGHT;
 
     // ==========================================================
     // TEXTOS
@@ -150,7 +150,7 @@ public final class AppColors {
     /**
      * Selección.
      */
-    public static final Color TABLE_SELECTION = SECONDARY_LIGHT;
+    public static final Color TABLE_SELECTION = new Color(182, 155, 73);
 
     /**
      * Color del grid.
@@ -193,7 +193,7 @@ public final class AppColors {
     /**
      * Advertencia.
      */
-    public static final Color WARNING = new Color(255, 167, 38);
+    public static final Color WARNING = new Color(255, 208, 143);
 
     /**
      * Error.

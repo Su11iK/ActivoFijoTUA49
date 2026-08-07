@@ -3,9 +3,12 @@ package vista;
 import dao.BienDAO;
 import modelo.Bien;
 import ui.components.PrimaryButton;
+import ui.components.RoundedPanel;
 import ui.components.RoundedTextArea;
 import ui.components.SearchField;
 import ui.components.SecondaryButton;
+import ui.theme.AppColors;
+import ui.utils.UIUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,73 +48,60 @@ public class ActualizarMultiple extends JDialog {
         this.filas = filas;
         this.listaBienes = listaBienes;
 
-        setSize(800, 550);
+        setSize(900, 650);
         setLocationRelativeTo(parent);
-        setLayout(new GridLayout(0, 3, 5, 5));
+        setLayout(new GridLayout(0, 1, 5, 5));
+        ((JComponent) getContentPane()).setBorder(
+                UIUtils.createPadding(25, 25, 20, 20)
+        );
+        getContentPane().setBackground(AppColors.PRIMARY_LIGHT);
 
         // =========================
         // DESCRIPCION
         // =========================
-        add(new JLabel("Descripción"));
 
         txtDescripcion = new SearchField();
         txtDescripcion.setColumns(25);
-        add(txtDescripcion);
-
-        add(new JLabel(""));
         
         // =========================
         // MARCA
         // =========================
-        add(new JLabel("Marca"));
 
         txtMarca = new SearchField();
         txtMarca.setColumns(25);
-        add(txtMarca);
 
         chkMarca = new JCheckBox("Sin marca");
-        add(chkMarca);
 
         // =========================
         // MODELO
         // =========================
-        add(new JLabel("Modelo"));
 
         txtModelo = new SearchField();
         txtModelo.setColumns(25);
-        add(txtModelo);
 
         chkModelo = new JCheckBox("Sin modelo");
-        add(chkModelo);
 
         // =========================
         // PROVEEDOR
         // =========================
-        add(new JLabel("Proveedor"));
 
         txtProveedor = new SearchField();
         txtProveedor.setColumns(25);
-        add(txtProveedor);
 
         chkProveedor = new JCheckBox("Sin proveedor");
-        add(chkProveedor);
 
         // =========================
         // FACTURA
         // =========================
-        add(new JLabel("Factura"));
 
         txtFactura = new SearchField();
         txtFactura.setColumns(25);
-        add(txtFactura);
 
         chkFactura = new JCheckBox("Sin factura");
-        add(chkFactura);
 
         // =========================
         // ESTADO
         // =========================
-        add(new JLabel("Estado físico"));
 
         cbEstado = new JComboBox<>();
 
@@ -121,26 +111,15 @@ public class ActualizarMultiple extends JDialog {
         cbEstado.addItem("MALO");
         cbEstado.addItem("USADO");
 
-        add(cbEstado);
-
-        add(new JLabel(""));
-
         // =========================
         // TIPO BIEN
         // =========================
-        add(new JLabel("Tipo Bien"));
 
         cbTipoBien = new JComboBox<>();
 
         cbTipoBien.addItem("");
         cbTipoBien.addItem("MUEBLE");
         cbTipoBien.addItem("ELECTRONICO");
-
-        add(cbTipoBien);
-
-        add(new JLabel(""));
-        
-        add(new JLabel("Estatus"));
 
         cbStatus = new JComboBox<>(new String[] {
                 "",
@@ -149,14 +128,9 @@ public class ActualizarMultiple extends JDialog {
                 "REPARACION"
         });
 
-        add(cbStatus);
-
-        add(new JLabel(""));
-
         // =========================
         // FECHA ACTUALIZACION
         // =========================
-        add(new JLabel("Fecha actualización"));
 
         SearchField txtFecha = new SearchField(
                 LocalDateTime.now().toString());
@@ -164,24 +138,15 @@ public class ActualizarMultiple extends JDialog {
 
         txtFecha.setEnabled(false);
 
-        add(txtFecha);
-
-        add(new JLabel(""));
-
         // =========================
         // OBSERVACIONES
         // =========================
-        add(new JLabel("Observaciones"));
 
         txtObservaciones = new RoundedTextArea();
 
         JScrollPane scroll = new JScrollPane(txtObservaciones);
         scroll.setBorder(BorderFactory.createEmptyBorder());
         scroll.getViewport().setBackground(Color.WHITE);
-
-        add(scroll);
-
-        add(new JLabel(""));
 
         // =========================
         // EVENTOS CHECKBOX
@@ -194,14 +159,47 @@ public class ActualizarMultiple extends JDialog {
         // =========================
         // BOTONES
         // =========================
-        PrimaryButton btnActualizar =
-                new PrimaryButton("Actualizar Todo");
+        PrimaryButton btnActualizar = new PrimaryButton("Actualizar Todo");
+        SecondaryButton btnCancelar = new SecondaryButton("Cancelar");
 
-        SecondaryButton btnCancelar =
-                new SecondaryButton("Cancelar");
+        RoundedPanel card = new RoundedPanel();
+        card.setBackground(Color.WHITE);
+        card.setLayout(new GridLayout(0, 3, 5, 5));
+        card.setBorder(UIUtils.createPadding(25,25,25,25));
 
-        add(btnActualizar);
-        add(btnCancelar);
+        card.add(new JLabel("Descripción"));
+        card.add(txtDescripcion);
+        card.add(new JLabel(""));
+        card.add(new JLabel("Marca"));
+        card.add(txtMarca);
+        card.add(chkMarca);
+        card.add(new JLabel("Modelo"));
+        card.add(txtModelo);
+        card.add(chkModelo);
+        card.add(new JLabel("Proveedor"));
+        card.add(txtProveedor);
+        card.add(chkProveedor);
+        card.add(new JLabel("Factura"));
+        card.add(txtFactura);
+        card.add(chkFactura);
+        card.add(new JLabel("Estado físico"));
+        card.add(cbEstado);
+        card.add(new JLabel(""));
+        card.add(new JLabel("Tipo Bien"));
+        card.add(cbTipoBien);
+        card.add(new JLabel(""));
+        card.add(new JLabel("Estatus"));
+        card.add(cbStatus);
+        card.add(new JLabel(""));
+        card.add(new JLabel("Fecha actualización"));
+        card.add(txtFecha);
+        card.add(new JLabel(""));
+        card.add(new JLabel("Observaciones"));
+        card.add(scroll);
+        card.add(new JLabel(""));
+        card.add(btnActualizar);
+        card.add(btnCancelar);
+        add(card);
 
         btnActualizar.addActionListener(e -> actualizarTodo());
 

@@ -8,6 +8,8 @@ import ui.components.RoundedTextArea;
 import ui.components.SearchField;
 import ui.components.SecondaryButton;
 import ui.components.TableStyle;
+import ui.theme.AppColors;
+import ui.utils.UIUtils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -25,9 +27,13 @@ public class AreasFrame extends JDialog {
 
         super(parent, "Áreas", true);
 
-        setSize(500, 400);
+        setSize(600, 500);
         setLocationRelativeTo(parent);
         setLayout(new BorderLayout());
+        ((JComponent) getContentPane()).setBorder(
+                UIUtils.createPadding(25, 25, 20, 20)
+        );
+        getContentPane().setBackground(AppColors.PRIMARY_LIGHT);
 
         // =========================
         // TABLA
@@ -44,20 +50,15 @@ public class AreasFrame extends JDialog {
         tabla = new JTable(modelo);
         TableStyle.apply(tabla);
 
-        add(new JScrollPane(tabla),
-                BorderLayout.CENTER);
-
         // =========================
         // BOTONES
         // =========================
         RoundedPanel panelBotones = new RoundedPanel();
         panelBotones.setLayout(
-            new FlowLayout(FlowLayout.LEFT)
+                new BoxLayout(panelBotones, BoxLayout.Y_AXIS)
         );
-
-        panelBotones.setLayout(
-            new BoxLayout(panelBotones, BoxLayout.Y_AXIS)
-        );
+        panelBotones.setOpaque(false);
+        panelBotones.setBackground(Color.WHITE);
 
         PrimaryButton btnAgregar =
                 new PrimaryButton("Agregar");
@@ -68,6 +69,14 @@ public class AreasFrame extends JDialog {
         SecondaryButton btnEliminar =
                 new SecondaryButton("Eliminar");
 
+        UIUtils.setFixedSize(btnAgregar, 100, 40);
+        UIUtils.setFixedSize(btnEditar, 100, 40);
+        UIUtils.setFixedSize(btnEliminar, 100, 40);
+
+        btnAgregar.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        btnEditar.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        btnEliminar.setAlignmentX(Component.RIGHT_ALIGNMENT);
+
         panelBotones.add(btnAgregar);
         panelBotones.add(Box.createVerticalStrut(10));
 
@@ -76,7 +85,14 @@ public class AreasFrame extends JDialog {
 
         panelBotones.add(btnEliminar);
 
-        add(panelBotones, BorderLayout.EAST);
+        RoundedPanel card = new RoundedPanel();
+        card.setBackground(Color.WHITE);
+        card.setLayout(new BorderLayout(15, 0));
+        card.setBorder(UIUtils.createPadding(25,25,25,25));
+
+        card.add(new JScrollPane(tabla), BorderLayout.CENTER);
+        card.add(panelBotones, BorderLayout.EAST);
+        add(card);
 
         // =========================
         // EVENTOS

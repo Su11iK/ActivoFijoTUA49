@@ -5,8 +5,11 @@ import dao.ResguardanteDAO;
 import modelo.Bien;
 import modelo.Resguardante;
 import ui.components.PrimaryButton;
+import ui.components.RoundedPanel;
 import ui.components.RoundedTextArea;
 import ui.components.SecondaryButton;
+import ui.theme.AppColors;
+import ui.utils.UIUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,16 +41,17 @@ public class AsignarResguardante extends JDialog {
         this.filas = filas;
         this.listaBienes = listaBienes;
 
-        setSize(500, 400);
-
+        setSize(500, 500);
         setLocationRelativeTo(parent);
-
         setLayout(new GridLayout(0, 1, 5, 5));
+        ((JComponent) getContentPane()).setBorder(
+                UIUtils.createPadding(25, 25, 20, 20)
+        );
+        getContentPane().setBackground(AppColors.PRIMARY_LIGHT);
 
         // =========================
         // COMBO
         // =========================
-        add(new JLabel("Resguardante:"));
 
         cbResguardantes =
                 new JComboBox<>();
@@ -62,48 +66,45 @@ public class AsignarResguardante extends JDialog {
             cbResguardantes.addItem(r);
         }
 
-        add(cbResguardantes);
-
         // =========================
         // PUESTO
         // =========================
-        lblPuesto =
-                new JLabel("Puesto:");
-
-        add(lblPuesto);
+        lblPuesto = new JLabel("Puesto:");
 
         // =========================
         // AREA
         // =========================
-        lblArea =
-                new JLabel("Área:");
-
-        add(lblArea);
+        lblArea = new JLabel("Área:");
 
         // =========================
         // OBSERVACIONES
         // =========================
-        add(new JLabel("Observaciones:"));
 
-        txtObservaciones =
-                new RoundedTextArea(5, 20);
+        txtObservaciones = new RoundedTextArea();
         JScrollPane scroll = new JScrollPane(txtObservaciones);
         scroll.setBorder(BorderFactory.createEmptyBorder());
         scroll.getViewport().setBackground(Color.WHITE);
 
-        add(scroll);
-
         // =========================
         // BOTONES
         // =========================
-        PrimaryButton btnAsignar =
-                new PrimaryButton("Asignar");
+        PrimaryButton btnAsignar = new PrimaryButton("Asignar");
+        SecondaryButton btnCancelar = new SecondaryButton("Cancelar");
 
-        SecondaryButton btnCancelar =
-                new SecondaryButton("Cancelar");
+        RoundedPanel card = new RoundedPanel();
+        card.setBackground(Color.WHITE);
+        card.setLayout(new GridLayout(0, 1, 5, 5));
+        card.setBorder(UIUtils.createPadding(25,25,25,25));
 
-        add(btnAsignar);
-        add(btnCancelar);
+        card.add(new JLabel("Resguardante:"));
+        card.add(cbResguardantes);
+        card.add(lblPuesto);
+        card.add(lblArea);
+        card.add(new JLabel("Observaciones:"));
+        card.add(scroll);
+        card.add(btnAsignar);
+        card.add(btnCancelar);
+        add(card);
 
         // =========================
         // EVENTOS

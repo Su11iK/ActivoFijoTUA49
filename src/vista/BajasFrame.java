@@ -9,6 +9,7 @@ import ui.components.RoundedTextArea;
 import ui.components.SearchField;
 import ui.components.TableStyle;
 import ui.theme.AppColors;
+import ui.utils.UIUtils;
 
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
@@ -57,6 +58,9 @@ public class BajasFrame extends JFrame {
         panelBotonesSuperior.add(btnBienes);
 
         RoundedPanel panelSuperior = new RoundedPanel(new BorderLayout());
+        panelSuperior.setBorder(
+                UIUtils.createPadding(0, 25, 0, 20)
+        );
 
         JLabel buscar = new JLabel("Buscar: ");
         buscar.setForeground(AppColors.TEXT_LIGHT);
@@ -154,7 +158,12 @@ public class BajasFrame extends JFrame {
 
         tabla.setAutoCreateRowSorter(true);
 
-        add(new JScrollPane(tabla),
+        JScrollPane scroll = new JScrollPane(tabla);
+        scroll.setBorder(
+                UIUtils.createPadding(0, 25, 20, 20)
+        );
+
+        add(scroll,
                 BorderLayout.CENTER);
 
         // =========================

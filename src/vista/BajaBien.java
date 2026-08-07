@@ -5,6 +5,8 @@ import ui.components.PrimaryButton;
 import ui.components.RoundedPanel;
 import ui.components.RoundedTextArea;
 import ui.components.SecondaryButton;
+import ui.theme.AppColors;
+import ui.utils.UIUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,24 +29,23 @@ public class BajaBien extends JDialog {
         this.filas = filas;
         this.listaBienes = listaBienes;
 
-        setSize(450, 300);
+        setSize(500, 300);
         setLocationRelativeTo(parent);
         setLayout(new BorderLayout());
+        ((JComponent) getContentPane()).setBorder(
+                UIUtils.createPadding(25, 25, 20, 20)
+        );
+        getContentPane().setBackground(AppColors.PRIMARY_LIGHT);
 
-        JLabel lbl =
-                new JLabel("Observaciones:");
-
-        add(lbl, BorderLayout.NORTH);
+        JLabel lbl = new JLabel("Observaciones:");
 
         txtMotivo = new RoundedTextArea();
         JScrollPane scroll = new JScrollPane(txtMotivo);
         scroll.setBorder(BorderFactory.createEmptyBorder());
         scroll.getViewport().setBackground(Color.WHITE);
 
-        add(scroll,
-                BorderLayout.CENTER);
-
         RoundedPanel panelBotones = new RoundedPanel();
+        panelBotones.setBackground(Color.WHITE);
 
         PrimaryButton btnAceptar =
                 new PrimaryButton("Dar de Baja");
@@ -55,7 +56,15 @@ public class BajaBien extends JDialog {
         panelBotones.add(btnAceptar);
         panelBotones.add(btnCancelar);
 
-        add(panelBotones, BorderLayout.SOUTH);
+        RoundedPanel card = new RoundedPanel();
+        card.setBackground(Color.WHITE);
+        card.setLayout(new GridLayout(0, 1, 5, 5));
+        card.setBorder(UIUtils.createPadding(25,25,25,25));
+
+        card.add(lbl, BorderLayout.NORTH);
+        card.add(scroll, BorderLayout.CENTER);
+        card.add(panelBotones, BorderLayout.SOUTH);
+        add(card);
 
         // =========================
         // EVENTOS

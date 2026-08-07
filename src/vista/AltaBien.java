@@ -43,7 +43,7 @@ public class AltaBien extends JDialog {
 
         super(parent, "Alta de Bien", true);
 
-        setSize(900, 600);
+        setSize(900, 700);
         setLocationRelativeTo(parent);
         setLayout(new GridLayout(0, 1, 5, 5));
         ((JComponent) getContentPane()).setBorder(
@@ -149,7 +149,7 @@ public class AltaBien extends JDialog {
         // OBSERVACIONES
         // =========================
 
-        txtObservaciones = new RoundedTextArea(1, 20);
+        txtObservaciones = new RoundedTextArea();
 
         JScrollPane scroll = new JScrollPane(txtObservaciones);
         scroll.setBorder(BorderFactory.createEmptyBorder());
@@ -159,9 +159,6 @@ public class AltaBien extends JDialog {
         // BOTONES
         // =========================
         PrimaryButton btnGuardar = new PrimaryButton("Subir Alta");
-        btnGuardar.setButtonColor(AppColors.PRIMARY);
-        btnGuardar.setHoverColor(AppColors.PRIMARY_DARK);
-        btnGuardar.setMouseExited(AppColors.PRIMARY);
         SecondaryButton btnCancelar = new SecondaryButton("Cancelar");
 
         RoundedPanel card = new RoundedPanel();
@@ -269,8 +266,15 @@ public class AltaBien extends JDialog {
 
     private void guardarBien() {
 
+        RoundedPanel panel = new RoundedPanel(
+                new GridLayout(0, 1));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(UIUtils.createPadding(25,25,25,25));
+
+        panel.add(new JLabel("La descripción es obligatoria"));
+
         if (txtDescripcion.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "La descripción es obligatoria");
+            JOptionPane.showMessageDialog(this, panel);
             return;
         }
 

@@ -9,6 +9,7 @@ import ui.components.RoundedTextArea;
 import ui.components.SearchField;
 import ui.components.TableStyle;
 import ui.theme.AppColors;
+import ui.utils.UIUtils;
 
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
@@ -118,6 +119,9 @@ public class MovimientosFrame extends JFrame {
         });
 
         RoundedPanel panelSuperior = new RoundedPanel(new BorderLayout());
+        panelSuperior.setBorder(
+                UIUtils.createPadding(0, 25, 0, 20)
+        );
 
         JLabel buscar = new JLabel("Buscar: ");
         buscar.setForeground(AppColors.TEXT_LIGHT);
@@ -166,8 +170,13 @@ public class MovimientosFrame extends JFrame {
             }
         );
 
+        JScrollPane scroll = new JScrollPane(tabla);
+        scroll.setBorder(
+                UIUtils.createPadding(0, 25, 20, 20)
+        );
+
         add(
-            new JScrollPane(tabla),
+            scroll,
             BorderLayout.CENTER
         );
 
