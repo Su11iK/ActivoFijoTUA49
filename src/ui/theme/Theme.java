@@ -123,7 +123,7 @@ public final class Theme {
         //-----------------------------
 
         UIManager.put("OptionPane.background",
-                AppColors.SECONDARY_LIGHT2);
+                AppColors.WARNING);
 
         UIManager.put("Panel.background",
                 AppColors.BACKGROUND);
