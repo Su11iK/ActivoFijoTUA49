@@ -130,9 +130,17 @@ public class AreasFrame extends JDialog {
     // =========================
     private void agregar() {
 
+        RoundedPanel panel = new RoundedPanel(
+                new GridLayout(0, 1));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(UIUtils.createPadding(25,25,25,25));
+        JLabel mensaje = new JLabel("");
+        panel.add(mensaje);
+
+        mensaje.setText("Nombre del área:");
         String nombre = JOptionPane.showInputDialog(
                 this,
-                "Nombre del área:"
+                panel
         );
 
         if (nombre == null) {
@@ -141,9 +149,10 @@ public class AreasFrame extends JDialog {
 
         if (nombre.trim().isEmpty()) {
 
+            mensaje.setText("El nombre es obligatorios");
             JOptionPane.showMessageDialog(
                     this,
-                    "El nombre es obligatorios"
+                    panel
             );
 
             return;
@@ -161,12 +170,20 @@ public class AreasFrame extends JDialog {
     // =========================
     private void editar() {
 
+        RoundedPanel panel = new RoundedPanel(
+                new GridLayout(0, 1));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(UIUtils.createPadding(25,25,25,25));
+        JLabel mensaje = new JLabel("");
+        panel.add(mensaje);
+
         int fila = tabla.getSelectedRow();
 
         if (fila == -1) {
 
+            mensaje.setText("Seleccione un área");
             JOptionPane.showMessageDialog(this,
-                    "Seleccione un área");
+                    panel);
 
             return;
         }
@@ -182,15 +199,17 @@ public class AreasFrame extends JDialog {
         JScrollPane scroll = new JScrollPane(txtObs);
         scroll.setBorder(BorderFactory.createEmptyBorder());
         scroll.getViewport().setBackground(Color.WHITE);
+        
+        RoundedPanel panel1 = new RoundedPanel(
+                new GridLayout(0, 1));
+        panel1.setBackground(Color.WHITE);
+        panel1.setBorder(UIUtils.createPadding(25,25,25,25));
 
-        RoundedPanel panel =
-                new RoundedPanel(new GridLayout(0, 1));
+        panel1.add(new JLabel("Nombre:"));
+        panel1.add(txtNombre);
 
-        panel.add(new JLabel("Nombre:"));
-        panel.add(txtNombre);
-
-        panel.add(new JLabel("Observaciones:"));
-        panel.add(scroll);
+        panel1.add(new JLabel("Observaciones:"));
+        panel1.add(scroll);
 
         String nombreAnterior =
                 area.getNombre();
@@ -198,7 +217,7 @@ public class AreasFrame extends JDialog {
         int opcion =
                 JOptionPane.showConfirmDialog(
                         this,
-                        panel,
+                        panel1,
                         "Editar Area",
                         JOptionPane.OK_CANCEL_OPTION
                 );
@@ -213,9 +232,10 @@ public class AreasFrame extends JDialog {
                 );
 
         if (!cambioNombre) {
+                mensaje.setText("No se registro ningun cambio");
                 JOptionPane.showMessageDialog(
                         this,
-                        "No se registro ningun cambio.",
+                        panel,
                         "Sin cambios",
                         JOptionPane.WARNING_MESSAGE
                 );
@@ -225,9 +245,10 @@ public class AreasFrame extends JDialog {
 
         if (txtNombre.getText().trim().isEmpty()) {
 
+            mensaje.setText("El nombre es obligatorios");
             JOptionPane.showMessageDialog(
                     this,
-                    "El nombre es obligatorios"
+                    panel
             );
 
             return;
@@ -251,20 +272,29 @@ public class AreasFrame extends JDialog {
     // =========================
     private void eliminar() {
 
+        RoundedPanel panel = new RoundedPanel(
+                new GridLayout(0, 1));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(UIUtils.createPadding(25,25,25,25));
+        JLabel mensaje = new JLabel("");
+        panel.add(mensaje);
+
         int fila = tabla.getSelectedRow();
 
         if (fila == -1) {
 
+            mensaje.setText("Seleccione un área");
             JOptionPane.showMessageDialog(this,
-                    "Seleccione un área");
+                    panel);
 
             return;
         }
 
+        mensaje.setText("¿Eliminar área?");
         int confirmacion =
                 JOptionPane.showConfirmDialog(
                         this,
-                        "¿Eliminar área?",
+                        panel,
                         "Confirmar",
                         JOptionPane.YES_NO_OPTION
                 );
@@ -284,14 +314,17 @@ public class AreasFrame extends JDialog {
                 scroll.setBorder(BorderFactory.createEmptyBorder());
                 scroll.getViewport().setBackground(Color.WHITE);
 
-                RoundedPanel panel = new RoundedPanel(new BorderLayout());
+                RoundedPanel panel1 = new RoundedPanel(
+                        new GridLayout(0, 1));
+                panel1.setBackground(Color.WHITE);
+                panel1.setBorder(UIUtils.createPadding(25,25,25,25));
 
-                panel.add(
+                panel1.add(
                 new JLabel("Observaciones:"),
                 BorderLayout.NORTH
                 );
 
-                panel.add(
+                panel1.add(
                 scroll,
                 BorderLayout.CENTER
                 );
@@ -299,7 +332,7 @@ public class AreasFrame extends JDialog {
                 int opcion =
                 JOptionPane.showConfirmDialog(
                         this,
-                        panel,
+                        panel1,
                         "Existen bienes asignados. ¿Continuar?",
                         JOptionPane.YES_NO_OPTION
                 );

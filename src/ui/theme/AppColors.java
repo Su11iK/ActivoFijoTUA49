@@ -193,7 +193,7 @@ public final class AppColors {
     /**
      * Advertencia.
      */
-    public static final Color WARNING = new Color(255, 208, 143);
+    public static final Color WARNING = new Color(247, 166, 100);
 
     /**
      * Error.

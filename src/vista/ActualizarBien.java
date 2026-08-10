@@ -251,33 +251,46 @@ public class ActualizarBien extends JDialog {
 
         BienDAO dao = new BienDAO();
 
+        RoundedPanel panel = new RoundedPanel(
+                new GridLayout(0, 1));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(UIUtils.createPadding(25,25,25,25));
+        JLabel mensaje = new JLabel("");
+        panel.add(mensaje);
+
         if (txtDescripcion.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
+            mensaje.setText("Falta Descripción");
+            JOptionPane.showMessageDialog(this, panel);
             return;
         }
 
         if (txtMarca.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
+            mensaje.setText("Falta Marca");
+            JOptionPane.showMessageDialog(this, panel);
             return;
         }
 
         if (txtModelo.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
+            mensaje.setText("Falta Modelo");
+            JOptionPane.showMessageDialog(this, panel);
             return;
         }
 
         if (txtSerie.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
+            mensaje.setText("Falta Serie");
+            JOptionPane.showMessageDialog(this, panel);
             return;
         }
 
         if (txtProveedor.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
+            mensaje.setText("Falta Proveedor");
+            JOptionPane.showMessageDialog(this, panel);
             return;
         }
 
         if (txtFactura.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
+            mensaje.setText("Falta Factura");
+            JOptionPane.showMessageDialog(this, panel);
             return;
         }
 
@@ -297,9 +310,10 @@ public class ActualizarBien extends JDialog {
 
         if (!cambios) {
 
+            mensaje.setText("No se realizaron cambios");
             JOptionPane.showMessageDialog(
                     this,
-                    "No se realizaron cambios."
+                    panel
             );
 
             return;
@@ -341,15 +355,17 @@ public class ActualizarBien extends JDialog {
                     ""
             );
 
+            mensaje.setText("Bien actualizado correctamente");
             JOptionPane.showMessageDialog(this,
-                    "Bien actualizado correctamente");
+                    panel);
 
             dispose();
 
         } else {
 
+            mensaje.setText("Error al actualizar");
             JOptionPane.showMessageDialog(this,
-                    "Error al actualizar");
+                    panel);
         }
     }
 }

@@ -235,11 +235,19 @@ public class ActualizarMultiple extends JDialog {
         || !cbTipoBien.getSelectedItem().toString().isEmpty()
         || !cbStatus.getSelectedItem().toString().isEmpty();
 
+        RoundedPanel panel = new RoundedPanel(
+                new GridLayout(0, 1));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(UIUtils.createPadding(25,25,25,25));
+        JLabel mensaje = new JLabel("");
+        panel.add(mensaje);
+
         if(!cambios){
 
+            mensaje.setText("No se especificó ningún cambio");
             JOptionPane.showMessageDialog(
                     this,
-                    "No se especificó ningún cambio."
+                    panel
             );
 
             return;
@@ -290,8 +298,9 @@ public class ActualizarMultiple extends JDialog {
             );
         }
 
+        mensaje.setText("Bienes actualizados");
         JOptionPane.showMessageDialog(this,
-                "Bienes actualizados");
+                panel);
 
         dispose();
     }

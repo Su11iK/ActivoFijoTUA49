@@ -270,13 +270,8 @@ public class AltaBien extends JDialog {
                 new GridLayout(0, 1));
         panel.setBackground(Color.WHITE);
         panel.setBorder(UIUtils.createPadding(25,25,25,25));
-
-        panel.add(new JLabel("La descripción es obligatoria"));
-
-        if (txtDescripcion.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, panel);
-            return;
-        }
+        JLabel mensaje = new JLabel("");
+        panel.add(mensaje);
 
         Bien b = new Bien();
         BienDAO dao = new BienDAO();
@@ -295,8 +290,9 @@ public class AltaBien extends JDialog {
         } else {
 
             if (txtInventario.getText().trim().isEmpty()) {
+                mensaje.setText("Falta Número de Inventario");
                 JOptionPane.showMessageDialog(this,
-                        "Ingrese número de inventario");
+                        panel);
                 return;
             }
 
@@ -304,28 +300,39 @@ public class AltaBien extends JDialog {
             b.setNumeroInventario(txtInventario.getText());
         }
 
+        if (txtDescripcion.getText().trim().isEmpty()) {
+            mensaje.setText("Falta Descripción");
+            JOptionPane.showMessageDialog(this, panel);
+            return;
+        }
+        
         if (txtMarca.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
+            mensaje.setText("Falta Marca");
+            JOptionPane.showMessageDialog(this, panel);
             return;
         }
 
         if (txtModelo.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
+            mensaje.setText("Falta Modelo");
+            JOptionPane.showMessageDialog(this, panel);
             return;
         }
 
         if (txtSerie.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
+            mensaje.setText("Falta Serie");
+            JOptionPane.showMessageDialog(this, panel);
             return;
         }
 
         if (txtProveedor.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
+            mensaje.setText("Falta Proveedor");
+            JOptionPane.showMessageDialog(this, panel);
             return;
         }
 
         if (txtFactura.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta llenar");
+            mensaje.setText("Falta Factura");
+            JOptionPane.showMessageDialog(this, panel);
             return;
         }
 
@@ -344,9 +351,10 @@ public class AltaBien extends JDialog {
             if(dao.existeNumeroInventario(
                     txtInventario.getText().trim())) {
 
+                mensaje.setText("Ya existe un bien con ese número de inventario");
                 JOptionPane.showMessageDialog(
                         this,
-                        "Ya existe un bien con ese número de inventario.",
+                        panel,
                         "Inventario duplicado",
                         JOptionPane.WARNING_MESSAGE
                 );
@@ -374,15 +382,17 @@ public class AltaBien extends JDialog {
 
             );
 
+            mensaje.setText("Bien registrado correctamente");
             JOptionPane.showMessageDialog(this,
-                    "Bien registrado correctamente");
+                    panel);
 
             dispose();
 
         } else {
 
+            mensaje.setText("Error al registrar");
             JOptionPane.showMessageDialog(this,
-                    "Error al registrar");
+                    panel);
         }
     }
 }
