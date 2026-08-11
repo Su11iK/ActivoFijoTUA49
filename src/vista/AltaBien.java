@@ -354,9 +354,7 @@ public class AltaBien extends JDialog {
                 mensaje.setText("Ya existe un bien con ese número de inventario");
                 JOptionPane.showMessageDialog(
                         this,
-                        panel,
-                        "Inventario duplicado",
-                        JOptionPane.WARNING_MESSAGE
+                        panel
                 );
 
                 return;

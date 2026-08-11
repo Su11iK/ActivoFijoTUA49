@@ -137,19 +137,33 @@ public class AreasFrame extends JDialog {
         JLabel mensaje = new JLabel("");
         panel.add(mensaje);
 
-        mensaje.setText("Nombre del área:");
-        String nombre = JOptionPane.showInputDialog(
-                this,
-                panel
-        );
+        RoundedPanel panel1 = new RoundedPanel(
+                new GridLayout(0, 1));
+        panel1.setBackground(Color.WHITE);
+        panel1.setBorder(UIUtils.createPadding(25,25,25,25));
 
-        if (nombre == null) {
-                return;
+        SearchField nombre =
+                new SearchField();
+        nombre.setColumns(25);
+        
+        panel1.add(new JLabel("Nombre del área:"));
+        panel1.add(nombre);
+
+        int opcion =
+                JOptionPane.showConfirmDialog(
+                        this,
+                        panel1,
+                        "Agregar Area",
+                        JOptionPane.OK_CANCEL_OPTION
+                );
+
+        if (opcion != JOptionPane.OK_OPTION) {
+            return;
         }
 
-        if (nombre.trim().isEmpty()) {
+        if (nombre.getText().trim().isEmpty()) {
 
-            mensaje.setText("El nombre es obligatorios");
+            mensaje.setText("El nombre es obligatorio");
             JOptionPane.showMessageDialog(
                     this,
                     panel
@@ -158,9 +172,13 @@ public class AreasFrame extends JDialog {
             return;
         }
 
+        if (nombre.getText() == null) {
+                return;
+        }
+
         AreaDAO dao = new AreaDAO();
 
-        dao.insertarArea(nombre);
+        dao.insertarArea(nombre.getText());
 
         cargarAreas();
     }
@@ -235,9 +253,7 @@ public class AreasFrame extends JDialog {
                 mensaje.setText("No se registro ningun cambio");
                 JOptionPane.showMessageDialog(
                         this,
-                        panel,
-                        "Sin cambios",
-                        JOptionPane.WARNING_MESSAGE
+                        panel
                 );
 
                 return;
@@ -245,7 +261,7 @@ public class AreasFrame extends JDialog {
 
         if (txtNombre.getText().trim().isEmpty()) {
 
-            mensaje.setText("El nombre es obligatorios");
+            mensaje.setText("El nombre es obligatorio");
             JOptionPane.showMessageDialog(
                     this,
                     panel
@@ -315,7 +331,7 @@ public class AreasFrame extends JDialog {
                 scroll.getViewport().setBackground(Color.WHITE);
 
                 RoundedPanel panel1 = new RoundedPanel(
-                        new GridLayout(0, 1));
+                        new BorderLayout(10, 10));
                 panel1.setBackground(Color.WHITE);
                 panel1.setBorder(UIUtils.createPadding(25,25,25,25));
 

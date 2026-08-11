@@ -261,6 +261,11 @@ public class BajasFrame extends JFrame {
 
     private void mostrarObservaciones(String texto) {
 
+        RoundedPanel panel = new RoundedPanel(
+                new GridLayout(0, 1));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(UIUtils.createPadding(25,25,25,25));
+
         RoundedTextArea area = new RoundedTextArea(texto);
 
         area.setEditable(false);
@@ -273,10 +278,11 @@ public class BajasFrame extends JFrame {
         scroll.getViewport().setBackground(Color.WHITE);
 
         scroll.setPreferredSize(new Dimension(500, 300));
+        panel.add(scroll);
 
         JOptionPane.showMessageDialog(
                 this,
-                scroll,
+                panel,
                 "Observaciones",
                 JOptionPane.INFORMATION_MESSAGE
         );

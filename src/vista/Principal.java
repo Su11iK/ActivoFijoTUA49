@@ -172,6 +172,13 @@ public class Principal extends JFrame {
         panelCRUD.add(btnEliminar);
         panelCRUD.add(btnAsignar);
 
+        RoundedPanel panel = new RoundedPanel(
+                new GridLayout(0, 1));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(UIUtils.createPadding(25,25,25,25));
+        JLabel mensaje = new JLabel("");
+        panel.add(mensaje);
+
         btnAlta.addActionListener(e -> {
             AltaBien alta = new AltaBien(this);
             alta.setVisible(true);
@@ -197,8 +204,9 @@ public class Principal extends JFrame {
 
             if (filasVista.length == 0) {
 
+                mensaje.setText("Seleccione al menos un bien");
                 JOptionPane.showMessageDialog(this,
-                        "Seleccione al menos un bien");
+                        panel);
 
                 return;
             }
@@ -254,8 +262,9 @@ public class Principal extends JFrame {
 
             if (filasVista.length == 0) {
 
+                mensaje.setText("Seleccione al menos un bien");
                 JOptionPane.showMessageDialog(this,
-                        "Seleccione al menos un bien");
+                        panel);
 
                 return;
             }
@@ -264,8 +273,9 @@ public class Principal extends JFrame {
                 Bien bien = listaBienes.get(fila);
 
                 if ("BAJA".equalsIgnoreCase(bien.getStatus())) {
+                mensaje.setText("Uno o más bienes seleccionados ya se encuentran dados de baja.");
                 JOptionPane.showMessageDialog(this,
-                        "Uno o más bienes seleccionados ya se encuentran dados de baja.");
+                        panel);
                 return;
                 }
             }
@@ -300,9 +310,10 @@ public class Principal extends JFrame {
 
             if (filasVista.length == 0) {
 
+                mensaje.setText("Seleccione al menos un bien");
                 JOptionPane.showMessageDialog(
                         this,
-                        "Seleccione al menos un bien"
+                        panel
                 );
 
                 return;
@@ -312,8 +323,9 @@ public class Principal extends JFrame {
                 Bien bien = listaBienes.get(fila);
 
                 if ("BAJA".equalsIgnoreCase(bien.getStatus())) {
+                mensaje.setText("No se permite en bienes que ya se encuentran dados de baja.");
                 JOptionPane.showMessageDialog(this,
-                        "No se permite en bienes que ya se encuentran dados de baja.");
+                        panel);
                 return;
                 }
             }

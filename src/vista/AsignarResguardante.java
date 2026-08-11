@@ -144,6 +144,13 @@ public class AsignarResguardante extends JDialog {
     // =========================
     private void asignar() {
 
+        RoundedPanel panel = new RoundedPanel(
+                new GridLayout(0, 1));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(UIUtils.createPadding(25,25,25,25));
+        JLabel mensaje = new JLabel("");
+        panel.add(mensaje);
+
         Resguardante r =
                 (Resguardante)
                         cbResguardantes.getSelectedItem();
@@ -152,12 +159,11 @@ public class AsignarResguardante extends JDialog {
 
         if (r.getIdArea() == 0) {
 
+                mensaje.setText("El resguardante seleccionado no tiene un área asignada.\n"
+                        + " Asigne primero un área al resguardante.");
                 JOptionPane.showMessageDialog(
                         this,
-                        "El resguardante seleccionado no tiene un área asignada.\n"
-                        + "Asigne primero un área al resguardante.",
-                        "Área no asignada",
-                        JOptionPane.WARNING_MESSAGE
+                        panel
                 );
 
                 return;
@@ -190,21 +196,21 @@ public class AsignarResguardante extends JDialog {
 
         if (cambios == 0) {
 
+                mensaje.setText("No se registro ningun cambio de resguardo");
                 JOptionPane.showMessageDialog(
                         this,
-                        "No se registro ningun cambio de resguardo.",
-                        "Sin cambios",
-                        JOptionPane.WARNING_MESSAGE
+                        panel
                 );
 
                 return;
         }
 
+        mensaje.setText("Resguardante asignado a "
+                + cambios
+                + " bien(es).");
         JOptionPane.showMessageDialog(
                 this,
-                "Resguardante asignado a "
-                + cambios
-                + " bienes."
+                panel
         );
 
         dispose();

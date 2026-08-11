@@ -76,13 +76,21 @@ public class BajaBien extends JDialog {
 
     private void baja() {
 
+        RoundedPanel panel = new RoundedPanel(
+                new GridLayout(0, 1));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(UIUtils.createPadding(25,25,25,25));
+        JLabel mensaje = new JLabel("");
+        panel.add(mensaje);
+
         String motivo =
                 txtMotivo.getText().trim();
 
+        mensaje.setText("¿Seguro de dar de baja?");
         int confirmacion =
                 JOptionPane.showConfirmDialog(
                         this,
-                        "¿Seguro de dar de baja?",
+                        panel,
                         "Confirmar",
                         JOptionPane.YES_NO_OPTION
                 );
@@ -125,8 +133,9 @@ public class BajaBien extends JDialog {
                 );
         }
 
+        mensaje.setText("Baja realizada");
         JOptionPane.showMessageDialog(this,
-                "Baja realizada");
+                panel);
 
         dispose();
     }

@@ -151,6 +151,13 @@ public class ResguardantesFrame extends JDialog {
     // =========================
     private void agregar() {
 
+        RoundedPanel panel = new RoundedPanel(
+                new GridLayout(0, 1));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(UIUtils.createPadding(25,25,25,25));
+        JLabel mensaje = new JLabel("");
+        panel.add(mensaje);
+
         SearchField txtNombre =
                 new SearchField();
         txtNombre.setColumns(25);
@@ -171,24 +178,24 @@ public class ResguardantesFrame extends JDialog {
             cbAreas.addItem(a);
         }
 
-        RoundedPanel panel = new RoundedPanel(
+        RoundedPanel panel1 = new RoundedPanel(
                 new GridLayout(0, 1));
-        panel.setBackground(Color.WHITE);
-        panel.setBorder(UIUtils.createPadding(25,25,25,25));
+        panel1.setBackground(Color.WHITE);
+        panel1.setBorder(UIUtils.createPadding(25,25,25,25));
 
-        panel.add(new JLabel("Nombre"));
-        panel.add(txtNombre);
+        panel1.add(new JLabel("Nombre"));
+        panel1.add(txtNombre);
 
-        panel.add(new JLabel("Puesto"));
-        panel.add(txtPuesto);
+        panel1.add(new JLabel("Puesto"));
+        panel1.add(txtPuesto);
 
-        panel.add(new JLabel("Área"));
-        panel.add(cbAreas);
+        panel1.add(new JLabel("Área"));
+        panel1.add(cbAreas);
 
         int opcion =
                 JOptionPane.showConfirmDialog(
                         this,
-                        panel,
+                        panel1,
                         "Agregar Resguardante",
                         JOptionPane.OK_CANCEL_OPTION
                 );
@@ -200,9 +207,10 @@ public class ResguardantesFrame extends JDialog {
         if (txtNombre.getText().trim().isEmpty()
                 || txtPuesto.getText().trim().isEmpty()) {
 
+            mensaje.setText("Nombre y puesto son obligatorios");
             JOptionPane.showMessageDialog(
                     this,
-                    "Nombre y puesto son obligatorios"
+                    panel
             );
 
             return;
@@ -228,14 +236,22 @@ public class ResguardantesFrame extends JDialog {
     // =========================
     private void editar() {
 
+        RoundedPanel panel = new RoundedPanel(
+                new GridLayout(0, 1));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(UIUtils.createPadding(25,25,25,25));
+        JLabel mensaje = new JLabel("");
+        panel.add(mensaje);
+
         int fila =
                 tabla.getSelectedRow();
 
         if (fila == -1) {
 
+            mensaje.setText("Seleccione un resguardante");
             JOptionPane.showMessageDialog(
                     this,
-                    "Seleccione un resguardante"
+                    panel
             );
 
             return;
@@ -258,17 +274,19 @@ public class ResguardantesFrame extends JDialog {
         scroll.setBorder(BorderFactory.createEmptyBorder());
         scroll.getViewport().setBackground(Color.WHITE);
 
-        RoundedPanel panel =
+        RoundedPanel panel1 =
                 new RoundedPanel(new GridLayout(0, 1));
+        panel1.setBackground(Color.WHITE);
+        panel1.setBorder(UIUtils.createPadding(25,25,25,25));
 
-        panel.add(new JLabel("Nombre:"));
-        panel.add(txtNombre);
+        panel1.add(new JLabel("Nombre:"));
+        panel1.add(txtNombre);
 
-        panel.add(new JLabel("Puesto:"));
-        panel.add(txtPuesto);
+        panel1.add(new JLabel("Puesto:"));
+        panel1.add(txtPuesto);
 
-        panel.add(new JLabel("Observaciones:"));
-        panel.add(scroll);
+        panel1.add(new JLabel("Observaciones:"));
+        panel1.add(scroll);
 
         String nombreAnterior =
                 r.getNombre();
@@ -279,7 +297,7 @@ public class ResguardantesFrame extends JDialog {
         int opcion =
                 JOptionPane.showConfirmDialog(
                         this,
-                        panel,
+                        panel1,
                         "Editar Resguardante",
                         JOptionPane.OK_CANCEL_OPTION
                 );
@@ -299,11 +317,10 @@ public class ResguardantesFrame extends JDialog {
                 );
 
         if (!cambioNombre && !cambioPuesto) {
+                mensaje.setText("No se registro ningun cambio.");
                 JOptionPane.showMessageDialog(
                         this,
-                        "No se registro ningun cambio.",
-                        "Sin cambios",
-                        JOptionPane.WARNING_MESSAGE
+                        panel
                 );
 
                 return;
@@ -312,9 +329,10 @@ public class ResguardantesFrame extends JDialog {
         if (txtNombre.getText().trim().isEmpty()
                 || txtPuesto.getText().trim().isEmpty()) {
 
+            mensaje.setText("Nombre y puesto son obligatorios");
             JOptionPane.showMessageDialog(
                     this,
-                    "Nombre y puesto son obligatorios"
+                    panel
             );
 
             return;
@@ -340,14 +358,22 @@ public class ResguardantesFrame extends JDialog {
     // =========================
     private void asignar() {
 
+        RoundedPanel panel = new RoundedPanel(
+                new GridLayout(0, 1));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(UIUtils.createPadding(25,25,25,25));
+        JLabel mensaje = new JLabel("");
+        panel.add(mensaje);
+
         int fila =
                 tabla.getSelectedRow();
 
         if (fila == -1) {
 
+            mensaje.setText("Seleccione un resguardante");
             JOptionPane.showMessageDialog(
                     this,
-                    "Seleccione un resguardante"
+                    panel
             );
 
             return;
@@ -391,19 +417,21 @@ public class ResguardantesFrame extends JDialog {
 
         cbAreas.setSelectedItem(seleccionada);
 
-        RoundedPanel panel =
+        RoundedPanel panel1 =
                 new RoundedPanel(new GridLayout(0, 1));
+        panel1.setBackground(Color.WHITE);
+        panel1.setBorder(UIUtils.createPadding(25,25,25,25));
 
-        panel.add(new JLabel("Área:"));
-        panel.add(cbAreas);
+        panel1.add(new JLabel("Área:"));
+        panel1.add(cbAreas);
 
-        panel.add(new JLabel("Observaciones:"));
-        panel.add(scroll);
+        panel1.add(new JLabel("Observaciones:"));
+        panel1.add(scroll);
 
         int opcion =
                 JOptionPane.showConfirmDialog(
                         this,
-                        panel,
+                        panel1,
                         "Asignar Resguardante",
                         JOptionPane.OK_CANCEL_OPTION
                 );
@@ -416,11 +444,10 @@ public class ResguardantesFrame extends JDialog {
                 (Area) cbAreas.getSelectedItem();
 
         if (areaSeleccionada == null) {
+                mensaje.setText("No se registro ninguna asignación.");
                 JOptionPane.showMessageDialog(
                         this,
-                        "No se registro ninguna asignación.",
-                        "Sin asignación",
-                        JOptionPane.WARNING_MESSAGE
+                        panel
                 );
 
                 return;
@@ -437,11 +464,10 @@ public class ResguardantesFrame extends JDialog {
                 );
 
         if (!cambioArea) {
+                mensaje.setText("No se registro ningun cambio.");
                 JOptionPane.showMessageDialog(
                         this,
-                        "No se registro ningun cambio.",
-                        "Sin cambios",
-                        JOptionPane.WARNING_MESSAGE
+                        panel
                 );
 
                 return;
@@ -463,23 +489,32 @@ public class ResguardantesFrame extends JDialog {
     // =========================
     private void eliminar() {
 
+        RoundedPanel panel = new RoundedPanel(
+                new GridLayout(0, 1));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(UIUtils.createPadding(25,25,25,25));
+        JLabel mensaje = new JLabel("");
+        panel.add(mensaje);
+
         int fila =
                 tabla.getSelectedRow();
 
         if (fila == -1) {
 
+            mensaje.setText("Seleccione un resguardante");
             JOptionPane.showMessageDialog(
                     this,
-                    "Seleccione un resguardante"
+                    panel
             );
 
             return;
         }
 
+        mensaje.setText("¿Eliminar resguardante?");
         int confirmar =
                 JOptionPane.showConfirmDialog(
                         this,
-                        "¿Eliminar resguardante?",
+                        panel,
                         "Confirmar",
                         JOptionPane.YES_NO_OPTION
                 );
@@ -501,14 +536,17 @@ public class ResguardantesFrame extends JDialog {
                 scroll.setBorder(BorderFactory.createEmptyBorder());
                 scroll.getViewport().setBackground(Color.WHITE);
 
-                RoundedPanel panel = new RoundedPanel(new BorderLayout());
+                RoundedPanel panel1 = new RoundedPanel(
+                        new BorderLayout(10, 10));
+                panel1.setBackground(Color.WHITE);
+                panel1.setBorder(UIUtils.createPadding(25,25,25,25));
 
-                panel.add(
+                panel1.add(
                 new JLabel("Observaciones:"),
                 BorderLayout.NORTH
                 );
 
-                panel.add(
+                panel1.add(
                 scroll,
                 BorderLayout.CENTER
                 );
@@ -516,7 +554,7 @@ public class ResguardantesFrame extends JDialog {
                 int opcion =
                 JOptionPane.showConfirmDialog(
                         this,
-                        panel,
+                        panel1,
                         "Existen bienes asignados. ¿Continuar?",
                         JOptionPane.YES_NO_OPTION
                 );
