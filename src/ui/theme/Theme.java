@@ -169,6 +169,14 @@ public final class Theme {
 
         UIManager.put("TitlePane.foreground", AppColors.TEXT_PRIMARY);
 
+        UIManager.put("TitlePane.background", AppColors.PRIMARY_DARK);
+        UIManager.put("TitlePane.foreground", Color.WHITE);
+
+        UIManager.put("TitlePane.inactiveBackground", AppColors.PRIMARY_DARK);
+        UIManager.put("TitlePane.inactiveForeground", Color.WHITE);
+
+        UIManager.put("TitlePane.unifiedBackground", false);
+
     }
 
 }
