@@ -5,7 +5,6 @@ import java.awt.Color;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
@@ -84,7 +83,7 @@ public class Styles {
         XSSFCellStyle style =
                 (XSSFCellStyle) workbook.createCellStyle();
 
-        Font font = workbook.createFont();
+        XSSFFont font = (XSSFFont) workbook.createFont();
 
         font.setFontName("Arial");
         font.setFontHeightInPoints((short) 11);
@@ -116,7 +115,7 @@ public class Styles {
         XSSFCellStyle style =
                 (XSSFCellStyle) workbook.createCellStyle();
 
-        Font font = workbook.createFont();
+        XSSFFont font = (XSSFFont) workbook.createFont();
 
         font.setFontName("Arial");
         font.setFontHeightInPoints((short) 10);
@@ -143,7 +142,7 @@ public class Styles {
         XSSFCellStyle style =
                 (XSSFCellStyle) workbook.createCellStyle();
 
-        Font font = workbook.createFont();
+        XSSFFont font = (XSSFFont) workbook.createFont();
 
         font.setFontName("Arial");
         font.setFontHeightInPoints((short) 10);
@@ -185,7 +184,7 @@ public class Styles {
         XSSFCellStyle style =
                 (XSSFCellStyle) workbook.createCellStyle();
 
-        Font font = workbook.createFont();
+        XSSFFont font = (XSSFFont) workbook.createFont();
 
         font.setFontName("Arial");
         font.setFontHeightInPoints((short) 10);
@@ -253,7 +252,7 @@ public class Styles {
         XSSFCellStyle style =
                 (XSSFCellStyle) celdaCentrada(workbook);
 
-        Font font = workbook.createFont();
+        XSSFFont font = (XSSFFont) workbook.createFont();
 
         font.setFontName("Arial");
         font.setFontHeightInPoints((short) 10);
@@ -277,7 +276,7 @@ public class Styles {
         XSSFCellStyle style =
                 (XSSFCellStyle) celdaCentrada(workbook);
 
-        Font font = workbook.createFont();
+        XSSFFont font = (XSSFFont) workbook.createFont();
 
         font.setFontName("Arial");
         font.setFontHeightInPoints((short) 10);
@@ -304,7 +303,7 @@ public class Styles {
         XSSFCellStyle style =
                 (XSSFCellStyle) workbook.createCellStyle();
 
-        Font font = workbook.createFont();
+        XSSFFont font = (XSSFFont) workbook.createFont();
 
         font.setFontName("Arial");
         font.setFontHeightInPoints((short) 12);
@@ -346,7 +345,7 @@ public class Styles {
         XSSFCellStyle style =
                 (XSSFCellStyle) workbook.createCellStyle();
 
-        Font font = workbook.createFont();
+        XSSFFont font = (XSSFFont) workbook.createFont();
 
         font.setFontName("Arial");
         font.setFontHeightInPoints((short) 11);
