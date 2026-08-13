@@ -34,6 +34,14 @@ public class BienDAO {
             FROM bienes b
             LEFT JOIN areas a ON b.area_id = a.id_area
             LEFT JOIN resguardantes r ON b.resguardante_id = r.id_resguardante
+            ORDER BY
+                CASE
+                    WHEN b.status = 'ACTIVO' THEN 1
+                    WHEN b.status = 'MANTENIMIENTO' THEN 2
+                    WHEN b.status = 'REPARACION' THEN 3
+                    WHEN b.status = 'BAJA' THEN 4
+                    ELSE 5
+                END
             """;
 
         try (Connection conn = ConexionBD.conectar();
