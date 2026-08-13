@@ -26,8 +26,8 @@ public class Styles {
     private static final Color COLOR_PRINCIPAL =
             new Color(0, 119, 115);
 
-    private static final Color COLOR_SECUNDARIO =
-            new Color(91, 159, 157);
+    /*private static final Color COLOR_SECUNDARIO =
+            new Color(91, 159, 157);*/
 
     private static final Color COLOR_FONDO_TITULO =
             new Color(240, 245, 245);
