@@ -347,6 +347,13 @@ public class Principal extends JFrame {
         });
 
         btnReporte.addActionListener(e -> {
+            ReportesFrame reporte = new ReportesFrame(this);
+            reporte.setVisible(true);
+
+            cargarDatos();
+        });
+
+        /*btnReporte.addActionListener(e -> {
 
                 try {
 
@@ -387,7 +394,7 @@ public class Principal extends JFrame {
                                 JOptionPane.ERROR_MESSAGE
                         );
                 }
-        });
+        });*/
 
         // 🔸 Catálogos
         RoundedPanel panelCatalogos = new RoundedPanel();
