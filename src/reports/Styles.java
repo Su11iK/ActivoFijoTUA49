@@ -412,4 +412,27 @@ public class Styles {
         style.setLeftBorderColor(colorBorde);
         style.setRightBorderColor(colorBorde);
     }
+
+    public static CellStyle porcentaje(
+        Workbook workbook
+    ) {
+
+        CellStyle style =
+                workbook.createCellStyle();
+
+        style.setAlignment(
+                HorizontalAlignment.CENTER
+        );
+
+        style.setVerticalAlignment(
+                VerticalAlignment.CENTER
+        );
+
+        style.setDataFormat(
+                workbook.createDataFormat()
+                        .getFormat("0.00%")
+        );
+
+        return style;
+    }
 }

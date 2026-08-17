@@ -5,6 +5,8 @@ import dao.ResguardanteDAO;
 import modelo.Bien;
 import modelo.Resguardante;
 import reports.CedulaCensal;
+import reports.CedulaEquipoComputo;
+import reports.ResumenInventario;
 import ui.components.PrimaryButton;
 import ui.components.RoundedPanel;
 import ui.components.SecondaryButton;
@@ -20,8 +22,7 @@ public class ReportesFrame extends JDialog {
 
     private JComboBox<String> cbReporte;
     private JComboBox<Resguardante> cbResguardantes;
-    private String reporte;
-    private List<Bien> listaBienes;
+    private List<Bien> listaBienesR;
 
     public ReportesFrame(JFrame parent) {
 
@@ -42,7 +43,6 @@ public class ReportesFrame extends JDialog {
         // =========================
 
         cbReporte = new JComboBox<>();
-        cbReporte.addItem("");
         cbReporte.addItem("Resumen General de Inventario");
         cbReporte.addItem("Cedula Censal por Usuario");
         cbReporte.addItem("Cedula de Eq. de Computo");
@@ -79,9 +79,6 @@ public class ReportesFrame extends JDialog {
         card.add(btnCancelar);
         add(card);
 
-        BienDAO bdao = new BienDAO();
-        listaBienes = bdao.listarBienes();
-
         // =========================
         // EVENTOS
         // =========================
@@ -95,7 +92,8 @@ public class ReportesFrame extends JDialog {
 
     private void generar() {
 
-        reporte = cbReporte.getSelectedItem().toString();
+        BienDAO bdao = new BienDAO();
+
         RoundedPanel panel = new RoundedPanel(
                 new GridLayout(0, 1));
         panel.setBackground(Color.WHITE);
@@ -121,12 +119,50 @@ public class ReportesFrame extends JDialog {
                 return;
         }
 
-        if (reporte.equals("Cedula Censal por Usuario")) {
+        if (cbReporte.getSelectedIndex() == 0) {
             try {
+
+                listaBienesR = bdao.listarBienes();
+
+                File archivo =
+                        ResumenInventario.generar(
+                                listaBienesR,
+                                System.getProperty("user.home")
+                                + File.separator
+                                + "Desktop"
+                                + File.separator
+                                + "Inventario_General.xlsx"
+                        );
+
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Cédula generada correctamente."
+                    );
+
+                    Desktop.getDesktop().open(
+                            archivo
+                    );
+
+                } catch (Exception ex) {
+
+                    ex.printStackTrace();
+
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Error al generar la cédula:\n"
+                            + ex.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+            }
+        } else if (cbReporte.getSelectedIndex() == 1) {
+            try {
+
+                listaBienesR = bdao.listarBienesR(r.getId());
 
                 File archivo =
                         CedulaCensal.generar(
-                                listaBienes,
+                                listaBienesR,
                                 r.getNombre(),
                                 r.getNombreArea(),
                                 System.getProperty("user.home")
@@ -134,6 +170,44 @@ public class ReportesFrame extends JDialog {
                                 + "Desktop"
                                 + File.separator
                                 + "Cedula_Censal.xlsx"
+                        );
+
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Cédula generada correctamente."
+                    );
+
+                    Desktop.getDesktop().open(
+                            archivo
+                    );
+
+                } catch (Exception ex) {
+
+                    ex.printStackTrace();
+
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Error al generar la cédula:\n"
+                            + ex.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+            }
+        } else if (cbReporte.getSelectedIndex() == 2) {
+            try {
+
+                listaBienesR = bdao.listarBienesR(r.getId());
+
+                File archivo =
+                        CedulaEquipoComputo.generar(
+                                listaBienesR,
+                                r.getNombre(),
+                                r.getNombreArea(),
+                                System.getProperty("user.home")
+                                + File.separator
+                                + "Desktop"
+                                + File.separator
+                                + "Cedula_EquComputo.xlsx"
                         );
 
                     JOptionPane.showMessageDialog(

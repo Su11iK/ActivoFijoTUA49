@@ -748,4 +748,79 @@ public class BienDAO {
         return false;
     }
 
+    public List<Bien> listarBienesR(int rId) {
+        List<Bien> listaR = new ArrayList<>();
+
+        String sql = """
+            SELECT 
+                b.id_bien,
+                b.numero_inventario,
+                tipo_adquisicion,
+                b.descripcion,
+                b.marca,
+                b.modelo,
+                b.numero_serie,
+                b.estado_fisico,
+                b.numero_factura,
+                b.proveedor,
+                b.tipo_bien,
+                b.fecha_alta,
+                b.status,
+                a.nombre_area,
+                r.nombre_resguardante
+            FROM bienes b
+            LEFT JOIN areas a ON b.area_id = a.id_area
+            LEFT JOIN resguardantes r ON b.resguardante_id = r.id_resguardante
+            WHERE resguardante_id = ?
+            ORDER BY
+                CASE
+                    WHEN b.status = 'ACTIVO' THEN 1
+                    WHEN b.status = 'MANTENIMIENTO' THEN 2
+                    WHEN b.status = 'REPARACION' THEN 3
+                    WHEN b.status = 'BAJA' THEN 4
+                    ELSE 5
+                END
+            """;
+
+        try (Connection conn = ConexionBD.conectar();
+             PreparedStatement ps = conn.prepareStatement(sql);) {
+
+            ps.setInt(1, rId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Bien b = new Bien();
+
+                b.setId(rs.getInt("id_bien"));
+                b.setNumeroInventario(rs.getString("numero_inventario"));
+                b.setTipoAdquisicion(rs.getString("tipo_adquisicion"));
+                b.setDescripcion(rs.getString("descripcion"));
+                b.setMarca(rs.getString("marca"));
+                b.setModelo(rs.getString("modelo"));
+                b.setNumeroSerie(rs.getString("numero_serie"));
+
+                // 🔥 NUEVOS CAMPOS
+                b.setEstadoFisico(rs.getString("estado_fisico"));
+                b.setFactura(rs.getString("numero_factura"));
+                b.setProveedor(rs.getString("proveedor"));
+                b.setTipoBien(rs.getString("tipo_bien"));
+
+                b.setArea(rs.getString("nombre_area"));
+                b.setResguardante(rs.getString("nombre_resguardante"));
+
+                b.setFechaAlta(rs.getTimestamp("fecha_alta").toLocalDateTime());
+                b.setStatus(rs.getString("status"));
+
+                listaR.add(b);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return listaR;
+    }
+
 }
