@@ -2,7 +2,6 @@ package vista;
 
 import dao.BienDAO;
 import modelo.Bien;
-import reports.ReportService;
 import ui.components.HeaderPanel;
 import ui.components.PrimaryButton;
 import ui.components.RoundedPanel;
@@ -15,7 +14,6 @@ import javax.swing.*;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.io.File;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.event.DocumentEvent;
@@ -352,49 +350,6 @@ public class Principal extends JFrame {
 
             cargarDatos();
         });
-
-        /*btnReporte.addActionListener(e -> {
-
-                try {
-
-                        String ruta =
-                                System.getProperty("user.home")
-                                + File.separator
-                                + "Desktop"
-                                + File.separator
-                                + "Reporte_Inventario.xlsx";
-
-                        File archivo =
-                                ReportService.generarReporteGeneral(
-                                        listaBienes,
-                                        ruta
-                                );
-
-                        JOptionPane.showMessageDialog(
-                                this,
-                                "Reporte generado correctamente.\n\n"
-                                + archivo.getAbsolutePath(),
-                                "Reporte generado",
-                                JOptionPane.INFORMATION_MESSAGE
-                        );
-
-                        Desktop.getDesktop().open(
-                                archivo
-                        );
-
-                } catch (Exception ex) {
-
-                        ex.printStackTrace();
-
-                        JOptionPane.showMessageDialog(
-                                this,
-                                "No fue posible generar el reporte.\n\n"
-                                + ex.getMessage(),
-                                "Error",
-                                JOptionPane.ERROR_MESSAGE
-                        );
-                }
-        });*/
 
         // 🔸 Catálogos
         RoundedPanel panelCatalogos = new RoundedPanel();

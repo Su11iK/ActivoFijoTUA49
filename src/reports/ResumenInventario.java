@@ -12,14 +12,13 @@ import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.ClientAnchor;
-import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Drawing;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.util.IOUtils;
+import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ResumenInventario {
@@ -64,80 +63,8 @@ public class ResumenInventario {
             CellStyle celda =
                     Styles.celda(workbook);
 
-            CellStyle celdaCentrada =
-                    Styles.celdaCentrada(workbook);
-
             CellStyle resumenValor =
                     Styles.resumenValor(workbook);
-
-            // ====================================================
-            // ANCHOS
-            // ====================================================
-
-            sheet.setColumnWidth(
-                    0,
-                    7 * 256
-            );
-
-            sheet.setColumnWidth(
-                    1,
-                    18 * 256
-            );
-
-            sheet.setColumnWidth(
-                    2,
-                    32 * 256
-            );
-
-            sheet.setColumnWidth(
-                    3,
-                    18 * 256
-            );
-
-            sheet.setColumnWidth(
-                    4,
-                    20 * 256
-            );
-
-            sheet.setColumnWidth(
-                    5,
-                    24 * 256
-            );
-
-            sheet.setColumnWidth(
-                    6,
-                    20 * 256
-            );
-
-            sheet.setColumnWidth(
-                    7,
-                    18 * 256
-            );
-
-            sheet.setColumnWidth(
-                    8,
-                    28 * 256
-            );
-
-            sheet.setColumnWidth(
-                    9,
-                    25 * 256
-            );
-
-            sheet.setColumnWidth(
-                    10,
-                    28 * 256
-            );
-
-            sheet.setColumnWidth(
-                    11,
-                    16 * 256
-            );
-
-            sheet.setColumnWidth(
-                    12,
-                    16 * 256
-            );
 
             // ====================================================
             // LOGO
@@ -160,7 +87,7 @@ public class ResumenInventario {
             );
 
             Cell tribunal =
-                    fila0.createCell(2);
+                    fila0.createCell(0);
 
             tribunal.setCellValue(
                     "TRIBUNAL SUPERIOR AGRARIO"
@@ -174,8 +101,8 @@ public class ResumenInventario {
                     new CellRangeAddress(
                             0,
                             0,
-                            2,
-                            12
+                            0,
+                            8
                     )
             );
 
@@ -189,7 +116,7 @@ public class ResumenInventario {
             );
 
             Cell distrito =
-                    fila1.createCell(2);
+                    fila1.createCell(0);
 
             distrito.setCellValue(
                     "TRIBUNAL UNITARIO AGRARIO DISTRITO 49"
@@ -203,8 +130,8 @@ public class ResumenInventario {
                     new CellRangeAddress(
                             1,
                             1,
-                            2,
-                            12
+                            0,
+                            8
                     )
             );
 
@@ -235,7 +162,7 @@ public class ResumenInventario {
                             3,
                             3,
                             0,
-                            12
+                            8
                     )
             );
 
@@ -271,7 +198,7 @@ public class ResumenInventario {
             );
 
             Cell fechaTexto =
-                    fila5.createCell(8);
+                    fila5.createCell(7);
 
             fechaTexto.setCellValue(
                     "Fecha de generación:"
@@ -282,7 +209,7 @@ public class ResumenInventario {
             );
 
             Cell fecha =
-                    fila5.createCell(9);
+                    fila5.createCell(8);
 
             fecha.setCellValue(
                     LocalDate.now().format(
@@ -294,15 +221,6 @@ public class ResumenInventario {
 
             fecha.setCellStyle(
                     informacion
-            );
-
-            sheet.addMergedRegion(
-                    new CellRangeAddress(
-                            5,
-                            5,
-                            9,
-                            10
-                    )
             );
 
             // ====================================================
@@ -390,7 +308,7 @@ public class ResumenInventario {
                             filaResumen,
                             filaResumen,
                             0,
-                            12
+                            8
                     )
             );
 
@@ -524,7 +442,7 @@ public class ResumenInventario {
                             filaTipo,
                             filaTipo,
                             0,
-                            12
+                            8
                     )
             );
 
@@ -670,7 +588,7 @@ public class ResumenInventario {
                             filaDetalle,
                             filaDetalle,
                             0,
-                            12
+                            8
                     )
             );
 
@@ -685,7 +603,6 @@ public class ResumenInventario {
 
             String[] columnas = {
 
-                    "No.",
                     "INVENTARIO",
                     "DESCRIPCIÓN",
                     "MARCA",
@@ -694,10 +611,7 @@ public class ResumenInventario {
                     "ESTADO FÍSICO",
                     "FACTURA",
                     "PROVEEDOR",
-                    "TIPO DE BIEN",
-                    "ÁREA",
-                    "RESGUARDANTE",
-                    "ESTATUS"
+                    "TIPO DE BIEN"
             };
 
             for (
@@ -729,9 +643,6 @@ public class ResumenInventario {
             int fila =
                     filaDetalle + 2;
 
-            int contador =
-                    1;
-
             if (bienes != null) {
 
                 for (Bien bien : bienes) {
@@ -756,27 +667,16 @@ public class ResumenInventario {
                             );
 
                     // --------------------------------------------
-                    // No.
-                    // --------------------------------------------
-
-                    crearCelda(
-                            row,
-                            0,
-                            contador++,
-                            celdaCentrada
-                    );
-
-                    // --------------------------------------------
                     // INVENTARIO
                     // --------------------------------------------
 
                     crearCelda(
                             row,
-                            1,
+                            0,
                             valor(
                                     bien.getNumeroInventario()
                             ),
-                            celdaCentrada
+                            celda
                     );
 
                     // --------------------------------------------
@@ -785,7 +685,7 @@ public class ResumenInventario {
 
                     crearCelda(
                             row,
-                            2,
+                            1,
                             valor(
                                     bien.getDescripcion()
                             ),
@@ -798,7 +698,7 @@ public class ResumenInventario {
 
                     crearCelda(
                             row,
-                            3,
+                            2,
                             valor(
                                     bien.getMarca()
                             ),
@@ -811,7 +711,7 @@ public class ResumenInventario {
 
                     crearCelda(
                             row,
-                            4,
+                            3,
                             valor(
                                     bien.getModelo()
                             ),
@@ -824,7 +724,7 @@ public class ResumenInventario {
 
                     crearCelda(
                             row,
-                            5,
+                            4,
                             valor(
                                     bien.getNumeroSerie()
                             ),
@@ -837,11 +737,11 @@ public class ResumenInventario {
 
                     crearCelda(
                             row,
-                            6,
+                            5,
                             valor(
                                     bien.getEstadoFisico()
                             ),
-                            celdaCentrada
+                            celda
                     );
 
                     // --------------------------------------------
@@ -850,11 +750,11 @@ public class ResumenInventario {
 
                     crearCelda(
                             row,
-                            7,
+                            6,
                             valor(
                                     bien.getFactura()
                             ),
-                            celdaCentrada
+                            celda
                     );
 
                     // --------------------------------------------
@@ -863,7 +763,7 @@ public class ResumenInventario {
 
                     crearCelda(
                             row,
-                            8,
+                            7,
                             valor(
                                     bien.getProveedor()
                             ),
@@ -876,50 +776,11 @@ public class ResumenInventario {
 
                     crearCelda(
                             row,
-                            9,
+                            8,
                             valor(
                                     bien.getTipoBien()
                             ),
-                            celdaCentrada
-                    );
-
-                    // --------------------------------------------
-                    // ÁREA
-                    // --------------------------------------------
-
-                    crearCelda(
-                            row,
-                            10,
-                            valor(
-                                    bien.getArea()
-                            ),
                             celda
-                    );
-
-                    // --------------------------------------------
-                    // RESGUARDANTE
-                    // --------------------------------------------
-
-                    crearCelda(
-                            row,
-                            11,
-                            valor(
-                                    bien.getResguardante()
-                            ),
-                            celda
-                    );
-
-                    // --------------------------------------------
-                    // ESTATUS
-                    // --------------------------------------------
-
-                    crearCelda(
-                            row,
-                            12,
-                            valor(
-                                    bien.getStatus()
-                            ),
-                            celdaCentrada
                     );
                 }
             }
@@ -934,11 +795,6 @@ public class ResumenInventario {
 
             sheet.getPrintSetup()
                     .setLandscape(true);
-
-            sheet.getPrintSetup()
-                    .setFitWidth(
-                            (short) 1
-                    );
 
             sheet.getPrintSetup()
                     .setFitHeight(
@@ -958,42 +814,15 @@ public class ResumenInventario {
                             filaDetalle + 1,
                             filaDetalle + 1,
                             0,
-                            12
+                            9
                     )
             );
 
-            // ====================================================
-            // MÁRGENES
-            // ====================================================
+            for (int i = 0; i < sheet.getRow(21).getLastCellNum(); i++) {
 
-            sheet.setMargin(
-                    Sheet.LeftMargin,
-                    0.30
-            );
+                sheet.autoSizeColumn(i);
 
-            sheet.setMargin(
-                    Sheet.RightMargin,
-                    0.30
-            );
-
-            sheet.setMargin(
-                    Sheet.TopMargin,
-                    0.50
-            );
-
-            sheet.setMargin(
-                    Sheet.BottomMargin,
-                    0.50
-            );
-
-            // ====================================================
-            // CONGELAR ENCABEZADOS
-            // ====================================================
-
-            sheet.createFreezePane(
-                    0,
-                    filaDetalle + 2
-            );
+            }
 
             // ====================================================
             // GUARDAR
@@ -1096,7 +925,7 @@ public class ResumenInventario {
     ) {
 
         String rutaLogo =
-                "src/resources/tua49.png";
+                "src/images/tua49v.png";
 
         File archivoLogo =
                 new File(
@@ -1133,19 +962,21 @@ public class ResumenInventario {
                             Workbook.PICTURE_TYPE_PNG
                     );
 
-            CreationHelper helper =
-                    workbook.getCreationHelper();
-
             Drawing<?> drawing =
                     sheet.createDrawingPatriarch();
 
-            ClientAnchor anchor =
-                    helper.createClientAnchor();
+            XSSFClientAnchor anchor = new XSSFClientAnchor();
 
             anchor.setCol1(0);
             anchor.setRow1(0);
-            anchor.setCol2(2);
-            anchor.setRow2(2);
+
+            // Posición final aproximada dentro de la primera celda
+            anchor.setCol2(0);
+            anchor.setRow2(3);
+
+            // 3 cm × 3 cm aproximadamente
+            anchor.setDx2(1085605);
+            anchor.setDy2(1085605);
 
             drawing.createPicture(
                     anchor,

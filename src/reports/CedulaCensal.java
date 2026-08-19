@@ -12,15 +12,13 @@ import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.ClientAnchor;
-import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Drawing;
-import org.apache.poi.ss.usermodel.Picture;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.util.IOUtils;
+import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class CedulaCensal {
@@ -71,20 +69,6 @@ public class CedulaCensal {
                     Styles.celdaCentrada(workbook);
 
             // ====================================================
-            // ANCHOS
-            // ====================================================
-
-            sheet.setColumnWidth(0, 6 * 256);    // No.
-            sheet.setColumnWidth(1, 34 * 256);   // Descripción
-            sheet.setColumnWidth(2, 18 * 256);   // Marca
-            sheet.setColumnWidth(3, 20 * 256);   // Modelo
-            sheet.setColumnWidth(4, 24 * 256);   // Serie
-            sheet.setColumnWidth(5, 18 * 256);   // Inventario
-            sheet.setColumnWidth(6, 18 * 256);   // Factura
-            sheet.setColumnWidth(7, 28 * 256);   // Proveedor
-            sheet.setColumnWidth(8, 18 * 256);   // Estado
-
-            // ====================================================
             // LOGO
             // ====================================================
 
@@ -103,7 +87,7 @@ public class CedulaCensal {
             fila0.setHeightInPoints(25);
 
             Cell tribunal =
-                    fila0.createCell(2);
+                    fila0.createCell(0);
 
             tribunal.setCellValue(
                     "TRIBUNAL SUPERIOR AGRARIO"
@@ -117,8 +101,8 @@ public class CedulaCensal {
                     new CellRangeAddress(
                             0,
                             0,
-                            2,
-                            8
+                            0,
+                            7
                     )
             );
 
@@ -130,7 +114,7 @@ public class CedulaCensal {
             fila1.setHeightInPoints(20);
 
             Cell distrito =
-                    fila1.createCell(2);
+                    fila1.createCell(0);
 
             distrito.setCellValue(
                     "TRIBUNAL UNITARIO AGRARIO DISTRITO 49"
@@ -144,8 +128,8 @@ public class CedulaCensal {
                     new CellRangeAddress(
                             1,
                             1,
-                            2,
-                            8
+                            0,
+                            7
                     )
             );
 
@@ -174,7 +158,7 @@ public class CedulaCensal {
                             3,
                             3,
                             0,
-                            8
+                            7
                     )
             );
 
@@ -278,7 +262,7 @@ public class CedulaCensal {
                             7,
                             7,
                             3,
-                            8
+                            7
                     )
             );
 
@@ -325,7 +309,7 @@ public class CedulaCensal {
                             8,
                             8,
                             3,
-                            8
+                            7
                     )
             );
 
@@ -343,7 +327,6 @@ public class CedulaCensal {
 
             String[] columnas = {
 
-                    "No.",
                     "DESCRIPCIÓN",
                     "MARCA",
                     "MODELO",
@@ -380,9 +363,6 @@ public class CedulaCensal {
 
             int fila =
                     filaEncabezado + 1;
-
-            int contador =
-                    1;
 
             int totalMuebles =
                     0;
@@ -425,26 +405,11 @@ public class CedulaCensal {
                             );
 
                     // --------------------------------------------
-                    // NÚMERO
-                    // --------------------------------------------
-
-                    Cell numero =
-                            row.createCell(0);
-
-                    numero.setCellValue(
-                            contador++
-                    );
-
-                    numero.setCellStyle(
-                            celdaCentrada
-                    );
-
-                    // --------------------------------------------
                     // DESCRIPCIÓN
                     // --------------------------------------------
 
                     Cell descripcion =
-                            row.createCell(1);
+                            row.createCell(0);
 
                     descripcion.setCellValue(
                             valor(
@@ -461,7 +426,7 @@ public class CedulaCensal {
                     // --------------------------------------------
 
                     Cell marca =
-                            row.createCell(2);
+                            row.createCell(1);
 
                     marca.setCellValue(
                             valor(
@@ -478,7 +443,7 @@ public class CedulaCensal {
                     // --------------------------------------------
 
                     Cell modelo =
-                            row.createCell(3);
+                            row.createCell(2);
 
                     modelo.setCellValue(
                             valor(
@@ -495,7 +460,7 @@ public class CedulaCensal {
                     // --------------------------------------------
 
                     Cell serie =
-                            row.createCell(4);
+                            row.createCell(3);
 
                     serie.setCellValue(
                             valor(
@@ -512,7 +477,7 @@ public class CedulaCensal {
                     // --------------------------------------------
 
                     Cell inventario =
-                            row.createCell(5);
+                            row.createCell(4);
 
                     inventario.setCellValue(
                             valor(
@@ -521,7 +486,7 @@ public class CedulaCensal {
                     );
 
                     inventario.setCellStyle(
-                            celdaCentrada
+                            celda
                     );
 
                     // --------------------------------------------
@@ -529,7 +494,7 @@ public class CedulaCensal {
                     // --------------------------------------------
 
                     Cell factura =
-                            row.createCell(6);
+                            row.createCell(5);
 
                     factura.setCellValue(
                             valor(
@@ -538,7 +503,7 @@ public class CedulaCensal {
                     );
 
                     factura.setCellStyle(
-                            celdaCentrada
+                            celda
                     );
 
                     // --------------------------------------------
@@ -546,7 +511,7 @@ public class CedulaCensal {
                     // --------------------------------------------
 
                     Cell proveedor =
-                            row.createCell(7);
+                            row.createCell(6);
 
                     proveedor.setCellValue(
                             valor(
@@ -563,7 +528,7 @@ public class CedulaCensal {
                     // --------------------------------------------
 
                     Cell estado =
-                            row.createCell(8);
+                            row.createCell(7);
 
                     estado.setCellValue(
                             valor(
@@ -572,7 +537,7 @@ public class CedulaCensal {
                     );
 
                     estado.setCellStyle(
-                            celdaCentrada
+                            celda
                     );
 
                     totalMuebles++;
@@ -626,7 +591,7 @@ public class CedulaCensal {
                             fila + 1,
                             fila + 1,
                             6,
-                            8
+                            7
                     )
             );
 
@@ -658,7 +623,7 @@ public class CedulaCensal {
                             filaDeclaracion,
                             filaDeclaracion,
                             0,
-                            8
+                            7
                     )
             );
 
@@ -667,19 +632,13 @@ public class CedulaCensal {
                             filaDeclaracion + 1
                     );
 
-            textoDeclaracion.setHeightInPoints(
-                    50
-            );
-
             Cell texto =
                     textoDeclaracion.createCell(0);
 
             texto.setCellValue(
                     "Declaro que los bienes relacionados en la presente "
                     + "cédula se encuentran bajo mi responsabilidad y "
-                    + "resguardo, comprometiéndome a informar cualquier "
-                    + "cambio, daño, pérdida o situación que afecte "
-                    + "su estado o ubicación."
+                    + "resguardo, comprometiéndome a informar cualquier"
             );
 
             texto.setCellStyle(
@@ -689,9 +648,35 @@ public class CedulaCensal {
             sheet.addMergedRegion(
                     new CellRangeAddress(
                             filaDeclaracion + 1,
+                            filaDeclaracion + 1,
+                            0,
+                            7
+                    )
+            );
+
+            Row textoDeclaracion1 =
+                    sheet.createRow(
+                            filaDeclaracion + 2
+                    );
+
+            Cell texto1 =
+                    textoDeclaracion1.createCell(0);
+
+            texto1.setCellValue(
+                    "cambio, daño, pérdida o situación que afecte "
+                    + "su estado o ubicación."
+            );
+
+            texto1.setCellStyle(
+                    informacion
+            );
+
+            sheet.addMergedRegion(
+                    new CellRangeAddress(
+                            filaDeclaracion + 2,
                             filaDeclaracion + 2,
                             0,
-                            8
+                            7
                     )
             );
 
@@ -806,9 +791,6 @@ public class CedulaCensal {
                     .setLandscape(false);
 
             sheet.getPrintSetup()
-                    .setFitWidth((short) 1);
-
-            sheet.getPrintSetup()
                     .setFitHeight((short) 0);
 
             sheet.setFitToPage(
@@ -820,40 +802,15 @@ public class CedulaCensal {
                             filaEncabezado,
                             filaEncabezado,
                             0,
-                            8
+                            7
                     )
             );
 
-            // Márgenes
+            for (int i = 0; i < sheet.getRow(10).getLastCellNum(); i++) {
 
-            sheet.setMargin(
-                    Sheet.LeftMargin,
-                    0.35
-            );
+                sheet.autoSizeColumn(i);
 
-            sheet.setMargin(
-                    Sheet.RightMargin,
-                    0.35
-            );
-
-            sheet.setMargin(
-                    Sheet.TopMargin,
-                    0.50
-            );
-
-            sheet.setMargin(
-                    Sheet.BottomMargin,
-                    0.50
-            );
-
-            // ====================================================
-            // CONGELAR ENCABEZADO
-            // ====================================================
-
-            sheet.createFreezePane(
-                    0,
-                    filaEncabezado + 1
-            );
+            }
 
             // ====================================================
             // GUARDAR
@@ -916,7 +873,7 @@ public class CedulaCensal {
          */
 
         String rutaLogo =
-                "src/images/tua49.png";
+                "src/images/tua49v.png";
 
         File archivoLogo =
                 new File(
@@ -952,27 +909,26 @@ public class CedulaCensal {
                             Workbook.PICTURE_TYPE_PNG
                     );
 
-            CreationHelper helper =
-                    workbook.getCreationHelper();
-
             Drawing<?> drawing =
                     sheet.createDrawingPatriarch();
 
-            ClientAnchor anchor =
-                    helper.createClientAnchor();
+            XSSFClientAnchor anchor = new XSSFClientAnchor();
 
             anchor.setCol1(0);
             anchor.setRow1(0);
-            anchor.setCol2(2);
-            anchor.setRow2(2);
 
-            Picture picture =
-                    drawing.createPicture(
-                            anchor,
-                            pictureIndex
-                    );
+            // Posición final aproximada dentro de la primera celda
+            anchor.setCol2(0);
+            anchor.setRow2(3);
 
-            picture.resize();
+            // 3 cm × 3 cm aproximadamente
+            anchor.setDx2(1085605);
+            anchor.setDy2(1085605);
+
+            drawing.createPicture(
+                    anchor,
+                    pictureIndex
+            );
 
         } catch (Exception e) {
 

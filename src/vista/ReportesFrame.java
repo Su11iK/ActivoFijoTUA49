@@ -16,6 +16,7 @@ import ui.utils.UIUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.time.LocalDate;
 import java.util.List;
 
 public class ReportesFrame extends JDialog {
@@ -45,7 +46,7 @@ public class ReportesFrame extends JDialog {
         cbReporte = new JComboBox<>();
         cbReporte.addItem("Resumen General de Inventario");
         cbReporte.addItem("Cedula Censal por Usuario");
-        cbReporte.addItem("Cedula de Eq. de Computo");
+        cbReporte.addItem("Cedula de Equipo de Computo");
 
         cbResguardantes =
                 new JComboBox<>();
@@ -94,6 +95,8 @@ public class ReportesFrame extends JDialog {
 
         BienDAO bdao = new BienDAO();
 
+        String fecha = LocalDate.now().toString();
+
         RoundedPanel panel = new RoundedPanel(
                 new GridLayout(0, 1));
         panel.setBackground(Color.WHITE);
@@ -104,20 +107,6 @@ public class ReportesFrame extends JDialog {
         Resguardante r =
                 (Resguardante)
                         cbResguardantes.getSelectedItem();
-
-        if (r == null) return;
-
-        if (r.getIdArea() == 0) {
-
-                mensaje.setText("El resguardante seleccionado no tiene un área asignada.\n"
-                        + " Asigne primero un área al resguardante.");
-                JOptionPane.showMessageDialog(
-                        this,
-                        panel
-                );
-
-                return;
-        }
 
         if (cbReporte.getSelectedIndex() == 0) {
             try {
@@ -131,12 +120,13 @@ public class ReportesFrame extends JDialog {
                                 + File.separator
                                 + "Desktop"
                                 + File.separator
-                                + "Inventario_General.xlsx"
+                                + "InventarioGeneral_" + fecha + ".xlsx"
                         );
 
+                    mensaje.setText("Cédula generada correctamente");
                     JOptionPane.showMessageDialog(
                             this,
-                            "Cédula generada correctamente."
+                            panel
                     );
 
                     Desktop.getDesktop().open(
@@ -147,15 +137,40 @@ public class ReportesFrame extends JDialog {
 
                     ex.printStackTrace();
 
+                    mensaje.setText("Error al generar la cédula:\n"
+                            + ex.getMessage());
                     JOptionPane.showMessageDialog(
                             this,
-                            "Error al generar la cédula:\n"
-                            + ex.getMessage(),
+                            panel,
                             "Error",
                             JOptionPane.ERROR_MESSAGE
                     );
             }
         } else if (cbReporte.getSelectedIndex() == 1) {
+
+            if (r == null) {
+
+                mensaje.setText("Falta seleccionar resguardante");
+                JOptionPane.showMessageDialog(
+                        this,
+                        panel
+                );
+
+                return;
+            }
+
+            if (r.getIdArea() == 0) {
+
+                mensaje.setText("El resguardante seleccionado no tiene un área asignada.\n"
+                        + " Asigne primero un área al resguardante.");
+                JOptionPane.showMessageDialog(
+                        this,
+                        panel
+                );
+
+                return;
+            }
+
             try {
 
                 listaBienesR = bdao.listarBienesR(r.getId());
@@ -169,12 +184,13 @@ public class ReportesFrame extends JDialog {
                                 + File.separator
                                 + "Desktop"
                                 + File.separator
-                                + "Cedula_Censal.xlsx"
+                                + "CedulaCensal_" + fecha + ".xlsx"
                         );
 
+                    mensaje.setText("Cédula generada correctamente");
                     JOptionPane.showMessageDialog(
                             this,
-                            "Cédula generada correctamente."
+                            panel
                     );
 
                     Desktop.getDesktop().open(
@@ -185,15 +201,40 @@ public class ReportesFrame extends JDialog {
 
                     ex.printStackTrace();
 
+                    mensaje.setText("Error al generar la cédula:\n"
+                            + ex.getMessage());
                     JOptionPane.showMessageDialog(
                             this,
-                            "Error al generar la cédula:\n"
-                            + ex.getMessage(),
+                            panel,
                             "Error",
                             JOptionPane.ERROR_MESSAGE
                     );
             }
         } else if (cbReporte.getSelectedIndex() == 2) {
+
+            if (r == null) {
+
+                mensaje.setText("Falta seleccionar resguardante");
+                JOptionPane.showMessageDialog(
+                        this,
+                        panel
+                );
+
+                return;
+            }
+
+            if (r.getIdArea() == 0) {
+
+                mensaje.setText("El resguardante seleccionado no tiene un área asignada.\n"
+                        + " Asigne primero un área al resguardante.");
+                JOptionPane.showMessageDialog(
+                        this,
+                        panel
+                );
+
+                return;
+            }
+
             try {
 
                 listaBienesR = bdao.listarBienesR(r.getId());
@@ -207,12 +248,13 @@ public class ReportesFrame extends JDialog {
                                 + File.separator
                                 + "Desktop"
                                 + File.separator
-                                + "Cedula_EquComputo.xlsx"
+                                + "CedulaEquComputo_" + fecha + ".xlsx"
                         );
 
+                    mensaje.setText("Cédula generada correctamente");
                     JOptionPane.showMessageDialog(
                             this,
-                            "Cédula generada correctamente."
+                            panel
                     );
 
                     Desktop.getDesktop().open(
@@ -223,10 +265,11 @@ public class ReportesFrame extends JDialog {
 
                     ex.printStackTrace();
 
+                    mensaje.setText("Error al generar la cédula:\n"
+                            + ex.getMessage());
                     JOptionPane.showMessageDialog(
                             this,
-                            "Error al generar la cédula:\n"
-                            + ex.getMessage(),
+                            panel,
                             "Error",
                             JOptionPane.ERROR_MESSAGE
                     );
