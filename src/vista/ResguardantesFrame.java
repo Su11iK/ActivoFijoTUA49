@@ -317,7 +317,7 @@ public class ResguardantesFrame extends JDialog {
                 );
 
         if (!cambioNombre && !cambioPuesto) {
-                mensaje.setText("No se registro ningun cambio.");
+                mensaje.setText("No se registro ningun cambio");
                 JOptionPane.showMessageDialog(
                         this,
                         panel
@@ -444,7 +444,7 @@ public class ResguardantesFrame extends JDialog {
                 (Area) cbAreas.getSelectedItem();
 
         if (areaSeleccionada == null) {
-                mensaje.setText("No se registro ninguna asignación.");
+                mensaje.setText("No se registro ninguna asignación");
                 JOptionPane.showMessageDialog(
                         this,
                         panel
@@ -464,7 +464,7 @@ public class ResguardantesFrame extends JDialog {
                 );
 
         if (!cambioArea) {
-                mensaje.setText("No se registro ningun cambio.");
+                mensaje.setText("No se registro ningun cambio");
                 JOptionPane.showMessageDialog(
                         this,
                         panel

@@ -35,6 +35,7 @@ public class BienDAO {
             LEFT JOIN areas a ON b.area_id = a.id_area
             LEFT JOIN resguardantes r ON b.resguardante_id = r.id_resguardante
             ORDER BY
+                b.tipo_bien ASC,
                 CASE
                     WHEN b.status = 'ACTIVO' THEN 1
                     WHEN b.status = 'MANTENIMIENTO' THEN 2

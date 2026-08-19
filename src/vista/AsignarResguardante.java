@@ -207,7 +207,7 @@ public class AsignarResguardante extends JDialog {
 
         mensaje.setText("Resguardante asignado a "
                 + cambios
-                + " bien(es).");
+                + " bien(es)");
         JOptionPane.showMessageDialog(
                 this,
                 panel

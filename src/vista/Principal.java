@@ -275,7 +275,7 @@ public class Principal extends JFrame {
                 Bien bien = listaBienes.get(fila);
 
                 if ("BAJA".equalsIgnoreCase(bien.getStatus())) {
-                mensaje.setText("Uno o más bienes seleccionados ya se encuentran dados de baja.");
+                mensaje.setText("Uno o más bienes seleccionados ya se encuentran dados de baja");
                 JOptionPane.showMessageDialog(this,
                         panel);
                 return;
@@ -325,7 +325,7 @@ public class Principal extends JFrame {
                 Bien bien = listaBienes.get(fila);
 
                 if ("BAJA".equalsIgnoreCase(bien.getStatus())) {
-                mensaje.setText("No se permite en bienes que ya se encuentran dados de baja.");
+                mensaje.setText("No se permite en bienes que ya se encuentran dados de baja");
                 JOptionPane.showMessageDialog(this,
                         panel);
                 return;
